@@ -1,0 +1,75 @@
+.userTable {
+    max-width: 750px;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+
+.userTableBody {
+    display: flex;
+    flex-direction: column;
+}
+
+.userTableHead {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+    text-align: start;
+    padding-bottom: 5px;
+}
+
+.userTableBodyRow {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+    align-items: center;
+    height: 45px;
+}
+
+.userTableBodyRow:hover {
+    background-color: #eee;
+}
+
+/* Puedes ajustar los estilos adicionales según sea necesario */
+
+.userTableHeadRowName,
+.userTableBodyRowName { 
+    width: 280px;
+}
+
+.userTableBodyRowName {
+    padding-left: 5px;
+}
+
+.userTableHeadRowRole,
+.userTableBodyRowRole {
+    width: 100px;
+}
+
+.userTableHeadRowActive,
+#userTableBodyRowActive {
+    width: 60px;
+}
+
+#userTableBodyRowActive {
+    font-weight: 600;
+}
+
+.userTableHeadRowActions,
+.userTableHeadRowActions {
+    width: 150px;
+}
+
+.userTableHeadRowActions{
+    padding-left: 20px; 
+}
+.userTableBodyRowActions {
+    display: flex;
+    align-items: center;
+    
+}

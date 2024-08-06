@@ -1,0 +1,39 @@
+#dashboard_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+#dashboard_title {
+  padding: 1rem;
+}
+
+#max-charts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 1rem;
+  gap: 4rem;
+  width: 100%;
+}
+
+#charts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84%;
+  margin: 1rem;
+  border-radius: 16px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+}
+
+@media screen and (max-width: 480px) {
+  #charts {
+    flex-direction: column;
+    width: 100%;
+    gap: 4rem;
+  }
+}

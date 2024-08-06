@@ -1,0 +1,323 @@
+
+ul,
+li {
+  list-style: none;
+}
+
+#profile_container {
+  padding: 10px 15px;
+  color: #13214E;
+}
+
+#account {
+  position: relative;
+  width: 100%;
+  min-width: 1000px;
+  max-width: 1000px;
+  max-height: 650px;
+  display: grid;
+  grid-template-columns: 1fr 47.5%;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+  "info settings";
+  background-color: #fbf3f3;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+
+}
+
+/* Estilo de la sección de información */
+#account_info,
+#account_settings {
+  padding: 30px;
+
+}
+
+#account_info {
+  position: relative;
+}
+#account_info::after {
+  content: "";
+  position: absolute;
+  top: 50%; 
+  transform: translateY(-50%); 
+  right: 20px; 
+  width: 1px;
+  height: 70%;
+  background-color: #13214E;
+  opacity: 0.1;
+}
+
+/* Estilo seccion de perfil */
+#account_info {
+  grid-area: info;
+  display: grid;
+  grid-template-rows: 50px 260px 120px;
+}
+
+#account_settings {
+  grid-area: settings;
+}
+
+#profile_back {
+  position: absolute;
+  bottom: 30px;
+  right: 5px;
+}
+
+#profile_back:hover {
+  text-decoration: underline;
+}
+
+
+/* estilos titulos */
+#profile_title,
+#profile_title-settings {
+  width: fit-content;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+/* linea de subrayado con pseuclases */
+#profile_title::after,
+#profile_title-settings::after {
+  content: "";
+  display: block;
+  width: 80%;
+  height: 2px;
+  background-color: #13214E;
+}
+
+/* Estilo de la sección de datos */
+#profile_info {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+  "name email"
+  "phone password"
+  "role password"
+  ;
+  column-gap: 20px;
+}
+
+.info_paragraph {
+  margin-bottom: 5px;
+}
+
+.title-Par  {
+  font-style: italic;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.info {
+  padding-left: 5px;
+}
+ 
+#profile_name {
+  grid-area: name;
+}
+
+#profile_phone {
+  grid-area: phone;
+}
+
+#profile_role {
+  grid-area: role;
+}
+
+#profile_email {
+  grid-area: email;
+}
+
+#profile_password {
+  grid-area: password;
+}
+
+/* Estilo area avatar */
+#profile_img_section {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilos de configuración */
+
+#profile_settings_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* Estilo boton cambio de contraseña */
+
+
+
+
+/* Estilo cambio avatar */
+#btn-selectAvatar {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#image-upload-container {
+  margin-left: 20px;
+}
+
+#profile_img_container {
+  width: 120px;
+  height: 120px;
+  margin-left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#profile_img_circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background-color: #13214E;
+}
+
+.avatarProfileSetting {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  scale: 0.97;
+}
+
+#btn-selectAvatar:hover {
+  text-decoration: underline;
+}
+
+
+/* Estilo seccion volver */
+
+#profile_back {
+  padding: 0 40px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.profile_back-button {
+  color: #13214E;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.textProfile {
+  color: #13214E;
+  font-size: 0.9rem;
+
+}
+
+@media screen and (max-width: 1100px) {
+
+  #account {
+    min-width: 500px;
+    max-width: 500px;
+    max-height: 900px;
+
+    grid-template-columns: 500px;
+    grid-template-rows: 1fr 400px;
+    grid-template-areas: 
+    "info"
+    "settings";
+  }
+  
+
+
+  #account_info::after {
+    content: "";
+    position: absolute;
+    top: 500px; 
+    transform: translateY(-50%); /* Alinea verticalmente al centro */
+    left: 50px;
+    width: 80%;
+    height: 1px;
+    background-color: #13214E;
+    opacity: 0.1;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #account_info,
+#account_settings {
+  padding: 20px;
+
+}
+
+  #account {
+    min-width: 320px;
+    max-width: 320px;
+
+
+    grid-template-columns: 500px;
+    grid-template-rows: 1fr 400px;
+    grid-template-areas: 
+    "info"
+    "settings";
+  }
+
+  #profile_img_container {
+    margin: 0;
+  }
+
+  #profile_info {
+    margin: 0;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    "name"
+    "phone"
+    "role"
+    "email"
+    "password"
+    ;
+
+  }
+
+  #profile_settings_container {
+    display: grid;
+    grid-template-columns: 140px 140px;
+  }
+
+  #updateUserProfile {
+    margin: 10px;
+  }
+
+  #profile_back {
+    position: absolute;
+    bottom: 20px;
+    right: -35px;
+  }
+
+  #account_info::after {
+    content: "";
+    position: absolute;
+    top:470px; 
+    transform: translateY(-50%); /* Alinea verticalmente al centro */
+    left: 30px;
+    width: 260px;
+    height: 1px;
+    background-color: #13214E;
+    opacity: 0.1;
+  }
+
+  #image-upload-container {
+    margin-left: 10px;
+  }
+  
+}

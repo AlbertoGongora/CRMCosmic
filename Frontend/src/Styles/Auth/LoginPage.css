@@ -1,0 +1,294 @@
+/* Estilos Mobile-First */
+.login-page-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+.outsideContainerForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#idTitleContainer {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#sectionLogin {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#idFormLogin {
+    width: 95%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        "email email"
+        "password password"
+        "remember forgotPassword"
+        "submit submit";
+}
+
+#idFormReset {
+    width: 90%;
+}
+
+
+#emailContainer {
+    grid-area: email;
+}
+
+#idFromForgot {
+    width: 90%;
+}
+
+#passwordContainer {
+    grid-area: password;
+}
+
+#rememberContainer {
+    font-size: 0.8rem;
+    height: 32px;
+    grid-area: remember;
+    color: #13214E;
+    margin-top: 0;
+}
+
+#forgotPasswordContainer {
+    font-size: 0.8rem;
+    height: 32px;
+    grid-area: forgotPassword;
+    display: flex;
+    justify-content: end;
+    margin-top: 0;
+}
+
+#forgotPasswordContainer p {
+    align-content: center;
+}
+
+#idNavLogin {
+    grid-area: submit;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#idLogoLogin,
+#idLogoForgot,
+#idLogoReset {
+    width: 350px;
+}
+
+.subTitleForm {
+    width: 350px;
+    color: #13214E;
+    font-size: 0.95rem;
+    opacity: 0.6;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+
+#idNavLogin,
+.button-container-form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos de inputs */
+.input-container-login {
+    position: relative;
+    margin: 25px auto;
+    width: 100%;
+}
+
+.checkboxLogin {
+    display: block;
+}
+
+.input-container-login .inputText-login,
+.input-container-login #emailContainer,
+.input-container-login #passwordContainer {
+    font-size: 18px;
+    width: 100%;
+    border: none;
+    color: #13214E;
+    border-bottom: 2px solid #ccc;
+    padding: 5px 0;
+    background-color: transparent;
+    outline: none;
+}
+
+.input-container-login .label-login {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #ccc;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.input-container-login .inputText-login:focus ~ .label-login,
+.input-container-login .inputText-login.filled ~ .label-login {
+    top: -20px;
+    font-size: 16px;
+    color: #13214E;
+}
+
+.input-container-login .underline-login {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #13214E;
+    transform: scaleX(0);
+    transition: all 0.3s ease;
+}
+
+.input-container-login .inputText-login:focus ~ .underline-login,
+.input-container-login .inputText-login.filled ~ .underline-login {
+    transform: scaleX(1);
+}
+
+/* Estilo para los mensajes de ayuda */
+.help-text-form {
+    color: #666;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Estilo para los mensajes de error */
+.error-message-form {
+    position: absolute;
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Estilo para los ancores */
+.linkFrom {
+    color: #13214E;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: end;
+}
+
+.submitMainBtn {
+    color: #13214E;
+    background-color: transparent;
+    border: 1px solid #13214E;
+    margin-top: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.submitMainBtn:hover {
+    background-color: #13214E;
+    color: #fff;
+}
+
+#submitBtnLogin {
+    font-size: 1.3rem;
+    padding: 10px 80px;  
+}
+
+#submitBtnForgot {
+    font-size: 1.3rem;
+    padding: 10px 80px;
+}
+
+#submitBtnReset {
+    font-size: 1.3rem;
+    padding: 10px 80px;
+}
+
+
+
+/* Estilos para pantallas más grandes */
+@media screen and (min-width: 800px) {
+    .login-page-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        height: 100vh;
+    }
+    
+    .outsideContainerForm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+    
+    #idTitleContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
+    }
+    
+    #sectionLogin {
+        max-width: 400px;
+        min-width: 400px;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        margin: 0 auto;
+        padding: 20px;
+       
+    }
+    
+    #idFormLogin {
+        width: 95%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+            "email email"
+            "password password"
+            "remember forgotPassword"
+            "submit submit";
+    }
+    
+    #idLogoLogin,
+    #idLogoForgot,
+    #idLogoReset {
+        width: 400px;
+    }
+    
+    .subTitleForm {
+        width: 400px;
+        font-size: 0.95rem;
+
+    }
+
+    #forgotPasswordContainer,
+    #rememberContainer {
+        font-size: 0.9rem;
+    }
+    
+    #forgotPasswordContainer p {
+        align-content: center;
+    }
+
+}

@@ -1,0 +1,305 @@
+.body-wrapper {
+  height: 100vh;
+  position: relative;
+  z-index: 0;
+}
+
+.sidebar-bottom {
+    width: 4rem;
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: width 500ms ease;
+}
+
+.sidebar-header,
+.sidebar-links {
+  background-color: #13214E;
+}
+
+.toggle-btn,
+a {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+  border: none;
+}
+
+.sidebar-bottom.active {
+  width: 14rem;
+}
+
+.sidebar-header,
+.sidebar-links {
+  display: flex;
+  align-items: center;
+}
+
+
+.sidebar-links {
+height: calc(100vh - 70px);
+ overflow: auto;
+ box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar-header {
+  height: 70px;
+  transition: all 0.3s ease;
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.sidebar-bottom.active .logo-wrapper {
+  width: 195px;
+}
+
+.logo-wrapper > .iconSidebar {
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+}
+
+.iconSidebar {
+  width: 28px;
+  height: 28px;
+  justify-content: start;
+  transition: all 0.3s ease;
+}
+
+.expand {
+  scale: 1.5;
+  transition: all 0.3s ease;
+}
+
+.linkPage,
+.hidden {
+  list-style: none;
+  text-decoration: none;
+}
+
+.linkPage:hover {
+  text-decoration: none;
+}
+
+.sidebar-links {
+  flex-direction: column;
+
+  gap: 0.2rem;
+}
+
+.sidebar-links {
+  scrollbar-width: none; 
+  -webkit-scrollbar {display: none;}
+  -ms-overflow-style: none;
+  scrollbar-width: none ;
+  &::-webkit-scrollbar-track {
+    background: transparent;}
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+}
+
+.sidebar-bottom > .sidebar-links {
+  border-top: 1px solid rgb(211, 211, 211);
+}
+
+.logo-wrapper,
+.logo-wrapper:hover {
+  text-decoration: none;
+}
+
+.linkPage {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 90%;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  margin: 0.5rem 0;
+  gap: 1.5rem;
+  text-decoration: none;
+  color: white;
+}
+
+.hidden {
+  display: none;
+  color: white;
+}
+
+.sidebar-bottom.active .hidden {
+  display: inline;
+  white-space: nowrap;
+}
+
+.linkPage:hover {
+  filter: drop-shadow(0px 0px 10px #fff);
+  transition: all 0.3s ease;
+}
+
+.linkPage.active {
+  scale: 1.1;
+  transition: all 0.3s ease;
+}
+
+.linkPage.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0.5rem;
+  width: 4px;
+  height: 100%;
+  background: #fff;
+}
+
+.linkPage > .iconSidebar {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+#iconSidebarProduct {
+  width: 1.55rem;
+  height: 1.55rem;
+  padding-left: 3px;
+  opacity: 0.8;
+}
+
+.sidebar-bottom .sidebar-links {
+  padding-bottom: 1.5rem;
+}
+
+.toggle-btn {
+  position: absolute;
+  right: -50px;
+  padding: 0.5rem;
+  background-color: transparent;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.sidebar-bottom.active .toggle-btn {
+  transform: rotate(180deg);
+}
+
+/* Definimos la animación de entrada */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Definimos la animación de salida */
+@keyframes slideOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+#logC {
+  position: absolute;
+  right: 10px;
+  width: 44px;
+  height: 43px;
+  transition: all 0.3s ease;
+}
+
+#Logo_cosmic_blanco {
+  position: absolute;
+  z-index: 1;
+  left: 17px;
+  width: 233px;
+  height: 49px;
+  display: none;
+  color: #ffffff;
+  transform: translateX(-100%);
+  animation: slideIn 0.6s forwards;
+}
+
+.sidebar-bottom.active #Logo_cosmic_blanco {
+  position: relative;
+  z-index: 1;
+  width: 233px;
+  height: 49px;
+  display: block;
+  color: #ffffff;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  animation: slideIn 0.6s forwards; /* Animación de entrada */
+}
+
+.sidebar-bottom.inactive #Logo_cosmic_blanco {
+    animation: slideOut 0.6s forwards; /* Animación de salida */
+}
+
+ /* RESPONSIVE A DESKTOP */
+
+ @media screen and (min-width: 600px) {
+    .sidebar-bottom {
+      width: 5rem;
+    }
+  
+    .sidebar-bottom.active {
+      width: 18.3rem;
+    }
+  
+    .sidebar-header {
+      height: 80px;
+      transition: all 0.3s ease;
+    }
+  
+    .logo-wrapper > .iconSidebar {
+      width: 3.25rem;
+      height: 3.25rem;
+    }
+
+    .linkPage > .iconSidebar {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  
+    .linkPage {
+      
+      padding: 0.5rem 1.25rem;
+    }
+    
+    #logC {
+        right: 12px;
+        width: 55px;
+        height: 55px;
+    }
+
+    #Logo_cosmic_blanco {
+        scale: 1.35;
+        translate: 35px 0 ;
+    
+    }
+
+    .toggle-btn {
+      scale: 1.2;
+        top: 20px;
+        transition: all 0.3s ease;
+      }
+  }
