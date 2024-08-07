@@ -20,10 +20,7 @@ export const selectUserByIdModel = async (id_user) => {
 
     return users[0];
   } catch (error) {
-    throw {
-      statusCode: 500,
-      code: 'GET_USER_MODEL_ERROR',
-      message: 'Error al obtener el usuario desde el modelo',
-    };
+    console.error('Error al obtener el usuario desde el modelo:', error);
+    throw internalServerError(error.message || 'Error al obtener el usuario desde el modelo');
   }
 };

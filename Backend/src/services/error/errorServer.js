@@ -1,5 +1,3 @@
-// src/errors/errorServer.js
-
 export const internalServerError = (message = 'Ocurrió un error interno en el servidor') => ({
     statusCode: 500,
     code: 'INTERNAL_SERVER_ERROR',
