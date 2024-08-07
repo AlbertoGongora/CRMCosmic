@@ -1,3 +1,4 @@
+import { controllerError } from "../../services/error/errorServer.js";
 import { getProfileUserService } from "../../services/user/getProfileUserService.js";
 
 export const getProfileUserController = async (req, res, next) => {
@@ -10,10 +11,10 @@ export const getProfileUserController = async (req, res, next) => {
         data: user,
       });
     } catch (error) {
-      next({
-        statusCode: error.statusCode || 500,
-        code: error.code || 'GET_PROFILE_USER_ERROR',
-        message: error.message || 'Error al obtener el perfil del usuario',
-      });
+      next(controllerError(
+        'GET_PROFILE_USER_ERROR', 
+        error.message || 'Error en la obtencion del perfil del usuario', 
+        error.statusCode || 500
+      ));
     }
   };

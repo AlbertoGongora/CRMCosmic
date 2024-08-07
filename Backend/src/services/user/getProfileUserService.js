@@ -5,10 +5,12 @@ export const getProfileUserService = async (id_user) => {
     const user = await selectUserByIdModel(id_user);
     return user;
   } catch (error) {
-    throw {
-      statusCode: 500,
-      code: 'GET_PROFILE_USER_SERVICE_ERROR',
-      message: 'Error al obtener el perfil del usuario desde el servicio',
-    };
+    console.error('Error al obtener el perfil del usuario:', error);
+    if (!error.statusCode) {
+      throw internalServerError(
+        error.message || 'Error al insertar usuario'
+      );
+    }
+    throw error;
   }
 };
