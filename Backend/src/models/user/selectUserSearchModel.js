@@ -1,4 +1,5 @@
 import { getDBPool } from "../../db/getPool.js";
+import { databaseQueryError } from "../../services/error/errorDataBase.js";
 
 export const selectUserSearchModel = async (search) => {
     try {
@@ -12,11 +13,6 @@ export const selectUserSearchModel = async (search) => {
         return rows;
         
     } catch (error) {
-        throw {
-            statusCode: 500,
-            code: 'GET_USER_LIST_SERVICE_ERROR',
-            message: 'Error al obtener la lista de busquedas de usuarios desde el servicio',
-          };
-        
+        databaseQueryError(error.message || 'Error al obtener la lista de busquedas de usuarios desde el modelo');        
     }
 }

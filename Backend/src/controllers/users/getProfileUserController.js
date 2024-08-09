@@ -3,8 +3,7 @@ import { getProfileUserService } from "../../services/user/getProfileUserService
 
 export const getProfileUserController = async (req, res, next) => {
     try {
-      const id_user = req.user.id_user;
-      const user = await getProfileUserService(id_user);
+      const user = await getProfileUserService(req.user.id_user);
   
       res.status(200).send({
         status: 'ok',
@@ -12,8 +11,8 @@ export const getProfileUserController = async (req, res, next) => {
       });
     } catch (error) {
       next(controllerError(
-        'GET_PROFILE_USER_ERROR', 
-        error.message || 'Error en la obtencion del perfil del usuario', 
+        'GET_PROFILE_USER_CONTROLLER_ERROR', 
+        error.message || 'Error del controlador en la obtencion del perfil del usuario', 
         error.statusCode || 500
       ));
     }

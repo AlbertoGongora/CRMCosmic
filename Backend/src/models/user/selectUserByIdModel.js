@@ -1,4 +1,6 @@
 import { getDBPool } from '../../db/getPool.js';
+import { databaseQueryError } from '../../services/error/errorDataBase.js';
+import { notFoundError } from '../../services/error/errorService.js';  // Asegúrate de importar el error correcto
 
 export const selectUserByIdModel = async (id_user) => {
   try {
@@ -10,17 +12,13 @@ export const selectUserByIdModel = async (id_user) => {
       [id_user]
     );
 
+    // Verificar si se encontró el usuario.
     if (users.length === 0) {
-      throw {
-        statusCode: 404,
-        code: 'USER_NOT_FOUND',
-        message: 'Usuario no encontrado',
-      };
+      notFoundError('Usuario');
     }
 
     return users[0];
   } catch (error) {
-    console.error('Error al obtener el usuario desde el modelo:', error);
-    throw internalServerError(error.message || 'Error al obtener el usuario desde el modelo');
+    databaseQueryError(error.message || 'Error al obtener el usuario en el modelo');
   }
 };

@@ -18,10 +18,12 @@ export const newUserController = async (req, res, next) => {
       message: 'El usuario ha sido creado, a la espera de validación',
     });
   } catch (error) {
-    next(controllerError(
-      'NEW_USER_ERROR', 
-      error.message || 'Error de registro de usuario', 
+    next(
+      controllerError(
+      'NEW_USER_CONTROLLER_ERROR', 
+      error.message || 'Error en el controlador de registro de usuario', 
       error.statusCode || 500
-    ));
+    )
+  );
   }
 };

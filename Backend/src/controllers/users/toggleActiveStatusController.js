@@ -1,13 +1,12 @@
+import { controllerError } from "../../services/error/errorServer.js";
 import { toggleActivationService } from "../../services/user/toggleActivationService.js";
+
 
 export const toggleActiveStatusController = async (req, res, next) => {
 
     try {
-        // Obtenemos el id del usuario.
-        const userId =  req.body.id;
-
         // Desactivamos al usuario en la base de datos.
-        const user = await toggleActivationService(userId)
+        const user = await toggleActivationService(req.body.id)
 
         // Devolvemos el usuario actualizado.
         const isActive = user.active === 1 ? true : false
@@ -19,6 +18,10 @@ export const toggleActiveStatusController = async (req, res, next) => {
             message
         });
     } catch (error) {
-        next(error);
+        next(controllerError(
+            'UPDATE_STATUS_USER_CONTROLLER_ERROR', 
+            error.message || 'Error en el controlador al cambiar el estado de un usuario', 
+            error.statusCode || 500
+          ));
     }
 }

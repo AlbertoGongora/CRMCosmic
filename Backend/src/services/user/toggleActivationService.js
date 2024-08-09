@@ -1,8 +1,10 @@
 import { selectUserByIdModel } from "../../models/user/selectUserByIdModel.js";
 import { toggleActiveModel } from "../../models/user/toggleActiveModel.js";
+import { internalServerError } from "../error/errorServer.js";
 
 export const toggleActivationService = async (userId) => {
-    // Comprobar si el id existe.
+    try {
+            // Comprobar si el id existe.
     const user = await selectUserByIdModel(userId);
     // Condicional: si está activo desactivar, y viceversa
     const newStatus = user.active === 0 ? true : false
@@ -15,4 +17,13 @@ export const toggleActivationService = async (userId) => {
 
     // Devolver el usuario actualizado.
     return updatedUser;
+    } catch (error) {
+        if (!error.statusCode) {
+          internalServerError(
+            error.message || 'Error en el servicio al cambiar el estado de un usuario'
+          );
+        }
+        throw error;
+    }
+
 };

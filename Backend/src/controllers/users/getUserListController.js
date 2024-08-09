@@ -1,3 +1,4 @@
+import { controllerError } from "../../services/error/errorServer.js";
 import { getUserListService } from "../../services/user/getUserListService.js";
 
 export const getUserListController = async (req, res, next) => {
@@ -9,10 +10,10 @@ export const getUserListController = async (req, res, next) => {
       data: usersList,
     });
   } catch (error) {
-    next({
-      statusCode: error.statusCode || 500,
-      code: error.code || 'GET_USER_LIST_CONTROLLER_ERROR',
-      message: error.message || 'Error al obtener la lista de usuarios',
-    });
+    next(controllerError(
+      'GET_USER_LIST_CONTROLLER_ERROR', 
+      error.message || 'Error en el controlador al obtener la lista de usuarios', 
+      error.statusCode || 500
+    ));
   }
 };

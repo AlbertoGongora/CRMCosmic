@@ -1,6 +1,5 @@
 import { getDBPool } from '../../db/getPool.js';
 import { databaseInsertError } from '../../services/error/errorDataBase.js';
-import { internalServerError } from '../../services/error/errorServer.js';
 
 export const insertUserModel = async (
   id_user, 
@@ -23,10 +22,9 @@ export const insertUserModel = async (
 
     // Verificar si el insert afectó a alguna línea.
     if (result.affectedRows === 0) {
-      throw databaseInsertError('No se ha podido insertar el usuario');
+      databaseInsertError('No se ha podido insertar el usuario');
     }
   } catch (error) {
-    console.error('Error en el modelo al insertar usuario:', error);
-    throw internalServerError(error.message || 'Error en el modelo al insertar usuario');
+    databaseInsertError(error.message || 'Error en el modelo al insertar usuario');
   }
 };

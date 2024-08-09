@@ -1,4 +1,5 @@
 import { selectUserSearchModel } from "../../models/user/selectUserSearchModel.js";
+import { internalServerError } from "../error/errorServer.js";
 
 export const getUserSearchService = async (search) => {
     try {
@@ -6,12 +7,12 @@ export const getUserSearchService = async (search) => {
         const user = await selectUserSearchModel(search);
     
         return user;
-        
     } catch (error) {
-        throw {
-            statusCode: 500,
-            code: 'GET_USER_LIST_SERVICE_ERROR',
-            message: 'Error al obtener la lista de busquedas de usuarios desde el servicio',
-          };
+        if (!error.statusCode) {
+          internalServerError(
+            error.message || 'Error al obtener la lista de busquedas de usuarios desde el servicio'
+          );
+        }
+        throw error;
     }
 }

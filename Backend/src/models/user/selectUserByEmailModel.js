@@ -18,7 +18,6 @@ export const selectUserByEmailModel = async (email) => {
 
     return user[0];
   } catch (error) {
-    console.error('Error en el modelo al seleccionar usuario por email:', error);
-    throw databaseQueryError(error.message || 'Error en el modelo al seleccionar usuario por email');
+    databaseQueryError(error.message || 'Error en el modelo al seleccionar usuario por email');
   }
 };

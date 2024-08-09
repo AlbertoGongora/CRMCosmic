@@ -49,9 +49,8 @@ export const insertUserService = async (body) => {
     await sendWelcomeEmail(name, last_name, password, email, registration_code);
     
   } catch (error) {
-    console.error('Error al insertar usuario:', error);
     if (!error.statusCode) {
-      throw internalServerError(
+      internalServerError(
         error.message || 'Error al insertar usuario'
       );
     }
