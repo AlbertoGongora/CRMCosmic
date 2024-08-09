@@ -125,10 +125,14 @@ Para ejecutar el backend, sigue estos pasos:
 
 ------
 
-### Proyecto realizado por:
+### Proyecto iniciado por:
    #### Iván Jiménez
    #### Juan Carlos Varela
    #### Juan Manuel Bs
    #### Daniel Veiga
+   #### Daniel Montero
+   #### Alberto Góngora
+
+### Proyecto realizado por:
    #### Daniel Montero
    #### Alberto Góngora

@@ -12,16 +12,20 @@ export const forgotPasswordController = async (req, res, next) => {
 
     const { email } = req.body;
 
-    //! Comentado para evitar envío de correos electrónicos luego remplazar el de abajo
+    // Comentado para evitar envío de correos electrónicos luego remplazar el de abajo
     const new_registration_code = await forgotPasswordService(email);
 
-    //! Comentado para evitar envío de correos electrónicos
+    // Comentado para evitar envío de correos electrónicos
     // Enviar correo electrónico de cambio de contraseña
     await sendRecoveryPaswordEmail(email, new_registration_code);
     
     // Devolvemos el usuario actualizado.
     res.status(200).send(success({message: 'Correo enviado'}));
   } catch (error) {
-    return next(serverError(error.message)); // Manejo de errores
+    next(controllerError(
+      'PASSWORD_USER_CONTROLLER_ERROR', 
+      error.message || 'Error en el controlador de la peticion de restaurar contraseña', 
+      error.statusCode || 500
+    )); 
   }
 };

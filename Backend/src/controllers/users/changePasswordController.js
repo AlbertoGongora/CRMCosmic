@@ -14,6 +14,10 @@ export const changePasswordController = async (req, res, next) => {
     // Responder con éxito
     res.send(success(response));
   } catch (error) {
-    next(error); // Manejo de errores
+    next(controllerError(
+      'PASSWORD_USER_CONTROLLER_ERROR', 
+      error.message || 'Error en el controlador de cambio de contraseña', 
+      error.statusCode || 500
+    ));
   }
 };

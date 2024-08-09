@@ -48,6 +48,10 @@ export const loginUserController = async (req, res, next) => {
         });
 
     } catch (error) {
-        next(error);
+        next(controllerError(
+            'LOGIN_USER_CONTROLLER_ERROR', 
+            error.message || 'Error en el controlador al hacer login', 
+            error.statusCode || 500
+          ));
     }
 };

@@ -38,6 +38,10 @@ export const updateUserController = async (req, res, next) => {
       data: data,
     });
   } catch (error) {
-    next(error);
+    next(controllerError(
+      'UPDATE_USER_CONTROLLER_ERROR', 
+      error.message || 'Error en el controlador al modificar un usuario', 
+      error.statusCode || 500
+    ));
   }
 };

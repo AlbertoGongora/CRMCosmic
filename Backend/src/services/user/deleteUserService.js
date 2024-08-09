@@ -29,6 +29,5 @@ export const deleteUserService = async (user_id) => {
           );
         }
         throw error;
-
     }
 }

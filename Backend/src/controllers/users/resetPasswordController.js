@@ -16,6 +16,10 @@ export const resetPasswordController = async (req, res, next) => {
         // Responder al cliente
         res.json(success(response));
     } catch (error) {
-        next(error);
+        next(controllerError(
+            'PASSWORD_USER_CONTROLLER_ERROR', 
+            error.message || 'Error en el controlador al resetear la contraseña', 
+            error.statusCode || 500
+          ));
     }
 };

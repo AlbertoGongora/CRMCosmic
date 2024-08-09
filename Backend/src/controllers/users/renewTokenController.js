@@ -18,6 +18,10 @@ export const renewTokenController = async (req, res, next) => {
           token: token
       });
       } catch (error) {
-        next(error);
+        next(controllerError(
+          'TOKEN_USER_CONTROLLER_ERROR', 
+          error.message || 'Error en el controlador al regenerar el token', 
+          error.statusCode || 500
+        ));
       }
 }
