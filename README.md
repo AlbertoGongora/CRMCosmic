@@ -41,6 +41,5 @@ Con una interfaz de usuario moderna y fácil de usar, el CRM permite la gestión
 
 - **Daniel Montero**  [https://github.com/Pibe0010](GitHub)
 - **Alberto Gongora** [https://github.com/AlbertoGongora](GitHub)
-- **Ivan Jimenez**  [https://github.com/Fivantastic](GitHub)
 
 
