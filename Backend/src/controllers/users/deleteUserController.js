@@ -10,6 +10,7 @@ export const deleteUserController = async (req, res, next) => {
         // Validar el body con Joi.
         await validateSchemaUtil(deleteUserSchema, req.params);
 
+        // Pasamos el id del usuario que queremos eliminar al servicio
         await deleteUserService(req.params.id_user);
 
         // Envía una respuesta de éxito

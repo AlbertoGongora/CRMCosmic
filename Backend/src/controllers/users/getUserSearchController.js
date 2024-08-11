@@ -9,6 +9,7 @@ export const getUserSearchController = async (req, res, next) => {
         // Llamamos al servicio
         const response = await getUserSearchService(searchTerm);
 
+        // Devolvemos la respuesta de la peticion de busqueda
         res.status(200).json({
             status: 'ok',
             message: 'Users',
