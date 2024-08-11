@@ -3,8 +3,10 @@ import { getProfileUserService } from "../../services/user/getProfileUserService
 
 export const getProfileUserController = async (req, res, next) => {
   try {
+    // Pasamos al servicio el id del usuario para obtner los datos del perfil.
     const user = await getProfileUserService(req.user.id_user);
 
+    // Enviamos respuesta con los datos esperados.
     res.status(200).send({
       status: 'ok',
       data: user,

@@ -8,6 +8,7 @@ export const loginUserController = async (req, res, next) => {
         // Validamos el body
         await validateSchemaUtil(loginUserSchema, req.body);
 
+        // Pasamos al servicio la informacion recibida y obtenemos de vuelta el nuevo token y los datos del usuario.
         const { token, user } = await loginUserService(req.body);
 
         // Responder al usuario
@@ -25,7 +26,7 @@ export const loginUserController = async (req, res, next) => {
         } else {
             // De lo contrario, lo envolvemos en un error del controlador
             next(controllerError(
-                error.code || 'LOGIN_USER_CONTROLLER_ERROR',
+                'LOGIN_USER_CONTROLLER_ERROR',
                 error.message || 'Error en el controlador al hacer login',
                 error.statusCode || 500
             ));

@@ -12,6 +12,7 @@ export const toggleActiveStatusController = async (req, res, next) => {
         const isActive = user.active === 1 ? true : false
         const message = `Estado del usuario cambiado a: ${isActive ? 'Activo' : 'Inactivo'} `
 
+        // Respondemos al usuario
         res.send({
             status: 'ok',
             isActive,

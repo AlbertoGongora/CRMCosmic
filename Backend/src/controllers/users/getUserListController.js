@@ -3,8 +3,10 @@ import { getUserListService } from "../../services/user/getUserListService.js";
 
 export const getUserListController = async (req, res, next) => {
   try {
+    // Recibimos del servico todos los datos solicitados, en este caso la lista de usuarios.
     const usersList = await getUserListService();
 
+    // Devolvemos el resultado en la peticion.
     res.status(200).send({
       status: 'ok',
       data: usersList,

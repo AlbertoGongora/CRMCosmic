@@ -12,6 +12,7 @@ export const updateUserController = async (req, res, next) => {
     // Obtenemos el id del usuario.
     const userId = req.user.id_user;
 
+    // Cremaos variables vacias
     let message = '';
     let data = {};
 
@@ -38,10 +39,16 @@ export const updateUserController = async (req, res, next) => {
       data: data,
     });
   } catch (error) {
-    next(controllerError(
-      'UPDATE_USER_CONTROLLER_ERROR', 
-      error.message || 'Error en el controlador al modificar un usuario', 
-      error.statusCode || 500
-    ));
+    // Si el error ya tiene un código y mensaje, lo pasamos tal cual
+    if (error.code && error.statusCode) {
+      next(error);
+    } else {
+      // De lo contrario, lo envolvemos en un error del controlador
+      next(controllerError(
+        'UPDATE_USER_CONTROLLER_ERROR', 
+        error.message || 'Error en el controlador al modificar un usuario', 
+        error.statusCode || 500
+      ));
+    }
   }
 };
