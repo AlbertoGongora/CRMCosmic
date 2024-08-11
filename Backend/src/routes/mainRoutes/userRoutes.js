@@ -36,7 +36,6 @@ userRouter.get('/user/profile', authenticateUser, getProfileUserController);
 // Ruta de registro solo para administradores
 userRouter.post('/user/register', authenticateUser, adminAuthMiddleware, newUserController);
 
-
 // Ruta de eliminación de un usuario solo para administradores
 userRouter.delete('/user/delete/:id_user', authenticateUser, adminAuthMiddleware, deleteUserController);
 
@@ -46,10 +45,10 @@ userRouter.put('/user/toggleActivation', authenticateUser, adminAuthMiddleware, 
 // Ruta de validación
 userRouter.put('/user/validate/:registration_code', validateUserController);
 
-// TODO - Corregido hasta aqui.
 // Ruta de inicio de sesión
 userRouter.post('/user/login', loginUserController);
 
+// TODO - Corregido hasta aqui.
 // Ruta de cierre de sesión
 userRouter.post('/user/logout', authenticateUser, logoutUserController);
 

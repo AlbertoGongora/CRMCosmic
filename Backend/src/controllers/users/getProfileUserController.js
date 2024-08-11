@@ -10,10 +10,16 @@ export const getProfileUserController = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
-    next(controllerError(
-      'GET_PROFILE_USER_CONTROLLER_ERROR', 
-      error.message || 'Error del controlador en la obtencion del perfil del usuario', 
-      error.statusCode || 500
-    ));
+    // Si el error ya tiene un código y mensaje, lo pasamos tal cual
+    if (error.code && error.statusCode) {
+      next(error);
+    } else {
+      // De lo contrario, lo envolvemos en un error del controlador
+      next(controllerError(
+        'GET_PROFILE_USER_CONTROLLER_ERROR', 
+        error.message || 'Error del controlador en la obtencion del perfil del usuario', 
+        error.statusCode || 500
+      ));
+    }
   }
 };

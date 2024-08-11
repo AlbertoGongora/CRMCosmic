@@ -1,46 +1,17 @@
-import bcrypt from 'bcrypt';
-import { AccountInactiveError, invalidCredentials, invalidPasswordError } from "../../services/error/errorService.js";
-import { validateSignInRequest } from "../../services/user/validateSignInRequest.js";
-import { selectUserByEmailModel } from "../../models/user/selectUserByEmailModel.js";
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { loginUserSchema } from '../../schemas/user/loginUserSchema.js';
-import { generateAccessToken } from '../../utils/generateAccessToken.js';
+import { loginUserService } from '../../services/user/loginUserService.js';
+import { controllerError } from '../../services/error/errorServer.js';
 
 export const loginUserController = async (req, res, next) => {
     try {
-        //Validar los datos de entrada
-        const { email, password, remember } = validateSignInRequest(req.body);
-
         // Validamos el body
         await validateSchemaUtil(loginUserSchema, req.body);
 
-        //obtener el usuario
-        const user = await selectUserByEmailModel(email);
-
-        //validar el usuario
-        if (!user){
-            invalidCredentials('El usuario/email no existe');
-        }
-
-        //validar el estado
-        if (user.active != 1) {
-            AccountInactiveError(); 
-        }
-
-        //comparar la contraseña
-        const isValidPassword = await bcrypt.compare(password, user.password);
-
-        //validar la contraseña
-        if (!isValidPassword) {
-            invalidPasswordError();
-        }
-        // El usuario existe y la contraseña es correcta
-        //Login exitoso
-        const token = generateAccessToken(user);
+        const { token, user } = await loginUserService(req.body);
 
         // Responder al usuario
-        res.status(201).send({
-            // token: token,
+        res.status(200).send({
             status: 'ok',
             message: 'Sesión iniciada correctamente',
             token: token,
@@ -48,10 +19,16 @@ export const loginUserController = async (req, res, next) => {
         });
 
     } catch (error) {
-        next(controllerError(
-            'LOGIN_USER_CONTROLLER_ERROR', 
-            error.message || 'Error en el controlador al hacer login', 
-            error.statusCode || 500
-          ));
+        // Si el error ya tiene un código y mensaje, lo pasamos tal cual
+        if (error.code && error.statusCode) {
+            next(error);
+        } else {
+            // De lo contrario, lo envolvemos en un error del controlador
+            next(controllerError(
+                error.code || 'LOGIN_USER_CONTROLLER_ERROR',
+                error.message || 'Error en el controlador al hacer login',
+                error.statusCode || 500
+            ));
+        }
     }
 };

@@ -22,7 +22,6 @@ export function getDBPool() {
         port: MYSQL_PORT,
       });
     } catch (error) {
-      console.error('Error al conectar con la base de datos:', error);
       throw databaseConnectionError('No se ha podido conectar con la base de datos');
     }
   }
