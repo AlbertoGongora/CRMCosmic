@@ -2,7 +2,7 @@ import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { recoveryPasswordSchema } from '../../schemas/user/recoveryPasswordSchema.js'; 
 import { forgotPasswordService } from '../../services/user/forgotPasswordService.js';
 import { success } from '../../utils/success.js';
-import { sendRecoveryPaswordEmail } from '../../services/email/emailService.js';
+import { sendRecoveryPasswordEmail } from '../../services/email/emailService.js';
 import { controllerError } from '../../services/error/errorServer.js';
 
 export const forgotPasswordController = async (req, res, next) => {
@@ -17,7 +17,7 @@ export const forgotPasswordController = async (req, res, next) => {
     const new_registration_code = await forgotPasswordService(email);
 
     // Enviar correo electrónico de cambio de contraseña
-    await sendRecoveryPaswordEmail(email, new_registration_code);
+    await sendRecoveryPasswordEmail(email, new_registration_code);
     
     // Devolvemos el usuario actualizado.
     res.status(200).send(success({message: 'Correo enviado'}));
