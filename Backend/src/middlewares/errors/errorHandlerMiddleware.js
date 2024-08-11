@@ -7,12 +7,10 @@ export const errorHandlerMiddleware = (err, req, res, next) => {
     status: 'error',
     code: err.code || 'INTERNAL_SERVER_ERROR',
     message: err.message || 'Ocurrió un error interno en el servidor',
-    statusCode: err.statusCode || 500
+    statusCode: err.statusCode || 500,
+    details: err.details || null // Agregar detalles adicionales si existen
   };
 
   // Enviar la respuesta de error al cliente
   res.status(errorResponse.statusCode).json(errorResponse);
-
-  // Pasar al siguiente middleware
-  next();
 };
