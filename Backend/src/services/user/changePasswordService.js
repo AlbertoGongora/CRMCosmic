@@ -2,9 +2,11 @@ import bcrypt from 'bcrypt';
 import { selectUserByIdModel } from "../../models/user/selectUserByIdModel.js";
 import { updatePasswordModel } from "../../models/user/updatePasswordModel.js";
 import { invalidCredentials, invalidPasswordError } from "../error/errorService.js";
+import { internalServerError } from '../error/errorServer.js';
 
 
 export const changePasswordService = async (userId, body) => {
+  try {
     //Obtenemos la contraseña actual y la nueva del body
     const { currentPassword, newPassword } = body;
     
@@ -33,4 +35,12 @@ export const changePasswordService = async (userId, body) => {
     const response = await updatePasswordModel(userId, hashedPassword);
 
     return response;
+  } catch (error) {
+    if (!error.statusCode) {
+      internalServerError(
+        error.message || 'Error al cambiar la contraseña del usuario en el servicio'
+      );
+    }
+    throw error;
+}
 }

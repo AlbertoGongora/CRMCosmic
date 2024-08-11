@@ -19,7 +19,7 @@ import {
   getProfileUserController,
 } from '../../controllers/mainControllers.js';
 
-//TODO - En proceso de mejorar el codigo implementado try catch en cada servicio y modulo, para manejar mejor errores especificos.
+// TODO - Esta todo corregido.
 
 // Creamos el router
 export const userRouter = express.Router();
@@ -48,7 +48,6 @@ userRouter.put('/user/validate/:registration_code', validateUserController);
 // Ruta de inicio de sesión
 userRouter.post('/user/login', loginUserController);
 
-// TODO - Corregido hasta aqui.
 // Ruta de cierre de sesión
 userRouter.post('/user/logout', authenticateUser, logoutUserController);
 

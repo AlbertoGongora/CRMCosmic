@@ -19,8 +19,7 @@ export const deleteUserService = async (user_id) => {
             moduleAssignedError();
         }
 
-
-        // Paso 4: Eliminación del usuario
+        // Eliminación del usuario
         await deleteUserModel(user_id);
     } catch (error) {
         if (!error.statusCode) {
