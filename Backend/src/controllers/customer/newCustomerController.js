@@ -1,6 +1,6 @@
 import { newCustomerSchema } from '../../schemas/customer/newCustomerSchema.js';
 import { insertCustomerService } from '../../services/customer/insertCustomerService.js';
-import { controllerError } from '../../services/error/errorServer.js';
+import { handleErrorController } from '../../utils/handleError.js';
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 
 export const newCustomerController = async (req, res, next) => {
@@ -17,12 +17,11 @@ export const newCustomerController = async (req, res, next) => {
       message: response.message,
     });
   } catch (error) {
-    next(
-      controllerError(
-        'NEW_USER_CONTROLLER_ERROR',
-        error.message || 'Error en el controlador de registro de cliente',
-        error.statusCode || 500
-      )
+    handleErrorController(
+      error,
+      next,
+      'GET_USER_LIST_CONTROLLER_ERROR',
+      'Error en el controlador de registro de cliente'
     );
   }
 };

@@ -1,7 +1,7 @@
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { updateCustomerService } from '../../services/customer/updateCustomerService.js';
 import { updateCustomerSchema } from '../../schemas/customer/updateCustomerSchema.js';
-import { controllerError } from '../../services/error/errorServer.js';
+import { handleErrorService } from '../../utils/handleError.js';
 
 export const updateCustomerController = async (req, res, next) => {
   try {
@@ -21,12 +21,10 @@ export const updateCustomerController = async (req, res, next) => {
       data: { customer },
     });
   } catch (error) {
-    next(
-      controllerError(
-        'UPDATE_USER_CONTROLLER_ERROR',
-        error.message || 'Error en el controlador al modificar un cliente',
-        error.statusCode || 500
-      )
+    handleErrorService(
+      error,
+      'GET_USER_LIST_SERVICE_ERROR',
+      'Error en el controlador al modificar un cliente'
     );
   }
 };

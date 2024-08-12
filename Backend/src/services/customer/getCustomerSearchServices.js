@@ -1,4 +1,5 @@
 import { selectCustomerSearchModel } from '../../models/customer/selectCustomerSearchModel.js';
+import { handleErrorService } from '../../utils/handleError.js';
 
 export const getCustomerSearchService = async (search) => {
   try {
@@ -7,12 +8,10 @@ export const getCustomerSearchService = async (search) => {
 
     return customer;
   } catch (error) {
-    if (!error.statusCode) {
-      internalServerError(
-        error.message ||
-          'Error al obtener la lista de busquedas de clientes desde el servicio'
-      );
-    }
-    throw error;
+    handleErrorService(
+      error,
+      'GET_USER_LIST_SERVICE_ERROR',
+      'Error al obtener la lista de busquedas de clientes desde el servicio'
+    );
   }
 };
