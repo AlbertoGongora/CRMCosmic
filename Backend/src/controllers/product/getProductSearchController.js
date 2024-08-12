@@ -1,19 +1,25 @@
-import { getProductSearchService } from "../../services/product/getProductSearchService.js";
+import { getProductSearchService } from '../../services/product/getProductSearchService.js';
+import { handleErrorController } from '../../utils/handleError.js';
 
 export const getProductSearchController = async (req, res, next) => {
-    try {
-        //Recibimos la cadena completa desde la consulta
-        const searchTerm = req.query.searchTerm;
+  try {
+    //Recibimos la cadena completa desde la consulta
+    const searchTerm = req.query.searchTerm;
 
-        //Llamanos al servivio
-        const response = await getProductSearchService(searchTerm);
+    //Llamanos al servivio
+    const response = await getProductSearchService(searchTerm);
 
-        res.status(200).json({
-            status: 'ok',
-            message: 'lista Productos',
-            data: response
-        })
-    } catch  (error) {
-        next(error);
-    }
-}
+    res.status(200).json({
+      status: 'ok',
+      message: 'lista Productos',
+      data: response,
+    });
+  } catch (error) {
+    handleErrorController(
+      error,
+      next,
+      'GET_USER_LIST_CONTROLLER_ERROR',
+      'Error en el controlador al obtener la lista de productos con la busqueda'
+    );
+  }
+};
