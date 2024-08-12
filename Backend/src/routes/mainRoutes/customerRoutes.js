@@ -23,8 +23,6 @@ customerRouter.get(
   getCustomerListController
 );
 
-// TODO - Corregido hasta aqui.
-
 // Buscar cliente
 customerRouter.get(
   '/customer/search',
@@ -62,3 +60,4 @@ customerRouter.put(
   adminAuthMiddleware,
   toggleActiveCustomerStatusController
 );
+// TODO - Corregido hasta aqui.

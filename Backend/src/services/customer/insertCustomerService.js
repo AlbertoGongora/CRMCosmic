@@ -5,25 +5,26 @@ import { emailAlreadyRegisteredError } from '../error/errorService.js';
 import { getMaxReference3Digits } from '../../models/getMaxReference.js';
 import { generateReference3DigitsFromRef } from '../../utils/generateReference3Digits.js';
 import crypto from 'crypto';
+import { internalServerError } from '../error/errorServer.js';
 
 export const insertCustomerService = async (body) => {
   try {
     // Obtener los datos del body.
-    const { 
-      name, 
+    const {
+      name,
       last_name,
-      email, 
-      phone, 
-      company_name, 
-      NIF, 
-      address, 
-      number, 
-      floor, 
-      letter_number, 
-      city, 
-      zip_code, 
-      country
-      } = body;
+      email,
+      phone,
+      company_name,
+      NIF,
+      address,
+      number,
+      floor,
+      letter_number,
+      city,
+      zip_code,
+      country,
+    } = body;
 
     // Buscamos en la base de datos algún usuario con ese email.
     const existCustomer = await selectCustomerByEmailModel(email);
@@ -48,7 +49,7 @@ export const insertCustomerService = async (body) => {
     // Insertamos la dirección en la base de datos.
     await insertAddressCustomerModel(
       id_address,
-      address,  
+      address,
       number,
       floor,
       letter_number,
@@ -72,8 +73,9 @@ export const insertCustomerService = async (body) => {
 
     return response;
   } catch (error) {
-    // Manejar el error aquí.
-    console.error('Error al insertar cliente:', error);
+    if (!error.statusCode) {
+      internalServerError(error.message || 'Error al insertar el cliente');
+    }
     throw error;
   }
 };
