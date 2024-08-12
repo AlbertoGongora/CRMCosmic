@@ -1,6 +1,6 @@
 import { deleteCustomerModel } from '../../models/customer/deleteCustomerModel.js';
 import { selectCustomerByIdModel } from '../../models/customer/selectCustomerByIdModel.js';
-import { internalServerError } from '../error/errorServer.js';
+import { handleErrorService } from '../../utils/handleError.js';
 
 export const deleteCustomerService = async (id_customer) => {
   try {
@@ -15,9 +15,10 @@ export const deleteCustomerService = async (id_customer) => {
 
     return deleteCustomer;
   } catch (error) {
-    if (!error.statusCode) {
-      internalServerError(error.message || 'Error al elimniar un cliente');
-    }
-    throw error;
+    handleErrorService(
+      error,
+      'GET_USER_LIST_SERVICE_ERROR',
+      'Error al elimniar un cliente del servicio'
+    );
   }
 };

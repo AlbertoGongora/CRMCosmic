@@ -5,7 +5,7 @@ import { emailAlreadyRegisteredError } from '../error/errorService.js';
 import { getMaxReference3Digits } from '../../models/getMaxReference.js';
 import { generateReference3DigitsFromRef } from '../../utils/generateReference3Digits.js';
 import crypto from 'crypto';
-import { internalServerError } from '../error/errorServer.js';
+import { handleErrorService } from '../../utils/handleError.js';
 
 export const insertCustomerService = async (body) => {
   try {
@@ -73,9 +73,10 @@ export const insertCustomerService = async (body) => {
 
     return response;
   } catch (error) {
-    if (!error.statusCode) {
-      internalServerError(error.message || 'Error al insertar el cliente');
-    }
-    throw error;
+    handleErrorService(
+      error,
+      'GET_USER_LIST_SERVICE_ERROR',
+      'Error al insertar el cliente desde el servicio'
+    );
   }
 };

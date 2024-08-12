@@ -1,6 +1,6 @@
 import { selectCustomerByIdModel } from '../../models/customer/selectCustomerByIdModel.js';
 import { toggleCustomerActiveModel } from '../../models/customer/toggleCustomerActiveModel.js';
-import { internalServerError } from '../error/errorServer.js';
+import { handleErrorService } from '../../utils/handleError.js';
 
 export const toggleCustomerActivationService = async (id_customer) => {
   try {
@@ -22,12 +22,10 @@ export const toggleCustomerActivationService = async (id_customer) => {
 
     return updatedCustomer;
   } catch (error) {
-    if (!error.statusCode) {
-      internalServerError(
-        error.message ||
-          'Error en el servicio al cambiar el estado de un cliente'
-      );
-    }
-    throw error;
+    handleErrorService(
+      error,
+      'GET_USER_LIST_SERVICE_ERROR',
+      'Error en el servicio al cambiar el estado de un cliente'
+    );
   }
 };

@@ -1,5 +1,5 @@
 import { toggleCustomerActivationService } from '../../services/customer/toggleCustomerActivationService.js';
-import { controllerError } from '../../services/error/errorServer.js';
+import { handleErrorController } from '../../utils/handleError.js';
 
 export const toggleActiveCustomerStatusController = async (req, res, next) => {
   try {
@@ -17,13 +17,11 @@ export const toggleActiveCustomerStatusController = async (req, res, next) => {
       message,
     });
   } catch (error) {
-    next(
-      controllerError(
-        'UPDATE_STATUS_USER_CONTROLLER_ERROR',
-        error.message ||
-          'Error en el controlador al cambiar el estado de un cliente',
-        error.statusCode || 500
-      )
+    handleErrorController(
+      error,
+      next,
+      'GET_USER_LIST_CONTROLLER_ERROR',
+      'Error en el controlador al cambiar el estado de un cliente'
     );
   }
 };

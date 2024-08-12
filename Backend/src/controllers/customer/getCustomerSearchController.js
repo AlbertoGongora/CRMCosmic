@@ -1,5 +1,5 @@
 import { getCustomerSearchService } from '../../services/customer/getCustomerSearchServices.js';
-import { controllerError } from '../../services/error/errorServer.js';
+import { handleErrorController } from '../../utils/handleError.js';
 
 export const getCustomerSearchController = async (req, res, next) => {
   try {
@@ -13,13 +13,11 @@ export const getCustomerSearchController = async (req, res, next) => {
       data: customers,
     });
   } catch (error) {
-    next(
-      controllerError(
-        'GET_USER_LIST_CONTROLLER_ERROR',
-        error.message ||
-          'Error en el controlador al obtener la lista de clientes con la busqueda',
-        error.statusCode || 500
-      )
+    handleErrorController(
+      error,
+      next,
+      'GET_USER_LIST_CONTROLLER_ERROR',
+      'Error en el controlador al obtener la lista de clientes con la busqueda'
     );
   }
 };

@@ -1,6 +1,6 @@
 import { selectCustomerByIdModel } from '../../models/customer/selectCustomerByIdModel.js';
 import { updateCustomerModel } from '../../models/customer/updateCustomerModel.js';
-import { internalServerError } from '../error/errorServer.js';
+import { handleErrorService } from '../../utils/handleError.js';
 import { invalidCredentials } from '../error/errorService.js';
 
 export const updateCustomerService = async (customerId, body) => {
@@ -49,9 +49,10 @@ export const updateCustomerService = async (customerId, body) => {
     // Devolver el cliente actualizado.
     return customer;
   } catch (error) {
-    if (!error.statusCode) {
-      internalServerError(error.message || 'Error al actulizar el  cliente');
-    }
-    throw error;
+    handleErrorService(
+      error,
+      'GET_USER_LIST_SERVICE_ERROR',
+      'Error al actulizar el cliente desde el servicio'
+    );
   }
 };
