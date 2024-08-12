@@ -3,11 +3,8 @@ import { handleErrorController } from "../../utils/handleError.js";
 
 export const getUserSearchController = async (req, res, next) => {
     try {
-        // Recibimos la cadena completa desde la consulta
-        const searchTerm = req.query.searchTerm;
-
         // Llamamos al servicio
-        const response = await getUserSearchService(searchTerm);
+        const response = await getUserSearchService(req.query.searchTerm);
 
         // Devolvemos la respuesta de la peticion de busqueda
         res.status(200).json({
