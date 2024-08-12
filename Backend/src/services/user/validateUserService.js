@@ -1,7 +1,6 @@
 import { findByRegistrationCodeModel } from "../../models/user/findByRegistrationCodeModel.js";
 import { updateUserActiveModel } from "../../models/user/updateUserActiveModel.js";
-import { internalServerError } from "../error/errorServer.js";
-
+import { handleErrorService } from "../../utils/handleError.js";
 
 export const validateUserService = async (registration_code) => {
     try {
@@ -12,11 +11,11 @@ export const validateUserService = async (registration_code) => {
         // Actualizar el estado de activación del usuario
         await updateUserActiveModel(id_user);
     } catch (error) {
-        if (!error.statusCode) {
-            internalServerError(
-              error.message || 'Error al validar un usuario'
-            );
-          }
-          throw error;
+    // Usamos la función modularizada para manejar el error
+    handleErrorService(
+      error,
+      'VALIDATE_USER_SERVICE_ERROR',
+      'Error en el servicio al validar un usuario'
+    );
     }
-}
+};

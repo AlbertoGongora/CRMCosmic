@@ -4,6 +4,7 @@ import { UPLOADS_DIR } from '../../../env.js';
 import { createPathIfNotExistsUtil } from '../../utils/createPathUtil.js';
 import { updateUserAvatarModel } from '../../models/user/updateUserAvatarModel.js';
 import { saveFileError } from '../error/errorService.js';
+import { handleErrorService } from '../../utils/handleError.js';
 
 export const updateAvatarUserService = async (userId, img, width) => {
   try {
@@ -44,7 +45,11 @@ export const updateAvatarUserService = async (userId, img, width) => {
     // Devolver el nombre de la imagen.
     return imgName;
   } catch (error) {
-    console.error(error);
-    throw error;
+    // Usamos la función modularizada para manejar el error
+    handleErrorService(
+      error,
+      'UPDATE_AVATAR_USER_SERVICE_ERROR',
+      'Error en el servicio al cambiar el avatar de un usuario'
+    );
   }
 };

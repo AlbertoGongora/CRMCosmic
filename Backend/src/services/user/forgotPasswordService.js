@@ -1,5 +1,6 @@
 import { selectUserByEmailModel } from "../../models/user/selectUserByEmailModel.js";
 import { updateNewRegistrationCodeModel } from "../../models/user/updateNewRegistrationCodeModel.js";
+import { handleErrorService } from "../../utils/handleError.js";
 import { invalidCredentials } from "../error/errorService.js";
 
 
@@ -25,11 +26,11 @@ export const forgotPasswordService = async (email) => {
         // Devolver el nuevo código de recuperación
         return new_registration_code;
     } catch (error) {
-        if (!error.statusCode) {
-          internalServerError(
-            error.message || 'Error en el servicio de la peticion de restaurar contraseña'
-          );
-        }
-        throw error;
-    }
-}
+    // Usamos la función modularizada para manejar el error
+    handleErrorService(
+      error,
+      'FORGOT_PASSWORD_SERVICE_ERROR',
+      'Error en el servicio de la peticion de restaurar contraseña'
+    );
+  }
+};

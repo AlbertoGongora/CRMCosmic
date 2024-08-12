@@ -2,6 +2,7 @@ import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { updateUserService } from '../../services/user/updateUserService.js';
 import { updateUserSchema } from '../../schemas/user/updateUserSchema.js';
 import { updateAvatarUserService } from '../../services/user/updateAvatarUserService.js';
+import { handleErrorController } from '../../utils/handleError.js';
 
 export const updateUserController = async (req, res, next) => {
   try {
@@ -39,16 +40,12 @@ export const updateUserController = async (req, res, next) => {
       data: data,
     });
   } catch (error) {
-    // Si el error ya tiene un código y mensaje, lo pasamos tal cual
-    if (error.code && error.statusCode) {
-      next(error);
-    } else {
-      // De lo contrario, lo envolvemos en un error del controlador
-      next(controllerError(
-        'UPDATE_USER_CONTROLLER_ERROR', 
-        error.message || 'Error en el controlador al modificar un usuario', 
-        error.statusCode || 500
-      ));
-    }
+    // Usamos la función modularizada para manejar el error
+    handleErrorController(
+      error,
+      next,
+      'UPDATE_USER_CONTROLLER_ERROR',
+      'Error en el controlador al modificar un usuario'
+    );
   }
 };

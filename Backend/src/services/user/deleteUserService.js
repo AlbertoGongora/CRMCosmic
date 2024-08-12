@@ -1,6 +1,7 @@
 import { deleteUserModel } from "../../models/user/deleteUserModel.js";
 import { selectModulesByUserIdModel } from "../../models/user/selectModulesByUserIdModel.js";
 import { selectUserByIdModel } from "../../models/user/selectUserByIdModel.js";
+import { handleErrorService } from "../../utils/handleError.js";
 import { internalServerError } from "../error/errorServer.js";
 import { moduleAssignedError } from "../error/errorService.js";
 
@@ -22,11 +23,11 @@ export const deleteUserService = async (user_id) => {
         // Eliminación del usuario
         await deleteUserModel(user_id);
     } catch (error) {
-        if (!error.statusCode) {
-          internalServerError(
-            error.message || 'Error al elimniar un usuario'
-          );
-        }
-        throw error;
+        // Usamos la función modularizada para manejar el error
+        handleErrorService(
+        error,
+        'DELETE_USERS_SERVICE_ERROR',
+        'Error al elimniar un usuario'
+        );
     }
-}
+};
