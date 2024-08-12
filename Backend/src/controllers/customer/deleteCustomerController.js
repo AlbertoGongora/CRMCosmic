@@ -1,5 +1,5 @@
-import { deleteCustomerModel } from '../../models/customer/deleteCustomerModel.js';
-import { selectCustomerByIdModel } from '../../models/customer/selectCustomerByIdModel.js';
+import { deleteCustomerService } from '../../services/customer/deleteCustomerService.js';
+import { controllerError } from '../../services/error/errorServer.js';
 import { success } from '../../utils/success.js';
 
 export const deleteCustomerController = async (req, res, next) => {
@@ -7,18 +7,19 @@ export const deleteCustomerController = async (req, res, next) => {
     // Obtener el id del cliente.
     const id_customer = req.params.customerId;
 
-    // Obtener el id del address asosiado
-    const custumerAddress = await selectCustomerByIdModel(id_customer);
-    
     // Eliminar el cliente de la base de datos.
-    const deleteCustomer = await deleteCustomerModel(
-      id_customer,
-      custumerAddress.address_id
-    );
+    const response = await deleteCustomerService(id_customer);
 
     // Respondemos al cliente.
-    res.status(200).send(success(deleteCustomer));
+    res.status(200).send(success(response));
   } catch (error) {
-    next(error);
+    // Manejo de errores
+    next(
+      controllerError(
+        'DELETE_USER_CONTROLLER_ERROR',
+        error.message || 'Error en el controlador al eliminar un cliente',
+        error.statusCode || 500
+      )
+    );
   }
 };
