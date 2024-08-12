@@ -13,47 +13,19 @@ import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddl
 export const salesRouter = express.Router();
 
 // Crear venta
-salesRouter.post(
-  '/sales/create',
-  authenticateUser,
-  checkRoleAgent,
-  insertSalesController
-);
+salesRouter.post('/sales/create', authenticateUser, checkRoleAgent, insertSalesController);
 
-salesRouter.get(
-  '/sales/search',
-  authenticateUser,
-  checkRoleAgent,
-  getSalesSearchController
-);
+// Busqueda de la venta
+salesRouter.get('/sales/search', authenticateUser, checkRoleAgent, getSalesSearchController);
 
 // Modificar venta
-salesRouter.put(
-  '/sales/update/:id_sale',
-  authenticateUser,
-  checkRoleAgent,
-  updateSalesController
-);
+salesRouter.put('/sales/update/:id_sale', authenticateUser, checkRoleAgent, updateSalesController);
 
 // Cerrar vemta
-salesRouter.put(
-  '/sales/updateStatus',
-  authenticateUser,
-  checkRoleAgent,
-  closeSalesController
-);
+salesRouter.put('/sales/updateStatus', authenticateUser, checkRoleAgent, closeSalesController);
 
 // Eliminar venta
-salesRouter.delete(
-  '/sales/delete/:id_sale',
-  authenticateUser,
-  checkRoleAgent,
-  deleteSalesController
-);
+salesRouter.delete('/sales/delete/:id_sale', authenticateUser, checkRoleAgent, deleteSalesController);
+
 // obtener todas las ventas
-salesRouter.get(
-  '/sales/list',
-  authenticateUser,
-  checkRoleAgent,
-  getSalesController
-);
+salesRouter.get('/sales/list', authenticateUser, checkRoleAgent, getSalesController);
