@@ -1,6 +1,5 @@
-import { controllerError } from "../../services/error/errorServer.js";
 import { toggleActivationService } from "../../services/user/toggleActivationService.js";
-
+import { handleErrorController } from "../../utils/handleError.js";
 
 export const toggleActiveStatusController = async (req, res, next) => {
 
@@ -19,16 +18,12 @@ export const toggleActiveStatusController = async (req, res, next) => {
             message
         });
     } catch (error) {
-        // Si el error ya tiene un código y mensaje, lo pasamos tal cual
-        if (error.code && error.statusCode) {
-            next(error);
-        } else {
-            // De lo contrario, lo envolvemos en un error del controlador
-            next(controllerError(
-                'UPDATE_STATUS_USER_CONTROLLER_ERROR', 
-                error.message || 'Error en el controlador al cambiar el estado de un usuario', 
-                error.statusCode || 500
-            ));
-        }
+    // Usamos la función modularizada para manejar el error
+    handleErrorController(
+        error,
+        next,
+        'UPDATE_STATUS_USER_CONTROLLER_ERROR',
+        'Error en el controlador al cambiar el estado de un usuario'
+      );
     }
-}
+};

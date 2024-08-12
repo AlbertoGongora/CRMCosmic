@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { selectUserByIdModel } from "../../models/user/selectUserByIdModel.js";
 import { updatePasswordModel } from "../../models/user/updatePasswordModel.js";
 import { invalidCredentials, invalidPasswordError } from "../error/errorService.js";
-import { internalServerError } from '../error/errorServer.js';
+import { handleErrorService } from '../../utils/handleError.js';
 
 
 export const changePasswordService = async (userId, body) => {
@@ -36,11 +36,11 @@ export const changePasswordService = async (userId, body) => {
 
     return response;
   } catch (error) {
-    if (!error.statusCode) {
-      internalServerError(
-        error.message || 'Error al cambiar la contraseña del usuario en el servicio'
-      );
-    }
-    throw error;
-}
-}
+    // Usamos la función modularizada para manejar el error
+    handleErrorService(
+      error,
+      'CHANGE_PASSWORD_SERVICE_ERROR',
+      'Error al cambiar la contraseña del usuario en el servicio'
+    );
+  }
+};

@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import { selectUserByEmailModel } from "../../models/user/selectUserByEmailModel.js";
 import { generateAccessToken } from "../../utils/generateAccessToken.js";
-import { internalServerError } from "../error/errorServer.js";
 import { AccountInactiveError, invalidCredentials, invalidPasswordError } from "../error/errorService.js";
 import { validateSignInRequest } from "./validateSignInRequest.js";
+import { handleErrorService } from '../../utils/handleError.js';
 
 
 export const loginUserService = async (body) => {
@@ -37,11 +37,11 @@ export const loginUserService = async (body) => {
 
         return { token, user };
     } catch (error) {
-        if (!error.statusCode) {
-            internalServerError(
-              error.message || 'Error al realizar login del usuario'
-            );
-          }
-          throw error;
+    // Usamos la función modularizada para manejar el error
+    handleErrorService(
+        error,
+        'LOGIN_USER_SERVICE_ERROR',
+        'Error en el servicio al realizar login del usuario'
+      );
     }
-}
+};

@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { invalidCredentials } from "../error/errorService.js";
 import { updatePasswordModel } from "../../models/user/updatePasswordModel.js";
 import { selectIdByRegistrationCode } from '../../models/user/selectIdByRegistrationCodeModel.js';
-import { internalServerError } from '../error/errorServer.js';
+import { handleErrorService } from '../../utils/handleError.js';
 
 export const updatePasswordService = async (registration_code, body) => {
     try {
@@ -37,11 +37,11 @@ export const updatePasswordService = async (registration_code, body) => {
         
         return response;
     } catch (error) {
-        if (!error.statusCode) {
-          internalServerError(
-            error.message || 'Error en el servicio al modificar contraseña.'
-          );
-        }
-        throw error;
+    // Usamos la función modularizada para manejar el error
+    handleErrorService(
+        error,
+        'UPDATE_PASSWORD_SERVICE_ERROR',
+        'Error en el servicio al modificar contraseña'
+      );
     }
-}
+};

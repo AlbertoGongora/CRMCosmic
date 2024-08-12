@@ -1,6 +1,6 @@
 import { selectUserByIdModel } from "../../models/user/selectUserByIdModel.js";
 import { toggleActiveModel } from "../../models/user/toggleActiveModel.js";
-import { internalServerError } from "../error/errorServer.js";
+import { handleErrorService } from "../../utils/handleError.js";
 
 export const toggleActivationService = async (userId) => {
     try {
@@ -18,12 +18,11 @@ export const toggleActivationService = async (userId) => {
     // Devolver el usuario actualizado.
     return updatedUser;
     } catch (error) {
-        if (!error.statusCode) {
-          internalServerError(
-            error.message || 'Error en el servicio al cambiar el estado de un usuario'
-          );
-        }
-        throw error;
-    }
-
+    // Usamos la función modularizada para manejar el error
+    handleErrorService(
+      error,
+      'TOGGLE_ACTIVATION_SERVICE_ERROR',
+      'Error en el servicio al cambiar el estado de un usuario'
+    );
+  }
 };

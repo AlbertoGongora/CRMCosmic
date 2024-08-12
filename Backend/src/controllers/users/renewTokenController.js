@@ -1,6 +1,6 @@
 import { selectUserByIdModel } from "../../models/user/selectUserByIdModel.js";
 import { generateAccessToken } from "../../utils/generateAccessToken.js";
-// import { insertTokenCookie } from "../../utils/insertTokenCookie.js";
+import { handleErrorController } from "../../utils/handleError.js";
 
 export const renewTokenController = async (req, res, next) => {
   try {
@@ -16,16 +16,12 @@ export const renewTokenController = async (req, res, next) => {
       token: token
     });
   } catch (error) {
-    // Si el error ya tiene un código y mensaje, lo pasamos tal cual
-    if (error.code && error.statusCode) {
-      next(error);
-    } else {
-      // De lo contrario, lo envolvemos en un error del controlador
-      next(controllerError(
-        'TOKEN_USER_CONTROLLER_ERROR', 
-        error.message || 'Error en el controlador al regenerar el token', 
-        error.statusCode || 500
-      ));
-    }
+    // Usamos la función modularizada para manejar el error
+    handleErrorController(
+      error,
+      next,
+      'TOKEN_USER_CONTROLLER_ERROR',
+      'Error en el controlador al regenerar el token'
+    );
   }
 }

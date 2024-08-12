@@ -3,7 +3,7 @@ import { recoveryPasswordSchema } from '../../schemas/user/recoveryPasswordSchem
 import { forgotPasswordService } from '../../services/user/forgotPasswordService.js';
 import { success } from '../../utils/success.js';
 import { sendRecoveryPasswordEmail } from '../../services/email/emailService.js';
-import { controllerError } from '../../services/error/errorServer.js';
+import { handleErrorController } from '../../utils/handleError.js';
 
 export const forgotPasswordController = async (req, res, next) => {
   try {
@@ -22,16 +22,12 @@ export const forgotPasswordController = async (req, res, next) => {
     // Devolvemos el usuario actualizado.
     res.status(200).send(success({message: 'Correo enviado'}));
   } catch (error) {
-    // Si el error ya tiene un código y mensaje, lo pasamos tal cual
-    if (error.code && error.statusCode) {
-      next(error);
-    } else {
-      // De lo contrario, lo envolvemos en un error del controlador
-      next(controllerError(
-        'PASSWORD_USER_CONTROLLER_ERROR', 
-        error.message || 'Error en el controlador de la peticion de restaurar contraseña', 
-        error.statusCode || 500
-      )); 
-    }
+    // Usamos la función modularizada para manejar el error
+    handleErrorController(
+      error,
+      next,
+      'PASSWORD_USER_CONTROLLER_ERROR',
+      'Error en el controlador de la peticion de restaurar contraseña'
+    );
   }
 };

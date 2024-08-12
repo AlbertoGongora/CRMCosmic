@@ -1,5 +1,5 @@
-import { controllerError } from "../../services/error/errorServer.js";
 import { getUserSearchService } from "../../services/user/getUserSearchService.js";
+import { handleErrorController } from "../../utils/handleError.js";
 
 export const getUserSearchController = async (req, res, next) => {
     try {
@@ -16,16 +16,12 @@ export const getUserSearchController = async (req, res, next) => {
             data: response
         })
     } catch (error) {
-        // Si el error ya tiene un código y mensaje, lo pasamos tal cual
-        if (error.code && error.statusCode) {
-            next(error);
-        } else {
-            // De lo contrario, lo envolvemos en un error del controlador
-            next(controllerError(
-                'GET_USER_LIST_CONTROLLER_ERROR', 
-                error.message || 'Error en el controlador al obtener la lista de usuarios con la busqueda', 
-                error.statusCode || 500
-            ));
-        }
+    // Usamos la función modularizada para manejar el error
+    handleErrorController(
+        error,
+        next,
+        'GET_USER_LIST_CONTROLLER_ERROR',
+        'Error en el controlador al obtener la lista de usuarios con la busqueda'
+      );
     }
 }

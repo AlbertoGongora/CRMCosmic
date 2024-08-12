@@ -2,6 +2,7 @@ import { updatePasswordService } from "../../services/user/updatePasswordService
 import { validateSchemaUtil } from "../../utils/validateSchemaUtil.js";
 import { changeResetPasswordSchema } from "../../schemas/user/changeResetPasswordSchema.js";
 import { success } from "../../utils/success.js";
+import { handleErrorController } from "../../utils/handleError.js";
 
 export const resetPasswordController = async (req, res, next) => {
     try {
@@ -17,16 +18,12 @@ export const resetPasswordController = async (req, res, next) => {
         // Responder al cliente
         res.json(success(response));
     } catch (error) {
-        // Si el error ya tiene un código y mensaje, lo pasamos tal cual
-        if (error.code && error.statusCode) {
-            next(error);
-        } else {
-            // De lo contrario, lo envolvemos en un error del controlador
-            next(controllerError(
-                'PASSWORD_USER_CONTROLLER_ERROR', 
-                error.message || 'Error en el controlador al resetear la contraseña', 
-                error.statusCode || 500
-            ));
-        }
+    // Usamos la función modularizada para manejar el error
+    handleErrorController(
+        error,
+        next,
+        'PASSWORD_USER_CONTROLLER_ERROR',
+        'Error en el controlador al resetear la contraseña'
+      );
     }
 };

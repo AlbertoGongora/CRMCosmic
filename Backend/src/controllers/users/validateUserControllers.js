@@ -1,5 +1,6 @@
 import { validateUserService } from "../../services/user/validateUserService.js";
 import { success } from "../../utils/success.js";
+import { handleErrorController } from "../../utils/handleError.js";
 
 export const validateUserController = async (req, res, next) => {
     try {
@@ -11,16 +12,12 @@ export const validateUserController = async (req, res, next) => {
 
         res.status(201).send(success({message: 'El usuario ha sido validado exitosamente'}));
     } catch (error) {
-        // Si el error ya tiene un código y mensaje, lo pasamos tal cual
-        if (error.code && error.statusCode) {
-            next(error);
-        } else {
-            // De lo contrario, lo envolvemos en un error del controlador
-            next(controllerError(
-                'VALIDATE_USER_CONTROLLER_ERROR', 
-                error.message || 'Error en el controlador al validar un usuario', 
-                error.statusCode || 500
-            ));
-        }
+    // Usamos la función modularizada para manejar el error
+    handleErrorController(
+        error,
+        next,
+        'VALIDATE_USER_CONTROLLER_ERROR',
+        'Error en el controlador al validar un usuario'
+      );
     }
 };

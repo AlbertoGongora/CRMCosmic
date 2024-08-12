@@ -1,5 +1,5 @@
-import { controllerError } from "../../services/error/errorServer.js";
 import { getProfileUserService } from "../../services/user/getProfileUserService.js";
+import { handleErrorController } from "../../utils/handleError.js";
 
 export const getProfileUserController = async (req, res, next) => {
   try {
@@ -12,16 +12,11 @@ export const getProfileUserController = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
-    // Si el error ya tiene un código y mensaje, lo pasamos tal cual
-    if (error.code && error.statusCode) {
-      next(error);
-    } else {
-      // De lo contrario, lo envolvemos en un error del controlador
-      next(controllerError(
-        'GET_PROFILE_USER_CONTROLLER_ERROR', 
-        error.message || 'Error del controlador en la obtencion del perfil del usuario', 
-        error.statusCode || 500
-      ));
-    }
+    // Usamos la función modularizada para manejar el error
+    handleErrorController(
+      error,
+      next,
+      'Error del controlador en la obtencion del perfil del usuario'
+    );
   }
 };

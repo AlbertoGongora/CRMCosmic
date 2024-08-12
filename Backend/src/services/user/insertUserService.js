@@ -6,7 +6,7 @@ import { generateReference3DigitsFromRef } from "../../utils/generateReference3D
 import { sendWelcomeEmail } from "../email/emailService.js";
 import { emailAlreadyRegisteredError } from "../error/errorService.js";
 import { insertUserModel } from "../../models/user/insertUserModel.js";
-import { internalServerError } from "../error/errorServer.js";
+import { handleErrorService } from "../../utils/handleError.js";
 
 
 export const insertUserService = async (body) => {
@@ -49,11 +49,11 @@ export const insertUserService = async (body) => {
     await sendWelcomeEmail(name, last_name, password, email, registration_code);
     
   } catch (error) {
-    if (!error.statusCode) {
-      internalServerError(
-        error.message || 'Error al insertar usuario'
-      );
-    }
-    throw error;
+    // Usamos la función modularizada para manejar el error
+    handleErrorService(
+      error,
+      'INSERT_USER_SERVICE_ERROR',
+      'Error en el servicio al insertar usuario'
+    );
   }
 };
