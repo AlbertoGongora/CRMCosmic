@@ -1,6 +1,8 @@
-import { getDBPool } from "../../../db/getPool.js";
+import { getDBPool } from '../../../db/getPool.js';
+import { databaseQueryError } from '../../../services/error/errorDataBase.js';
 
 export const selectVisitAgentsModel = async () => {
+  try {
     const pool = getDBPool();
     const query = `
       SELECT 
@@ -18,4 +20,9 @@ export const selectVisitAgentsModel = async () => {
     `;
     const [rows] = await pool.query(query);
     return rows;
-  };
+  } catch (error) {
+    databaseQueryError(
+      error.message || 'Error al obtener el comercial desde el modelo'
+    );
+  }
+};

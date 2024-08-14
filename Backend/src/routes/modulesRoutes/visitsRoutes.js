@@ -68,3 +68,4 @@ visitsRouter.put('/visits/feedback/:ref_VT', feedbackVisitController);
 
 // Obtengo los usuarios con el rol de comercial
 visitsRouter.get('/visits/salesAgents', getVisitSaleAgetsController);
+// TODO - Corregido hasta aqui.
