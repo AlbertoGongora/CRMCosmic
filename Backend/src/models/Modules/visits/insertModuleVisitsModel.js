@@ -1,17 +1,23 @@
 import { getDBPool } from '../../../db/getPool.js';
 
-export const insertModuleVisitsModel = async (moduleId, refModule, user_id, service_type, visitId) => {
+export const insertModuleVisitsModel = async (
+  moduleId,
+  refModule,
+  user_id,
+  service_type,
+  visitId
+) => {
+  try {
     const pool = await getDBPool();
 
     const fieldsToUpdate = [];
     const values = [];
 
     const addToUpdate = (field, value) => {
-        if (value !== undefined && value !== null) {
-            fieldsToUpdate.push(`${field} = ?`);
-            values.push(value);
-        }
-
+      if (value !== undefined && value !== null) {
+        fieldsToUpdate.push(`${field} = ?`);
+        values.push(value);
+      }
     };
     addToUpdate('id_module', moduleId);
     addToUpdate('ref_MD', refModule);
@@ -26,13 +32,14 @@ export const insertModuleVisitsModel = async (moduleId, refModule, user_id, serv
     const query = `INSERT INTO Modules SET ${fieldsString}`;
     values.push(visitId);
 
- 
     const [result] = await pool.query(query, values);
 
     if (result.affectedRows === 0) {
-        const error = new Error('No se ha podido insertar la visita');
-        error.code = 'INSERT_VISIT_ERROR';
-        throw error;
+      databaseInsertError('No se ha podido insertar la visita en el modulo');
     }
-
-}
+  } catch (error) {
+    databaseInsertError(
+      error.message || 'Error en el modelo al insertar la visita en el modulo'
+    );
+  }
+};

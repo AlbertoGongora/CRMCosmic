@@ -1,15 +1,10 @@
 import { getVisitSearchService } from '../../../services/Modules/visits/getVisitSearchService.js';
+import { handleErrorController } from '../../../utils/handleError.js';
 
 export const getVisitSearchController = async (req, res, next) => {
   try {
-    // Recibimos la cadena completa desde la consulta
-    const searchTerm = req.query.searchTerm;
-    // Dividimos la cadena para obtener el término de búsqueda real
-
-    // const searchTerm = queryString.split(' ')[1];
-
     // Llamamos al servicio
-    const response = await getVisitSearchService(searchTerm);
+    const response = await getVisitSearchService(req.query.searchTerm);
 
     res.status(200).json({
       status: 'ok',
@@ -17,6 +12,11 @@ export const getVisitSearchController = async (req, res, next) => {
       data: response,
     });
   } catch (error) {
-    next(error);
+    handleErrorController(
+      error,
+      next,
+      'GET_visit_LIST_CONTROLLER_ERROR',
+      'Error en el controlador al obtener la lista de clientes con la busqueda'
+    );
   }
 };

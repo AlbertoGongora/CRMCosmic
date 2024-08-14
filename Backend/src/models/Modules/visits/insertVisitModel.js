@@ -1,17 +1,25 @@
 import { getDBPool } from '../../../db/getPool.js';
+import { databaseInsertError } from '../../../services/error/errorDataBase.js';
 
-export const insertVisitModel = async (visitId, ref, user_id, customerId, visitDate, observations) => {
+export const insertVisitModel = async (
+  visitId,
+  ref,
+  user_id,
+  customerId,
+  visitDate,
+  observations
+) => {
+  try {
     const pool = await getDBPool();
 
     const fieldsToUpdate = [];
     const values = [];
 
     const addToUpdate = (field, value) => {
-        if (value !== undefined && value !== null) {
-            fieldsToUpdate.push(`${field} = ?`);
-            values.push(value);
-        }
-
+      if (value !== undefined && value !== null) {
+        fieldsToUpdate.push(`${field} = ?`);
+        values.push(value);
+      }
     };
     addToUpdate('id_visit', visitId);
     addToUpdate('ref_VT', ref);
@@ -28,9 +36,11 @@ export const insertVisitModel = async (visitId, ref, user_id, customerId, visitD
     const [result] = await pool.query(query, values);
 
     if (result.affectedRows === 0) {
-        const error = new Error('No se ha podido insertar la visita');
-        error.code = 'INSERT_VISIT_ERROR';
-        throw error;
+      databaseInsertError('No se ha podido insertar la visita');
     }
-
-}
+  } catch (error) {
+    databaseInsertError(
+      error.message || 'Error en el modelo al insertar la visita'
+    );
+  }
+};
