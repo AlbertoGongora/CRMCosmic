@@ -1,6 +1,6 @@
 import { getDBPool } from '../../../db/getPool.js';
-import { controlStockProductService } from '../../../services/product/controlStockProductService.js';
 import { databaseUpdateError } from '../../../services/error/errorDataBase.js';
+import { controlStockProductModel } from '../../products/controlStockProductModel.js';
 
 export const updateSalesQuantityModel = async (product_id, quantity) => {
   try {
@@ -18,7 +18,7 @@ export const updateSalesQuantityModel = async (product_id, quantity) => {
     };
 
     // Obtengo el stock de la base de datos
-    const stock = await controlStockProductService(product_id);
+    const stock = await controlStockProductModel(product_id);
 
     // Convierto la info a números
     const numberStock = Number(stock.stock);

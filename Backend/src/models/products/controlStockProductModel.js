@@ -1,9 +1,10 @@
 import { getDBPool } from '../../db/getPool.js';
-import { databaseQueryError } from '../error/errorDataBase.js';
+import { databaseQueryError } from '../../services/error/errorDataBase.js';
+
 
 // SI LO ENCUENTRAS VERIFICA EL NOMBRE
 
-export const controlStockProductService = async (product_id) => {
+export const controlStockProductModel = async (product_id) => {
   try {
     const pool = await getDBPool();
 
