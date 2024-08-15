@@ -11,53 +11,25 @@ import {
   updateCustomerController,
 } from '../../controllers/mainControllers.js';
 
-//TODO - En proceso de mejorar el codigo implementado try catch en cada servicio y modulo, para manejar mejor errores especificos.
+// TODO - Esta todo corregido.
 
 // Creamos un router
 export const customerRouter = express.Router();
 
 // Obtener lista de clientes
-customerRouter.get(
-  '/customer/list',
-  authenticateUser,
-  getCustomerListController
-);
+customerRouter.get('/customer/list', authenticateUser, getCustomerListController);
 
 // Buscar cliente
-customerRouter.get(
-  '/customer/search',
-  authenticateUser,
-  getCustomerSearchController
-);
+customerRouter.get('/customer/search', authenticateUser, getCustomerSearchController);
 
 // Agregar cliente
-customerRouter.post(
-  '/customer/register',
-  authenticateUser,
-  newCustomerController
-);
+customerRouter.post('/customer/register', authenticateUser, newCustomerController);
 
 // Modificar cliente
-customerRouter.put(
-  '/customer/:customerId',
-  authenticateUser,
-  customerExists,
-  updateCustomerController
-);
+customerRouter.put('/customer/:customerId', authenticateUser, customerExists, updateCustomerController);
 
 // Eliminar cliente, solo para administradores
-customerRouter.delete(
-  '/customer/delete/:customerId',
-  authenticateUser,
-  adminAuthMiddleware,
-  deleteCustomerController
-);
+customerRouter.delete('/customer/delete/:customerId', authenticateUser, adminAuthMiddleware, deleteCustomerController);
 
 // Activar y desactivar clientes
-customerRouter.put(
-  '/custo/active',
-  authenticateUser,
-  adminAuthMiddleware,
-  toggleActiveCustomerStatusController
-);
-// TODO - Corregido hasta aqui.
+customerRouter.put('/custo/active', authenticateUser, adminAuthMiddleware, toggleActiveCustomerStatusController);

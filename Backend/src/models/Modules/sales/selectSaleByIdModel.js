@@ -1,24 +1,23 @@
-import { getDBPool } from '../../../db/getPool.js';
+import { getDBPool } from "../../../db/getPool.js";
+import { databaseQueryError } from "../../../services/error/errorDataBase.js";
+import { notFoundError } from "../../../services/error/errorService.js";
 
 export const selectSaleByIdModel = async (id_sale) => {
-  const pool = await getDBPool();
+  try {
+    const pool = await getDBPool();
 
-  const [result] = await pool.query(
-    `SELECT * FROM Sales
-        WHERE id_sale = ?;
-        `,
-    [id_sale]
-  );
+    const [result] = await pool.query(
+      `SELECT * FROM Sales WHERE id_sale = ?`,
+      [id_sale]
+    );
 
-  if (result.length === 0) {
-    return false;
+    // Verificar si no se encontró ninguna venta
+    if (result.length === 0) {
+      notFoundError('Venta no encontrada.');
+    }
+
+    return result[0];
+  } catch (error) {
+    databaseQueryError('Error al seleccionar la venta por ID');
   }
-
-  if (result.affectedRows === 0) {
-    const error = new Error('No se ha podido seleccionar la venta.');
-    error.code = 'SELECT_SALES_ERROR';
-    throw error;
-  }
-
-  return result[0];
 };
