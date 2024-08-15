@@ -5,16 +5,14 @@ import { selectSaleProducModel } from "../../../models/Modules/sales/selectSaleP
 import { updateSaleModel } from "../../../models/Modules/sales/updateSaleModel.js";
 import { updateSaleProductModel } from "../../../models/Modules/sales/updateSaleProductModel.js";
 import { updateSalesQuantityModel } from "../../../models/Modules/sales/updateSalesQuantityModel.js";
+import { handleErrorService } from "../../../utils/handleError.js";
 import { limitedStock, notFoundError } from "../../error/errorService.js";
 import { controlStockProductService } from "../../product/controlStockProductService.js";
 
 export const updateSalesService = async (id_sale, body) => {
-
-  // Verificar qué campos están presentes en el cuerpo de la solicitud
-  const { quantity, customer  } = body;
-  console.log(body);
-
-  // Si la cantidad está presente, actualizarla
+  try {
+    // Verificar qué campos están presentes en el cuerpo de la solicitud
+    const { quantity, customer  } = body;
  
     // Obtengo el id de salesProduct
     if (quantity) {
@@ -49,7 +47,7 @@ export const updateSalesService = async (id_sale, body) => {
      return response;
     }
     
-  // Si el cliente está presente, actualizarlo
+    // Si el cliente está presente, actualizarlo
     if (customer) {
       const sale = await selectSaleByIdModel(id_sale);
       
@@ -70,4 +68,11 @@ export const updateSalesService = async (id_sale, body) => {
 
     // Retornar la respuesta después de realizar todas las actualizaciones necesarias
     return response;
+  } catch (error) {
+    handleErrorService(
+      error,
+      'UPDATE_SALES_SERVICE_ERROR',
+      'Error en el servicio al actualizar una venta'
+    )
+  }
 };

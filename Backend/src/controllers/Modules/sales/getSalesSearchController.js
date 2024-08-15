@@ -1,16 +1,10 @@
 import { getSalesSearchService } from '../../../services/Modules/sales/getSalesSearchService.js';
+import { handleErrorController } from '../../../utils/handleError.js';
 
 export const getSalesSearchController = async (req, res, next) => {
   try {
-    // Recibimos la cadena completa desde la consulta
-    const searchTerm = req.query.searchTerm;
-    // Dividimos la cadena para obtener el término de búsqueda real
-
-    // const searchTerm = queryString.split(' ')[1];
-
     // Llamamos al servicio
-    const response = await getSalesSearchService(searchTerm);
-    console.log('response', response);
+    const response = await getSalesSearchService(req.query.searchTerm);
 
     res.status(200).json({
       status: 'ok',
@@ -18,6 +12,11 @@ export const getSalesSearchController = async (req, res, next) => {
       data: response,
     });
   } catch (error) {
-    next(error);
+    handleErrorController(
+      error,
+      next,
+      'GET_SALES_SEARCH_CONTROLLER_ERROR',
+      'Error en el controlador al obtener la lista de ventas con la busqueda'
+    );
   }
 };

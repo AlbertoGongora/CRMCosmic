@@ -11,7 +11,7 @@ import { authenticateUser } from '../../middlewares/authenticateUser.js';
 import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
 
 export const salesRouter = express.Router();
-
+//? este falta insertSalesController
 // Crear venta
 salesRouter.post('/sales/create', authenticateUser, checkRoleAgent, insertSalesController);
 
@@ -20,10 +20,10 @@ salesRouter.get('/sales/search', authenticateUser, checkRoleAgent, getSalesSearc
 
 // Modificar venta
 salesRouter.put('/sales/update/:id_sale', authenticateUser, checkRoleAgent, updateSalesController);
-
 // Cerrar vemta
 salesRouter.put('/sales/updateStatus', authenticateUser, checkRoleAgent, closeSalesController);
 
+//! Corregido hasta aqui
 // Eliminar venta
 salesRouter.delete('/sales/delete/:id_sale', authenticateUser, checkRoleAgent, deleteSalesController);
 
