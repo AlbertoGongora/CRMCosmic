@@ -5,9 +5,9 @@ import { selectSaleProducModel } from "../../../models/Modules/sales/selectSaleP
 import { updateSaleModel } from "../../../models/Modules/sales/updateSaleModel.js";
 import { updateSaleProductModel } from "../../../models/Modules/sales/updateSaleProductModel.js";
 import { updateSalesQuantityModel } from "../../../models/Modules/sales/updateSalesQuantityModel.js";
+import { controlStockProductModel } from "../../../models/products/controlStockProductModel.js";
 import { handleErrorService } from "../../../utils/handleError.js";
 import { limitedStock, notFoundError } from "../../error/errorService.js";
-import { controlStockProductService } from "../../product/controlStockProductService.js";
 
 export const updateSalesService = async (id_sale, body) => {
   try {
@@ -21,7 +21,7 @@ export const updateSalesService = async (id_sale, body) => {
       // Obtengo el id del producto de selasProduct
       const seachSaleProduct = await selectProductIsSaleProductModel(seachSaleProductId.saleProduct_id);
   
-      const checkQuantity = await controlStockProductService(seachSaleProduct.product_id);
+      const checkQuantity = await controlStockProductModel(seachSaleProduct.product_id);
       const stock = JSON.parse(JSON.stringify(checkQuantity));
   
       if (stock < quantity) {

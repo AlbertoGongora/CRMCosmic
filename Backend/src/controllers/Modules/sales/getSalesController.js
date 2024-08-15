@@ -1,13 +1,10 @@
-import { selectSalesListModel } from '../../../models/Modules/sales/selectSalesListModel.js';
-import { invalidCredentials } from '../../../services/error/errorService.js';
+import { selectSalesListService } from '../../../services/Modules/sales/selectSalesListService.js';
+import { handleErrorController } from '../../../utils/handleError.js';
 
 export const getSalesController = async (req, res, next) => {
   try {
-    const listSales = await selectSalesListModel();
-
-    if (listSales === undefined) {
-      invalidCredentials('Error al obtener las ventas');
-    }
+    // Obtengo la lista de ventas
+    const listSales = await selectSalesListService();
 
     res.status(200).send({
       status: 'ok',
@@ -15,6 +12,11 @@ export const getSalesController = async (req, res, next) => {
       data: listSales,
     });
   } catch (error) {
-    next(error);
+    handleErrorController(
+      error,
+      next,
+      'GET_SALES_LIST_CONTROLLER_ERROR',
+      'Error en el controlador al obtener la lista de ventas'
+    );
   }
 };
