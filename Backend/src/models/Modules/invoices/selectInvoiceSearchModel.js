@@ -1,11 +1,14 @@
-import { getDBPool } from "../../../db/getPool.js";
+import { getDBPool } from '../../../db/getPool.js';
+import { databaseQueryError } from '../../../services/error/errorDataBase.js';
 
 export const selectInvoiceSearchModel = async (search) => {
+  try {
     const pool = getDBPool();
 
     // Si searchTerm está definido, aplica el filtro de búsqueda
 
-  const [rows] = await pool.query(`SELECT 
+    const [rows] = await pool.query(
+      `SELECT 
     Invoices.ref_IN,
     Invoices.id_invoice, 
     Invoices.sale_id AS codigo_venta, 
@@ -41,9 +44,25 @@ export const selectInvoiceSearchModel = async (search) => {
     OR Invoices.total_amount LIKE?
     OR Invoices.ref_IN LIKE?
     OR Sales.ref_SL LIKE?`,
-    
-    [`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`]);
+
+      [
+        `%${search}%`,
+        `%${search}%`,
+        `%${search}%`,
+        `%${search}%`,
+        `%${search}%`,
+        `%${search}%`,
+        `%${search}%`,
+        `%${search}%`,
+        `%${search}%`,
+      ]
+    );
 
     console.log(`Resultados encontrados: ${rows.length}`);
     return rows;
-}
+  } catch (error) {
+    databaseQueryError(
+      'Error en el modelo en la base de datos al buscar las facuturas'
+    );
+  }
+};

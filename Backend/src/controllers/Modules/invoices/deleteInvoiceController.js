@@ -1,17 +1,20 @@
-import { deleteInvoiceService } from "../../../services/Modules/invoices/deleteInvoiceService.js";
-import { success } from "../../../utils/success.js";
+import { deleteInvoiceService } from '../../../services/Modules/invoices/deleteInvoiceService.js';
+import { handleErrorController } from '../../../utils/handleError.js';
+import { success } from '../../../utils/success.js';
 
 export const deleteInvoiceController = async (req, res, next) => {
-    try {
-        // Obtener el id de la factura del URL.
-        const invoiceId = req.params.invoiceId;
+  try {
+    // Eliminar la factura de la base de datos.
+    const response = await deleteInvoiceService(req.params.invoiceId);
 
-        // Eliminar la factura de la base de datos. 
-        const response = await deleteInvoiceService(invoiceId);
-        
-        // Respondemos al cliente.
-        res.status(200).send(success(response));
-    } catch (error) {
-        next(error);
-    }
-}
+    // Respondemos al cliente.
+    res.status(200).send(success(response));
+  } catch (error) {
+    handleErrorController(
+      error,
+      next,
+      'DELETE_INVOICE_CONTROLLER_ERROR',
+      'Error en el controlador al eliminar una factura'
+    );
+  }
+};

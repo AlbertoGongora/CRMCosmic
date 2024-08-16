@@ -1,14 +1,14 @@
+import { controlStockProductModel } from '../../models/products/controlStockProductModel.js';
 import { insertSaleProductModel } from '../../models/products/insertSaleProductModel.js';
 import { handleErrorService } from '../../utils/handleError.js';
 import { limitedStock } from '../error/errorService.js';
-import { controlStockProductService } from './controlStockProductService.js';
 
 export const insertSaleProductService = async (body, productId) => {
   try {
     const { quantity, description } = body;
 
     //compruebo la cantidad del producto y si hay stock
-    const checkQuantity = await controlStockProductService(productId);
+    const checkQuantity = await controlStockProductModel(productId); // Aqui paso algo raro
     const stock = JSON.parse(JSON.stringify(checkQuantity));
 
     if (stock < quantity) {

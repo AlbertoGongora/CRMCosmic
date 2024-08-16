@@ -1,18 +1,22 @@
 import { getDBPool } from '../../../db/getPool.js';
+import { databaseDeleteError } from '../../../services/error/errorDataBase.js';
 
 export const selectModuleByIdInvoiceModel = async (invoiceId) => {
-  const pool = await getDBPool();
+  try {
+    const pool = await getDBPool();
 
-  // Comprobar si existe un cliente con el id proporcionado.
-  // const [Modules] = await pool.query(
-  //   `SELECT * FROM Modules WHERE invoice_id = ?`,
-  //   [invoiceId]
-  // );
+    const modules = await pool.query(
+      `SELECT * FROM Modules WHERE invoice_id = ?`,
+      [invoiceId]
+    );
 
-  const Modules = await pool.query(
-    `SELECT * FROM Modules WHERE invoice_id = ?`, [invoiceId]);
+    console.log(modules);
 
-  console.log(Modules);
-
-  // return Modules[0];
+    return modules[0];
+  } catch (error) {
+    databaseDeleteError(
+      error.message ||
+        'Error en el modelo al seleccionar del módulo una factura de la base de datos'
+    );
+  }
 };

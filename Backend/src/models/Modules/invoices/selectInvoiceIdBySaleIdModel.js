@@ -1,6 +1,6 @@
-import { getDBPool } from "../../../db/getPool.js";
-import { notFoundError } from "../../../services/error/errorService.js";
-import { databaseQueryError } from "../../../services/error/errorDataBase.js";
+import { getDBPool } from '../../../db/getPool.js';
+import { notFoundError } from '../../../services/error/errorService.js';
+import { databaseQueryError } from '../../../services/error/errorDataBase.js';
 
 export const selectInvoiceIdBySaleIdModel = async (saleId) => {
   try {
@@ -15,6 +15,8 @@ export const selectInvoiceIdBySaleIdModel = async (saleId) => {
 
     return rows[0];
   } catch (error) {
-    databaseQueryError('Error al obtener el ID de la factura por ID de la venta');
+    databaseQueryError(
+      'Error en el modelo al obtener el ID de la factura por ID de la venta'
+    );
   }
 };
