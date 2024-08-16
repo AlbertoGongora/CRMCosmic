@@ -22,7 +22,7 @@ export const toggleActiveProductStatusController = async (req, res, next) => {
     handleErrorController(
       error,
       next,
-      'GET_USER_LIST_CONTROLLER_ERROR',
+      'TOGGLE_ACTIVE_PRODUCT_CONTROLLER_ERROR',
       'Error en el controlador al cambiar el estado de un producto'
     );
   }

@@ -8,7 +8,7 @@ export const getCustomersListService = async () => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'GET_CUSTOMER_LIST_SERVICE_ERROR',
       'Error al obtener la lista de clientes desde el servicio'
     );
   }

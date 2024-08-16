@@ -23,7 +23,7 @@ export const updateCustomerController = async (req, res, next) => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'UPDATE_CUSTOMER_CONTROLLER_ERROR',
       'Error en el controlador al modificar un cliente'
     );
   }

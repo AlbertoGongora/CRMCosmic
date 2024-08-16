@@ -10,7 +10,7 @@ export const getCustomerSearchService = async (search) => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'GET_SEARCH_SERVICE_ERROR',
       'Error al obtener la lista de busquedas de clientes desde el servicio'
     );
   }

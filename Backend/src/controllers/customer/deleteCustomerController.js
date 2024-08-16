@@ -17,7 +17,7 @@ export const deleteCustomerController = async (req, res, next) => {
     handleErrorController(
       error,
       next,
-      'GET_USER_LIST_CONTROLLER_ERROR',
+      'DELETE_CUSTOMER_CONTROLLER_ERROR',
       'Error en el controlador al eliminar un cliente'
     );
   }

@@ -26,7 +26,7 @@ export const toggleProductActivationService = async (productId) => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'TGGLE_ACTIVE_PRODUCT_SERVICE_ERROR',
       'Error en el servicio al cambiar el estado de un producto'
     );
   }

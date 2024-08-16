@@ -1,4 +1,5 @@
 import { SaleProductSchema } from '../../schemas/product/SaleProductSchema.js';
+import { insertSaleProductService } from '../../services/product/insertSaleProductService.js';
 import { handleErrorController } from '../../utils/handleError.js';
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 
@@ -22,7 +23,7 @@ export const selectSaleProductController = async (req, res, next) => {
     handleErrorController(
       error,
       next,
-      'GET_USER_LIST_CONTROLLER_ERROR',
+      'SELECT_PRODUCT_SALE_CONTROLLER_ERROR',
       'Error en el controlador al crear una venta de producto'
     );
   }

@@ -30,7 +30,7 @@ export const insertSaleProductService = async (body, productId) => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'INSERT_PRODUCT_SALE_SERVICE_ERROR',
       'Error al incertar la venta de producto desde el servicio'
     );
   }

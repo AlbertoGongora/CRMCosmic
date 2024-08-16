@@ -17,7 +17,7 @@ export const deleteCustomerService = async (id_customer) => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'DELETE_CUSTOMER_SERVICE_ERROR',
       'Error al elimniar un cliente del servicio'
     );
   }
