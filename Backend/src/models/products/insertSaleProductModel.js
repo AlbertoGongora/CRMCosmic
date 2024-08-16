@@ -1,6 +1,6 @@
 import { getDBPool } from '../../db/getPool.js';
 import { databaseQueryError } from '../../services/error/errorDataBase.js';
-import { controlStockProductService } from '../../services/product/controlStockProductService.js';
+import { controlStockProductModel } from './controlStockProductModel.js';
 
 export const insertSaleProductModel = async (
   saleProduct_id,
@@ -29,7 +29,7 @@ export const insertSaleProductModel = async (
     };
 
     // Obtengo el stock de base de datos
-    const stock = await controlStockProductService(id_product);
+    const stock = await controlStockProductModel(id_product); // Aqui paso algo raro
 
     // Convierto la info ha numeros
     const numberStock = Number(stock.stock);

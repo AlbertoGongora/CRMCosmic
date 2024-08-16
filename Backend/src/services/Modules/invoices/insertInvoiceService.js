@@ -1,38 +1,45 @@
-import { selectCustomerIdBySaleIdModel } from "../../../models/Modules/invoices/selectCustomerIdBySaleIdModel.js";
-import { selectCustomerByIdModel } from "../../../models/customer/selectCustomerByIdModel.js";
-import { insertInvoiceModel } from "../../../models/Modules/invoices/insertInvoiceModel.js";
-import { selectProductById } from "../../../models/products/selectProductById.js";
-import { selectSaleProductByIdModel } from "../../../models/products/selectSaleProductByIdModel.js";
-import { invalidCredentials, notFoundError } from "../../error/errorService.js";
-import { selectInvoiceIdBySaleIdModel } from "../../../models/Modules/invoices/selectInvoiceIdBySaleIdModel.js";
-import { extractFullAddress } from "../../../utils/extractFullAddress.js";
-import { generateExpiryDate } from "../../../utils/generateExpiryDate.js";
-import { getMaxReference5Digits } from "../../../models/getMaxReference.js";
-import { generateReference5DigitsFromRef } from "../../../utils/generateReference5Digits.js";
+import { selectCustomerIdBySaleIdModel } from '../../../models/Modules/invoices/selectCustomerIdBySaleIdModel.js';
+import { selectCustomerByIdModel } from '../../../models/customer/selectCustomerByIdModel.js';
+import { insertInvoiceModel } from '../../../models/Modules/invoices/insertInvoiceModel.js';
+import { selectProductById } from '../../../models/products/selectProductById.js';
+import { selectSaleProductByIdModel } from '../../../models/products/selectSaleProductByIdModel.js';
+import { invalidCredentials } from '../../error/errorService.js';
+import { selectInvoiceIdBySaleIdModel } from '../../../models/Modules/invoices/selectInvoiceIdBySaleIdModel.js';
+import { extractFullAddress } from '../../../utils/extractFullAddress.js';
+import { generateExpiryDate } from '../../../utils/generateExpiryDate.js';
+import { getMaxReference5Digits } from '../../../models/getMaxReference.js';
+import { generateReference5DigitsFromRef } from '../../../utils/generateReference5Digits.js';
+import { handleErrorService } from '../../../utils/handleError.js';
 
-
-export const newInvoiceService = async (userId, body) => {
+export const newInvoiceService = async (id_user, body) => {
+  try {
     // Obtenemos el cuerpo de la petición
     const { sale_id, payment_method, due_date } = body;
 
     // Verificamos si existe una factura con esa orden de venta
     const invoice = await selectInvoiceIdBySaleIdModel(sale_id);
+
     if (invoice) {
-        invalidCredentials('La orden de venta ya tiene una factura');}
+      invalidCredentials('La orden de venta ya tiene una factura');
+    }
 
     // Extraemos el id del cliente de orden de venta
     const saleOrder = await selectCustomerIdBySaleIdModel(sale_id);
 
     // Verificamos que exista la orden de venta
     if (!saleOrder) {
-        invalidCredentials('La orden de venta no existe');}
+      invalidCredentials('La orden de venta no existe');
+    }
 
     // Verificamos que exista el cliente
     if (!saleOrder.customer_id) {
-        invalidCredentials('La orden de venta no tiene un cliente');}
-    
+      invalidCredentials('La orden de venta no tiene un cliente');
+    }
+
     // Extraemos los datos de sales Product
-    const saleProduct = await selectSaleProductByIdModel(saleOrder.saleProduct_id);
+    const saleProduct = await selectSaleProductByIdModel(
+      saleOrder.saleProduct_id
+    );
 
     // Extraemos el precio del producto
     const product = await selectProductById(saleProduct.product_id);
@@ -47,10 +54,14 @@ export const newInvoiceService = async (userId, body) => {
     const total_amount = total_price + including_tax;
 
     // Extraemos los detalles del cliente
-    const { company_name, NIF, address_id } = await selectCustomerByIdModel(saleOrder.customer_id);
+    const { company_name, NIF, address_id } = await selectCustomerByIdModel(
+      saleOrder.customer_id
+    );
 
     // Verificamos que exista la direccion
-    if (!address_id) {throw invalidCredentials('La direccion no existe');}
+    if (!address_id) {
+      throw invalidCredentials('La direccion no existe');
+    }
 
     // Obtenemos la direccion completa
     const addressComplete = await extractFullAddress(address_id);
@@ -62,14 +73,36 @@ export const newInvoiceService = async (userId, body) => {
     const expiry_date = await generateExpiryDate(due_date);
 
     // Obtenemos la referencia máxima de la tabla Invoices
-    const maxRef = await getMaxReference5Digits('Invoices', 'ref_IN') || 'IN-AA00000';
+    const maxRef =
+      (await getMaxReference5Digits('Invoices', 'ref_IN')) || 'IN-AA00000';
 
     // Generamos la nueva referencia de Invoices
     const ref = generateReference5DigitsFromRef('IN', maxRef);
 
     // Insertamos la factura en la base de datos
-    const response = await insertInvoiceModel(idInvoice, ref, userId, sale_id, saleOrder.customer_id, company_name, NIF, addressComplete, total_price, including_tax, total_amount, payment_method, expiry_date);
+    const response = await insertInvoiceModel(
+      idInvoice,
+      ref,
+      id_user,
+      sale_id,
+      saleOrder.customer_id,
+      company_name,
+      NIF,
+      addressComplete,
+      total_price,
+      including_tax,
+      total_amount,
+      payment_method,
+      expiry_date
+    );
 
     // Retornamos la respuesta
     return response;
-}
+  } catch (error) {
+    handleErrorService(
+      error,
+      'INSERT_INVOICE_SERVICE_ERROR',
+      'Error en el service al insertar la factura en la base de datos'
+    );
+  }
+};
