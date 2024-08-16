@@ -24,7 +24,7 @@ export const toggleCustomerActivationService = async (id_customer) => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'TOGGLE_ESTATUS_SERVICE_ERROR',
       'Error en el servicio al cambiar el estado de un cliente'
     );
   }

@@ -75,7 +75,7 @@ export const insertCustomerService = async (body) => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'NEW_CUSTOMER_SERVICE_ERROR',
       'Error al insertar el cliente desde el servicio'
     );
   }

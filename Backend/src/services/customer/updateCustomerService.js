@@ -51,7 +51,7 @@ export const updateCustomerService = async (customerId, body) => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'UPDATE_CUSTOMER_SERVICE_ERROR',
       'Error al actulizar el cliente desde el servicio'
     );
   }

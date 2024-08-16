@@ -18,7 +18,7 @@ export const getProductSearchController = async (req, res, next) => {
     handleErrorController(
       error,
       next,
-      'GET_USER_LIST_CONTROLLER_ERROR',
+      'GET_SEARCH_CONTROLLER_ERROR',
       'Error en el controlador al obtener la lista de productos con la busqueda'
     );
   }

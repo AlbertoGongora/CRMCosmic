@@ -9,7 +9,7 @@ export const selectProductListService = async () => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'GET_PRODUCTR_LIST_SERVICE_ERROR',
       'Error al obtener la lista de productos desde el servicio'
     );
   }

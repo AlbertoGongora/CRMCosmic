@@ -20,7 +20,7 @@ export const newProductController = async (req, res, next) => {
     handleErrorController(
       error,
       next,
-      'GET_USER_LIST_CONTROLLER_ERROR',
+      'NEW_PRODUCT_CONTROLLER_ERROR',
       'Error en el controlador de registro de producto'
     );
   }

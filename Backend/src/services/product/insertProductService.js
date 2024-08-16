@@ -28,7 +28,7 @@ export const insertProductService = async (body) => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'NEW_PRODUCT_SERVICE_ERROR',
       'Error al insertar el producto desde el servicio'
     );
   }

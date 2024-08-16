@@ -23,7 +23,7 @@ export const updateProductService = async (id_product, body) => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'UPDATE_PRODUCT_SERVICE_ERROR',
       'Error al actulizar el producto desde el servicio'
     );
   }

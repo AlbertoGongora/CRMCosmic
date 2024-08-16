@@ -20,7 +20,7 @@ export const deleteProductService = async (product_id) => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'DELETE_PRODUCT_LIST_SERVICE_ERROR',
       'Error al elimniar un producto del servicio'
     );
   }

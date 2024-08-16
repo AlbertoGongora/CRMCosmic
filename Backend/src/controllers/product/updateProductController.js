@@ -19,7 +19,7 @@ export const updateProductController = async (req, res, next) => {
   } catch (error) {
     handleErrorService(
       error,
-      'GET_USER_LIST_SERVICE_ERROR',
+      'UPDATE_PRODUCT_CONTROLLER_ERROR',
       'Error en el controlador al modificar un producto'
     );
   }

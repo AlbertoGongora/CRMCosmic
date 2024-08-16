@@ -20,7 +20,7 @@ export const newCustomerController = async (req, res, next) => {
     handleErrorController(
       error,
       next,
-      'GET_USER_LIST_CONTROLLER_ERROR',
+      'NEW_CUSTOMER_CONTROLLER_ERROR',
       'Error en el controlador de registro de cliente'
     );
   }
