@@ -1,12 +1,12 @@
 import { deleteProductModel } from '../../models/products/deleteProductModel.js';
-import { selectProductById } from '../../models/products/selectProductById.js';
+import { selectProductByIdModel } from '../../models/products/selectProductByIdModel.js';
 import { handleErrorService } from '../../utils/handleError.js';
 import { notFoundError } from '../error/errorService.js';
 
 export const deleteProductService = async (product_id) => {
   try {
     // Obtenemos el producto
-    const product = await selectProductById(product_id);
+    const product = await selectProductByIdModel(product_id);
 
     // Verificamos que exista
     if (!product) {

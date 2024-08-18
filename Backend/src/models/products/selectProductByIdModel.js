@@ -1,14 +1,14 @@
 import { getDBPool } from '../../db/getPool.js';
 import { databaseQueryError } from '../../services/error/errorDataBase.js';
 
-export const selectProductById = async (id_product) => {
+export const selectProductByIdModel = async (productId) => {
   try {
     const pool = await getDBPool();
 
     // Comprobar si existe un producto con el id proporcionado.
     const [product] = await pool.query(
       `SELECT * FROM Products WHERE id_product = ?`,
-      [id_product]
+      [productId]
     );
 
     return product[0];
