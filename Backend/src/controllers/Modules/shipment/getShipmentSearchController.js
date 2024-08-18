@@ -1,22 +1,24 @@
-import { getShipmentSearchService } from "../../../services/Modules/shipment/getShipmentSearchService.js";
+import { getShipmentSearchService } from '../../../services/Modules/shipment/getShipmentSearchService.js';
+import { handleErrorController } from '../../../utils/handleError.js';
 
 // Controlador para buscar envíos
 export const getShipmentSearchController = async (req, res, next) => {
-    try {
-        // Recibimos la cadena de búsqueda desde la consulta
-        const searchTerm = req.query.searchTerm;
+  try {
+    // Llamamos al servicio para buscar envíos
+    const response = await getShipmentSearchService(req.query.searchTerm);
 
-        // Llamamos al servicio para buscar envíos
-        const response = await getShipmentSearchService(searchTerm);
-        
-        // Devolvemos la respuesta
-        res.status(200).json({
-            status: 'ok',
-            message: 'Shipments',
-            data: response
-        });
-    } catch (error) {
-        next(error);
-    }
-}
-
+    // Devolvemos la respuesta
+    res.status(200).json({
+      status: 'ok',
+      message: 'Shipments',
+      data: response,
+    });
+  } catch (error) {
+    handleErrorController(
+      error,
+      next,
+      'GET_SHIPMENT_SEARCH_CONTROLLER_ERROR',
+      'Error en el controlador al obtener la lista de envios con la busqueda'
+    );
+  }
+};

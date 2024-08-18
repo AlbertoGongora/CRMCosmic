@@ -1,9 +1,9 @@
 import { getDBPool } from '../../../db/getPool.js';
+import { databaseQueryError } from '../../../services/error/errorDataBase.js';
 
-export const getShipmentsByDeliverer = async (delivererId) => {
-    const pool = getDBPool();
-
+export const getShipmentsByDelivererModel = async () => {
   try {
+    const pool = getDBPool();
     const query = `
       SELECT 
         Shipments.id_shipment,
@@ -59,6 +59,9 @@ export const getShipmentsByDeliverer = async (delivererId) => {
     const [results] = await pool.query(query);
     return results;
   } catch (error) {
-    throw error;
+    databaseQueryError(
+      error.message ||
+        'Error al obtener la lista de envios asosiados a los repartidores en el modelo'
+    );
   }
 };

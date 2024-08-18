@@ -1,4 +1,5 @@
 import { getPendingDeliveryNotesService } from '../../../services/Modules/shipment/getPendingDeliveryNotesService.js';
+import { handleErrorController } from '../../../utils/handleError.js';
 
 export const getPendingDeliveryNotesController = async (req, res, next) => {
   try {
@@ -8,6 +9,11 @@ export const getPendingDeliveryNotesController = async (req, res, next) => {
       data: pendingNotes,
     });
   } catch (error) {
-    next(error);
+    handleErrorController(
+      error,
+      next,
+      'GET_PENDING_DELEVERY_NOTE_CONTROLLER_ERROR',
+      'Error en el controlador al obtener los albaranes pendientes de envío'
+    );
   }
 };
