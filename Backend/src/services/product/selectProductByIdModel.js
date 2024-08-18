@@ -2,7 +2,7 @@ import { selectProductByIdModel } from '../../models/products/selectProductByIdM
 import { updateProductModel } from '../../models/products/updateProductModel.js';
 import { handleErrorService } from '../../utils/handleError.js';
 
-export const updateProductService = async (productId, body) => {
+export const updateProductService = async (body, productId) => {
   try {
     const { name, description, price, stock } = body;
 
