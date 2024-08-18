@@ -1,6 +1,7 @@
 import { feedbackShipmentSchema } from '../../../schemas/Modules/shipment/updateShipmentSchema.js';
 import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 import { feedbackShipmentService } from '../../../services/Modules/shipment/feedbackShipmentService.js';
+import { handleErrorController } from '../../../utils/handleError.js';
 
 export const shipmentFeedbackController = async (req, res, next) => {
   try {
@@ -20,7 +21,11 @@ export const shipmentFeedbackController = async (req, res, next) => {
       message: response.message,
     });
   } catch (error) {
-    console.error('Error in shipmentFeedbackController:', error); // Log para depurar
-    next(error);
+    handleErrorController(
+      error,
+      next,
+      'GET_SHIPMENT_FEEDBACK_CONTROLLER_ERROR',
+      'Error en el controlador al obtener el valoración del envío'
+    );
   }
 };

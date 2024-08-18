@@ -1,19 +1,18 @@
 import { getDBPool } from '../../../db/getPool.js';
 import { databaseQueryError } from '../../../services/error/errorDataBase.js';
 
-export const selectDeliveryNoteByIdModel = async (deliveryNote_id) => {
+export const checkFeedbackExistsModel = async (id_shipment) => {
   try {
     const pool = await getDBPool();
-
     const [rows] = await pool.query(
-      'SELECT * FROM DeliveryNotes WHERE id_note = ?',
-      [deliveryNote_id]
+      'SELECT rating_module FROM Modules WHERE shipment_id = ?',
+      [id_shipment]
     );
-    return rows[0];
+    return rows.length > 0 && rows[0].rating_module !== null;
   } catch (error) {
     databaseQueryError(
       error.message ||
-        'Error en el modelo al seleccionar el albaran de un  envio de la base de datos'
+        'Error al seleccionar la valoración del modulo desde el modelo'
     );
   }
 };

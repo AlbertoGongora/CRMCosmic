@@ -1,5 +1,6 @@
 import { updateShipmentSchema } from '../../../schemas/Modules/shipment/updateShipmentSchema.js';
 import { updateShipmentService } from '../../../services/Modules/shipment/updateShipmentService.js';
+import { handleErrorService } from '../../../utils/handleError.js';
 import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 
 export const shipmentUpdateController = async (req, res, next) => {
@@ -7,19 +8,23 @@ export const shipmentUpdateController = async (req, res, next) => {
     // Validar el body con Joi.
     await validateSchemaUtil(updateShipmentSchema, req.body);
 
-    // Obtenemos el id del envío.
-    const shipmentId = req.params.shipmentId;
-
     // Actualizamos el envío en la base de datos.
-    const shipment = await updateShipmentService(shipmentId, req.body);
+    const shipment = await updateShipmentService(
+      req.params.shipmentId,
+      req.body
+    );
 
     // Devolvemos el envío actualizado.
     res.send({
       status: 'ok',
       message: 'Envío actualizado',
-      data: shipment ,
+      data: shipment,
     });
   } catch (error) {
-    next(error);
+    handleErrorService(
+      error,
+      'UPDATE_CUSTOMER_CONTROLLER_ERROR',
+      'Error en el controlador al modificar un envio'
+    );
   }
 };

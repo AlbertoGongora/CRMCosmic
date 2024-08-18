@@ -1,20 +1,20 @@
-import { selectShipmentByrefSH } from '../../../models/Modules/shipment/selectShipmentByTrackingNumberModel.js';
-import { feedbackShipmentModel } from '../../../models/Modules/shipment/feedbackShipmentModel.js';
+import { checkFeedbackExistsSrvice } from '../../../services/Modules/shipment/checkFeedbackExistsSrvice.js';
+import { handleErrorController } from '../../../utils/handleError.js';
 
 export const checkFeedbackController = async (req, res, next) => {
   try {
-    const ref_SH = req.params.ref_SH;
-    const shipment = await selectShipmentByrefSH(ref_SH);
-
-    if (!shipment) {
-      return res.status(404).json({ error: 'Envío no encontrado' });
-    }
-
-    const feedbackExists = await feedbackShipmentModel.checkFeedbackExists(shipment.id_shipment);
+    const feedbackExists = await checkFeedbackExistsSrvice(
+      req.params.ref_SH,
+      shipment.id_shipment
+    );
 
     res.status(200).json({ feedbackExists });
   } catch (error) {
-    console.error('Error in checkFeedbackController:', error);
-    next(error);
+    handleErrorController(
+      error,
+      next,
+      'CHECK_FEEDBACK_CONTROLLER_ERROR',
+      'Error en el controlador al verificar si la valoración existe '
+    );
   }
 };
