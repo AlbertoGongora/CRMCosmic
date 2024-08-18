@@ -1,4 +1,4 @@
-import { selectProductById } from '../../models/products/selectProductById.js';
+import { selectProductByIdModel } from '../../models/products/selectProductByIdModel.js';
 import { toggleProductActiveModel } from '../../models/products/toggleProductStatusModel.js';
 import { handleErrorService } from '../../utils/handleError.js';
 import { notFoundError } from '../error/errorService.js';
@@ -6,7 +6,7 @@ import { notFoundError } from '../error/errorService.js';
 export const toggleProductActivationService = async (productId) => {
   try {
     // Comprobamos que exista el producto
-    const product = await selectProductById(productId);
+    const product = await selectProductByIdModel(productId);
 
     if (!product) {
       notFoundError('Product');
@@ -19,7 +19,7 @@ export const toggleProductActivationService = async (productId) => {
     await toggleProductActiveModel(productId, newStatus);
 
     // Obtener el producto actualizado
-    const updatedProduct = await selectProductById(productId);
+    const updatedProduct = await selectProductByIdModel(productId);
 
     // Devolver el producto actualizado
     return updatedProduct;

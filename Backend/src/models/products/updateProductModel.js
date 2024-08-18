@@ -2,7 +2,7 @@ import { getDBPool } from '../../db/getPool.js';
 import { databaseInsertError } from '../../services/error/errorDataBase.js';
 
 export const updateProductModel = async (
-  id_product,
+  productId,
   name,
   description,
   price,
@@ -29,7 +29,7 @@ export const updateProductModel = async (
     if (fieldsToUpdate.length === 0) return {};
 
     const query = `UPDATE Products SET ${fieldsToUpdate.join(', ')} WHERE id_product = ?`;
-    values.push(id_product);
+    values.push(productId);
 
     const [result] = await pool.query(query, values);
 

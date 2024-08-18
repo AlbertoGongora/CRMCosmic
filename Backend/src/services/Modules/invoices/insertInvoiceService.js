@@ -1,7 +1,7 @@
 import { selectCustomerIdBySaleIdModel } from '../../../models/Modules/invoices/selectCustomerIdBySaleIdModel.js';
 import { selectCustomerByIdModel } from '../../../models/customer/selectCustomerByIdModel.js';
 import { insertInvoiceModel } from '../../../models/Modules/invoices/insertInvoiceModel.js';
-import { selectProductById } from '../../../models/products/selectProductById.js';
+import { selectProductByIdModel } from '../../../models/products/selectProductByIdModel.js';
 import { selectSaleProductByIdModel } from '../../../models/products/selectSaleProductByIdModel.js';
 import { invalidCredentials } from '../../error/errorService.js';
 import { selectInvoiceIdBySaleIdModel } from '../../../models/Modules/invoices/selectInvoiceIdBySaleIdModel.js';
@@ -42,7 +42,7 @@ export const newInvoiceService = async (id_user, body) => {
     );
 
     // Extraemos el precio del producto
-    const product = await selectProductById(saleProduct.product_id);
+    const product = await selectProductByIdModel(saleProduct.product_id);
 
     // Calculamos el total de la venta
     const total_price = saleProduct.quantity * product.price;

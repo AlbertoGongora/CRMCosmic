@@ -1,24 +1,24 @@
-import { selectProductById } from '../../models/products/selectProductById.js';
+import { selectProductByIdModel } from '../../models/products/selectProductByIdModel.js';
 import { updateProductModel } from '../../models/products/updateProductModel.js';
 import { handleErrorService } from '../../utils/handleError.js';
 
-export const updateProductService = async (id_product, body) => {
+export const updateProductService = async (productId, body) => {
   try {
     const { name, description, price, stock } = body;
 
     // Comprobar si el producto existe.
-    const existProduct = await selectProductById(id_product);
+    const existProduct = await selectProductByIdModel(productId);
 
     // si existe, comprobar si es el mismo producto.
-    if (existProduct && existProduct.id_product !== id_product) {
+    if (existProduct && existProduct.id_product !== productId) {
       productAlreadyRegisteredError();
     }
 
     // Actualizar el producto en la base de datos.
-    await updateProductModel(id_product, name, description, price, stock);
+    await updateProductModel(productId, name, description, price, stock);
 
     // devolver el producto actualizado.
-    const product = await selectProductById(id_product);
+    const product = await selectProductByIdModel(productId);
     return product;
   } catch (error) {
     handleErrorService(
