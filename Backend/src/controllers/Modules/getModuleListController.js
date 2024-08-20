@@ -1,4 +1,5 @@
 import { moduleListDetailService } from '../../services/Modules/moduleListDetailService.js';
+import { handleErrorController } from '../../utils/handleError.js';
 
 export const getModuleListController = async (req, res, next) => {
   try {
@@ -12,6 +13,11 @@ export const getModuleListController = async (req, res, next) => {
       data: services,
     });
   } catch (error) {
-    next(error);
+    handleErrorController(
+      error,
+      next,
+      'GET_PRODUCT_LIST_CONTROLLER_ERROR',
+      'Error en el controlador al obtener la lista de modulos'
+    );
   }
 };

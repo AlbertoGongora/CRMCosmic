@@ -33,7 +33,8 @@ export const getModuleShipmentModel = async (searchTerm) => {
     }
   } catch (error) {
     databaseQueryError(
-      error.message || 'Error al obtener la lista de envios desde el modelo'
+      error.message ||
+        'Error al obtener la lista de modulos de envios desde el modelo'
     );
   }
 };
