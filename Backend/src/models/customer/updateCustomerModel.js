@@ -1,4 +1,5 @@
 import { getDBPool } from '../../db/getPool.js';
+import { databaseInsertError } from '../../services/error/errorDataBase.js';
 
 export const updateCustomerModel = async (
   customerId,
@@ -61,10 +62,7 @@ export const updateCustomerModel = async (
       const [customerResult] = await pool.query(customerQuery, customerValues);
 
       if (customerResult.affectedRows === 0) {
-        const error = new Error('No se ha podido actualizar el cliente');
-        error.httpStatus = 500;
-        error.code = 'UPDATE_CUSTOMER_ERROR';
-        throw error;
+        databaseInsertError('No se ha podido actualizar el cliente');
       }
     }
 
@@ -79,10 +77,7 @@ export const updateCustomerModel = async (
       const [addressResult] = await pool.query(addressQuery, addressValues);
 
       if (addressResult.affectedRows === 0) {
-        const error = new Error('No se ha podido actualizar la dirección');
-        error.httpStatus = 500;
-        error.code = 'UPDATE_ADDRESS_ERROR';
-        throw error;
+        databaseInsertError('No se ha podido actualizar la dirección');
       }
     }
 

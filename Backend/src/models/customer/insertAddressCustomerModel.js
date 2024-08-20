@@ -29,9 +29,7 @@ export const insertAddressCustomerModel = async (
     );
 
     if (result.affectedRows === 0) {
-      const error = new Error('No se ha podido insertar la dirección');
-      error.code = 'INSERT_ADDRESS_ERROR';
-      throw error;
+      databaseInsertError('No se ha podido insertar la dirección');
     }
   } catch (error) {
     databaseInsertError(
