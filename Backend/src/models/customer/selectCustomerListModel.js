@@ -1,4 +1,5 @@
 import { getDBPool } from '../../db/getPool.js';
+import { databaseQueryError } from '../../services/error/errorDataBase.js';
 
 export const selectCustomersListModel = async () => {
   try {

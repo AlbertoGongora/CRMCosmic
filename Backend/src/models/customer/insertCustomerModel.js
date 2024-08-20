@@ -35,9 +35,7 @@ export const insertCustomerModel = async (
 
     // Verificar si el insert afectó a alguna línea.
     if (result.affectedRows === 0) {
-      const error = new Error('No se ha podido insertar el cliente.');
-      error.code = 'INSERT_CUSTOMER_ERROR';
-      throw error;
+      databaseInsertError('No se ha podido insertar el cliente.');
     }
 
     return { message: 'Cliente insertado correctamente' };
