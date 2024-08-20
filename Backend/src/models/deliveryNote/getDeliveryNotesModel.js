@@ -1,15 +1,16 @@
-import { getDBPool } from "../../../db/getPool.js";
-import { databaseQueryError } from "../../../services/error/errorDataBase.js";
-import { notFoundError } from "../../../services/error/errorService.js";
+import { getDBPool } from "../../db/getPool.js";
+import { databaseQueryError } from "../../services/error/errorDataBase.js";
+import { notFoundError } from "../../services/error/errorService.js";
 
 
-export const selectDeliveryNotesByIdModel = async (id_note) => {
+// Define la función para seleccionar notas de entrega
+export const getDeliveryNotesModel = async () => {
   try {
     const pool = getDBPool();
 
-    // Realiza la consulta a la base de datos para obtener la nota de entrega por id_note
-    const [result] = await pool.query(
-      `SELECT 
+    // Realiza la consulta a la base de datos para obtener las notas de entrega
+    const [result] = await pool.query(`
+      SELECT 
         DeliveryNotes.id_note, 
         DeliveryNotes.sale_id,
         DeliveryNotes.ref_DN, 
@@ -48,21 +49,18 @@ export const selectDeliveryNotesByIdModel = async (id_note) => {
       LEFT JOIN
         Customers ON DeliveryNotes.customer_id = Customers.id_customer
       LEFT JOIN
-        Sales ON DeliveryNotes.sale_id = Sales.id_sale
-      WHERE
-        DeliveryNotes.id_note = ?`,
-      [id_note]
-    );
+        Sales ON DeliveryNotes.sale_id = Sales.id_sale;
+    `);
 
-    // Verifica si se encontró algún resultado
+    // Verificar si se encontraron resultados
     if (!result || result.length === 0) {
-      notFoundError('DeliveryNote');
+      notFoundError('Notas de entrega');
     }
 
-    // Devuelve el primer resultado de la consulta
-    return result[0]; 
+    // Devuelve el resultado de la consulta
+    return result;
   } catch (error) {
-    // Manejo de errores en la consulta
-    databaseQueryError(error.message || 'Error al obtener la nota de entrega por id desde el modelo');
+    // Manejo de errores con un error específico para consultas a la base de datos
+    databaseQueryError(error.message || 'Error al obtener las notas de entrega desde el modelo');
   }
 };

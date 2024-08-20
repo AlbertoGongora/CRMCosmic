@@ -1,6 +1,6 @@
-import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js'; // Modelo para insertar el albarán
+import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 import { closeDeliveryNoteSchema } from '../../../schemas/Modules/deliveryNote/closeDeliveryNoteSchema.js';
-import { inserClosedDeleveryNoteService } from '../../../services/Modules/deleveryNote/inserClosedDeleveryNoteService.js';
+import { inserClosedDeleveryNoteService } from '../../../services/Modules/deliveryNote/inserClosedDeleveryNoteService.js';
 import { success } from '../../../utils/success.js';
 
 export const closeDeliveryNoteController = async (req, res, next) => {
