@@ -12,10 +12,10 @@ export const deliveryNoteRouter = express.Router();
 
 // Ruta para obtener las notas de entrega
 deliveryNoteRouter.get('/deliveryNotes/list', authenticateUser, checkRoleDelivery, getDeliveryNotesController);
-
 // Ruta para crear albarán de reparto
 deliveryNoteRouter.post('/delivery-notes', authenticateUser, checkRoleDelivery, createDeliveryNoteController);
 
+// TODO: Corregido hasta aqui
 // Ruta para cerrar el reparto y autenticar los roles
 deliveryNoteRouter.put('/deliveryNotes/close/:deliveryNote_id', authenticateUser, checkRoleDelivery, closeDeliveryNoteController);
 

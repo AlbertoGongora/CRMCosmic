@@ -1,4 +1,4 @@
-import { selectDeliveryNoteService } from '../../../services/Modules/deleveryNote/selectDeliveryNoteService.js';
+import { selectDeliveryNoteService } from '../../../services/Modules/deliveryNote/selectDeliveryNoteService.js';
 import { success } from '../../../utils/success.js';
 
 export const deleteDeliveryNoteController = async (req, res, next) => {

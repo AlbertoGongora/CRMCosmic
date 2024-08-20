@@ -1,4 +1,4 @@
-import { getDeliveryNoteSearchService } from '../../../services/Modules/deleveryNote/getDeliveryNoteSearchService.js';
+import { getDeliveryNoteSearchService } from '../../../services/Modules/deliveryNote/getDeliveryNoteSearchService.js';
 
 export const getDeliveryNoteSearchController = async (req, res, next) => {
   try {
