@@ -21,7 +21,8 @@ export const deleteCustomerModel = async (id_customer, address_id) => {
     return { message: 'Cliente eliminado correctamente' };
   } catch (error) {
     databaseDeleteError(
-      error.message || 'Error en el modelo al eliminiar un cliente'
+      error.message || 'Error en el modelo al eliminar un cliente',
+      'Error en el modelo al eliminar un cliente'
     );
   }
 };

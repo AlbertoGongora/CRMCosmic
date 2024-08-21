@@ -11,7 +11,11 @@ export const deleteCustomerController = async (req, res, next) => {
     const response = await deleteCustomerService(id_customer);
 
     // Respondemos al cliente.
-    res.status(200).send(success(response));
+    res.status(200).send({
+      status: 'ok',
+      message: response.message,
+    }
+    );
   } catch (error) {
     // Manejo de errores
     handleErrorController(
