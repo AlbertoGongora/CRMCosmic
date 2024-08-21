@@ -1,4 +1,4 @@
-import { createDeliveryNoteService } from '../../../schemas/Modules/deliveryNote/insertDeliveryNotesServices.js';
+import { createDeliveryNoteService } from '../../../services/Modules/deliveryNote/insertDeliveryNotesServices.js';
 import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 import { createDeliveryNoteSchema } from '../../../schemas/Modules/deliveryNote/createDeliveryNoteSchema.js';
 import { success } from '../../../utils/success.js';

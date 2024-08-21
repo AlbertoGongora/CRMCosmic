@@ -1,23 +1,30 @@
 import express from 'express';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
-import { createDeliveryNoteController, closeDeliveryNoteController, deleteDeliveryNoteController, getDeliveryNotesController } from '../../controllers/modulesControllers.js';
 import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
 import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
-import { getDeliveryNoteSearchController } from '../../controllers/Modules/deliveryNote/getDeliveryNoteSearchController.js';
-import { getOpenSalesController } from '../../controllers/Modules/deliveryNote/salesDeliveryController.js';
-import { getDeliverersController } from '../../controllers/Modules/deliveryNote/getDeliverersController.js';
+import { 
+    createDeliveryNoteController, 
+    updateDeliveryNoteController, 
+    deleteDeliveryNoteController, 
+    getDeliveryNotesController, 
+    getDeliveryNoteSearchController,
+    getOpenSalesController,
+    getDeliverersController
+} from '../../controllers/modulesControllers.js';
 
 // Crea una instancia del enrutador de Express
 export const deliveryNoteRouter = express.Router();
 
-// Ruta para obtener las notas de entrega
+// TODO: Todo corregido
+
+// Ruta para obtener la lista de delivery Notes
 deliveryNoteRouter.get('/deliveryNotes/list', authenticateUser, checkRoleDelivery, getDeliveryNotesController);
-// Ruta para crear albarán de reparto
+
+// Ruta para crear un delivery Notes
 deliveryNoteRouter.post('/delivery-notes', authenticateUser, checkRoleDelivery, createDeliveryNoteController);
 
-// TODO: Corregido hasta aqui
 // Ruta para cerrar el reparto y autenticar los roles
-deliveryNoteRouter.put('/deliveryNotes/close/:deliveryNote_id', authenticateUser, checkRoleDelivery, closeDeliveryNoteController);
+deliveryNoteRouter.put('/deliveryNotes/close/:deliveryNote_id', authenticateUser, checkRoleDelivery, updateDeliveryNoteController);
 
 // Ruta para eliminar un albarán
 deliveryNoteRouter.delete('/deliveryNotes/delete/:deliveryNote_id', authenticateUser, adminAuthMiddleware, deleteDeliveryNoteController);

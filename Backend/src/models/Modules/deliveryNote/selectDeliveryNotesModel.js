@@ -1,4 +1,4 @@
-import { getDBPool } from '../../db/getPool.js';
+import { getDBPool } from '../../../db/getPool.js';
 
 // Define la función para seleccionar notas de entrega
 export const selectDeliveryNotesModel = async () => {

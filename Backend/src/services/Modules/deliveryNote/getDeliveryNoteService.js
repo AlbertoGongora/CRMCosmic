@@ -1,4 +1,4 @@
-import { getDeliveryNotesModel } from "../../../models/deliveryNote/getDeliveryNotesModel.js";
+import { getDeliveryNotesModel } from "../../../models/Modules/deliveryNote/getDeliveryNotesModel.js";
 import { handleErrorService } from "../../../utils/handleError.js"
 
 export const getDeliveryNoteService = async (id) => {

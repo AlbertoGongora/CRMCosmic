@@ -1,4 +1,6 @@
 import express from 'express';
+import { authenticateUser } from '../../middlewares/authenticateUser.js';
+import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
 import {
   closeSalesController,
   deleteSalesController,
@@ -7,12 +9,10 @@ import {
   insertSalesController,
   updateSalesController,
 } from '../../controllers/modulesControllers.js';
-import { authenticateUser } from '../../middlewares/authenticateUser.js';
-import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
 
 export const salesRouter = express.Router();
 
-// TODO - Esta todo corregido.
+// TODO - Todo corregido.
 
 // Crear venta
 salesRouter.post('/sales/create', authenticateUser, checkRoleAgent, insertSalesController);
@@ -22,6 +22,7 @@ salesRouter.get('/sales/search', authenticateUser, checkRoleAgent, getSalesSearc
 
 // Modificar venta
 salesRouter.put('/sales/update/:id_sale', authenticateUser, checkRoleAgent, updateSalesController);
+
 // Cerrar vemta
 salesRouter.put('/sales/updateStatus', authenticateUser, checkRoleAgent, closeSalesController);
 
