@@ -7,7 +7,7 @@ import { generateReference5DigitsFromRef } from '../../../utils/generateReferenc
 import { getMaxReference5Digits } from '../../../models/getMaxReference.js';
 import { handleErrorService } from '../../../utils/handleError.js';
 
-export const insertNewVisitService = async (user_id, body) => {
+export const insertNewVisitService = async (id_user, body) => {
   try {
     // Obtenemos del body el cliente ha quien vamos a visitar y la fecha de la visita.
     const { id_customer, visit_date, observations } = body;
@@ -46,7 +46,7 @@ export const insertNewVisitService = async (user_id, body) => {
     await insertVisitModel(
       visitId,
       ref,
-      user_id,
+      id_user,
       id_customer,
       visit_date,
       observations
@@ -65,13 +65,13 @@ export const insertNewVisitService = async (user_id, body) => {
     await insertModuleVisitsModel(
       moduleId,
       refModule,
-      user_id,
+      id_user,
       service_type,
       visitId
     );
 
     // Retornamos el cliente y la direccion.
-    return { customer, address };
+    return { customer, address, visit_date };
   } catch (error) {
     handleErrorService(
       error,

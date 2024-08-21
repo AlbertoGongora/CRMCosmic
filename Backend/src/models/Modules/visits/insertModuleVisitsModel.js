@@ -3,7 +3,7 @@ import { getDBPool } from '../../../db/getPool.js';
 export const insertModuleVisitsModel = async (
   moduleId,
   refModule,
-  user_id,
+  id_user,
   service_type,
   visitId
 ) => {
@@ -21,7 +21,7 @@ export const insertModuleVisitsModel = async (
     };
     addToUpdate('id_module', moduleId);
     addToUpdate('ref_MD', refModule);
-    addToUpdate('agentUser_id', user_id);
+    addToUpdate('agentUser_id', id_user);
     addToUpdate('service_type', service_type);
     addToUpdate('visit_id', visitId);
 

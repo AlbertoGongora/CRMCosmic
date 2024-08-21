@@ -6,14 +6,11 @@ import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 
 export const newVisitController = async (req, res, next) => {
   try {
-    //obtenemos el id_user del token
-    const user_id = req.user.id_user;
-
     // Validamos el body
     await validateSchemaUtil(newVisitSchema, req.body);
 
-    const { customer, Address } = await insertNewVisitService(
-      user_id,
+    const { customer, Address, visit_date } = await insertNewVisitService(
+      req.user.id_user,
       req.body
     );
 
