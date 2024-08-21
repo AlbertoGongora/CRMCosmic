@@ -28,18 +28,9 @@ Con una interfaz de usuario moderna y fácil de usar, el CRM permite la gestión
 - Sweetalert2: Para alertas para el usuario.
 - Recharts: Para graficas en el dashboard.
 
-## Proyecto iniciado por:
-
-- **Daniel Montero** 
-- **Alberto Gongora** 
-- **Ivan Jimenez** 
-- **Daniel Veiga** 
-- **Juan Carlos Varela**  
-- **Juanma BS** 
-
 ## Equipo actual de CRM_COSMIC
 
-- **Daniel Montero**  [https://github.com/Pibe0010](GitHub)
-- **Alberto Gongora** [https://github.com/AlbertoGongora](GitHub)
+- **Daniel Montero (Backend)**  [https://github.com/Pibe0010](GitHub)
+- **Alberto Gongora (Frontend)** [https://github.com/AlbertoGongora](GitHub)
 
 
