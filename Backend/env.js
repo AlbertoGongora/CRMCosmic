@@ -22,5 +22,7 @@ export const {
   ADMIN_PHONE,
   ADMIN_PASSWORD,
   ADMIN_ROLE,
-  ADMIN_ACTIVE
+  ADMIN_ACTIVE,
+
+  NODE_ENV
 } = process.env;

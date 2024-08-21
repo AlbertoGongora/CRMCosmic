@@ -12,7 +12,10 @@ export const deleteUserModel = async (id_user) => {
             databaseDeleteError();
         }
     } catch (error) {
-        databaseDeleteError(error.message || 'Error en el modelo al eliminiar un usuario');
+        databaseDeleteError(
+            error.message || 'Error en el modelo al eliminiar un usuario',
+            'Error en el modelo al eliminiar un usuario'
+        );
     }
 
 }
