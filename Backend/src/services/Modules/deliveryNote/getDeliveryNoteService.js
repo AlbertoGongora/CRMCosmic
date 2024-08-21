@@ -1,7 +1,7 @@
 import { getDeliveryNotesModel } from "../../../models/Modules/deliveryNote/getDeliveryNotesModel.js";
 import { handleErrorService } from "../../../utils/handleError.js"
 
-export const getDeliveryNoteService = async (id) => {
+export const getDeliveryNoteService = async () => {
     try {
         // Obtiene las notas de entrega utilizando la función del modelo
         const result = await getDeliveryNotesModel();

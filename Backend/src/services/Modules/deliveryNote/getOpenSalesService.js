@@ -1,11 +1,12 @@
 import { getPendingSalesModel } from "../../../models/Modules/deliveryNote/getPendingSalesModel.js";
 import { handleErrorService } from "../../../utils/handleError.js";
 
-
 export const getOpenSalesService = async () => {
     try {
+        // Obtenemos la lista de ventas abiertas
         const response = await getPendingSalesModel();
 
+        // Retornamos la lista de ventas
         return response;
     } catch (error) {
         handleErrorService(

@@ -33,7 +33,7 @@ deliveryNoteRouter.delete('/deliveryNotes/delete/:deliveryNote_id', authenticate
 deliveryNoteRouter.get('/deliveryNotes/search', authenticateUser, adminAuthMiddleware, getDeliveryNoteSearchController);
 
 // Ruta de extracción de estados de la tabla Sales
-deliveryNoteRouter.get('/deliveryNotes/open-sales', getOpenSalesController);
+deliveryNoteRouter.get('/deliveryNotes/open-sales', authenticateUser, getOpenSalesController);
 
 // Ruta para obtener los usuarios con el rol 'deliverer'
-deliveryNoteRouter.get('/deliveryNotes/deliverers', getDeliverersController);
+deliveryNoteRouter.get('/deliveryNotes/deliverers', authenticateUser, getDeliverersController);

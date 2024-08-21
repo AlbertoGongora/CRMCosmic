@@ -4,7 +4,7 @@ import { notFoundError } from "../../../services/error/errorService.js";
 
 export const selectDeliveryNoteSearchModel = async (search) => {
     try {
-        const pool = getDBPool();
+        const pool = await getDBPool();
 
         const [rows] = await pool.query(
             `SELECT 

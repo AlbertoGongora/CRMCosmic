@@ -1,11 +1,9 @@
 import { getDBPool } from "../../../db/getPool.js";
 import { databaseQueryError } from "../../../services/error/errorDataBase.js";
-import { notFoundError } from "../../../services/error/errorService.js";
-
 
 export const selectDeliveryNotesByIdModel = async (id_note) => {
   try {
-    const pool = getDBPool();
+    const pool = await getDBPool();
 
     // Realiza la consulta a la base de datos para obtener la nota de entrega por id_note
     const [result] = await pool.query(
@@ -53,11 +51,6 @@ export const selectDeliveryNotesByIdModel = async (id_note) => {
         DeliveryNotes.id_note = ?`,
       [id_note]
     );
-
-    // Verifica si se encontró algún resultado
-    if (!result || result.length === 0) {
-      notFoundError('DeliveryNote');
-    }
 
     // Devuelve el primer resultado de la consulta
     return result[0]; 
