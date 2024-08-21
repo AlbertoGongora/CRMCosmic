@@ -1,10 +1,9 @@
 import { getDBPool } from "../../../db/getPool.js";
 import { databaseQueryError } from "../../../services/error/errorDataBase.js";
 
-
 export const getPendingSalesModel = async () => {
   try {
-    const pool = getDBPool();
+    const pool = await getDBPool();
     const query = `
       SELECT 
         s.id_sale,
@@ -19,11 +18,6 @@ export const getPendingSalesModel = async () => {
       WHERE s.operation_status = 'open'
     `;
     const [rows] = await pool.query(query);
-
-    // Verificación de resultados
-    if (!rows || rows.length === 0) {
-      notFoundError('Pending Sales');
-    }
 
     return rows;
   } catch (error) {
