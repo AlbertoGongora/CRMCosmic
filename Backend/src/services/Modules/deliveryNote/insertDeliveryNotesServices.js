@@ -1,13 +1,12 @@
-import { insertDeliveryNoteModel } from '../../../models/deliveryNote/insertDeliveryNoteModel.js';
+import { insertDeliveryNoteModel } from '../../../models/Modules/deliveryNote/insertDeliveryNoteModel.js';
 import { generateReference5DigitsFromRef } from '../../../utils/generateReference5Digits.js';
 import { getMaxReference5Digits } from '../../../models/getMaxReference.js';
 import { updateSalesStatusOfNoteModel } from '../../../models/Modules/deliveryNote/updateSalesStatusOfNoteModel.js';
 import { selectSalesByIdModel } from '../../../models/Modules/deliveryNote/selectSalesByIdModel.js';
 import { selectCustomerByIdModel } from '../../../models/customer/selectCustomerByIdModel.js';
 import { selectDeliveryNotesByIdModel } from '../../../models/Modules/deliveryNote/selectNotesByIdModel.js';
-import { insertIdNoteInModulesByIdSaleModel } from '../../../models/Modules/deliveryNote/insertIdNoteInModulesByIdSale.js';
 import { handleErrorService } from '../../../utils/handleError.js';
-import { notFoundError } from '../../../services/error/errorService.js';
+import { notFoundError } from '../../error/errorService.js';
 
 export const createDeliveryNoteService = async (body) => {
   try {

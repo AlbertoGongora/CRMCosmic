@@ -1,6 +1,7 @@
 import express from 'express';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
 import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
+import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
 import {
   newVisitController,
   getUserVisitsController,
@@ -11,9 +12,10 @@ import {
   getVisitSearchController,
   getVisitSaleAgetsController,
 } from '../../controllers/modulesControllers.js';
-import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
 
 export const visitsRouter = express.Router();
+
+// TODO - Todo corregido.
 
 // Crear una nueva visita
 visitsRouter.post('/visits/new', authenticateUser, checkRoleAgent, newVisitController);
@@ -38,4 +40,3 @@ visitsRouter.put('/visits/feedback/:ref_VT', feedbackVisitController);
 
 // Obtengo los usuarios con el rol de comercial
 visitsRouter.get('/visits/salesAgents', getVisitSaleAgetsController);
-// TODO - Corregido hasta aqui.

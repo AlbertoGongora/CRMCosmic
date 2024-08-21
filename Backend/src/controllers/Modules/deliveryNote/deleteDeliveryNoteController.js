@@ -1,17 +1,20 @@
 import { selectDeliveryNoteService } from '../../../services/Modules/deliveryNote/selectDeliveryNoteService.js';
+import { handleErrorController } from '../../../utils/handleError.js';
 import { success } from '../../../utils/success.js';
 
 export const deleteDeliveryNoteController = async (req, res, next) => {
   try {
-    // Obtener el id del albarán de la URL.
-    const id_note = req.params.deliveryNote_id;
-
-    // Verifico si está cancelado
-    const deleteDeliveryNote = await selectDeliveryNoteService(id_note);
+    // Eliminamos el albarán de la base de datos.
+    await selectDeliveryNoteService(req.params.deliveryNote_id);
 
     // Respondemos al albarán.
-    res.status(200).send(success(deleteDeliveryNote));
+    res.status(200).send(success({ message: 'Nota de entrega eliminada correctamente' }));
   } catch (error) {
-    next(error);
+    handleErrorController(
+      error,
+      next,
+      'DELETE_DELIVERY_NOTE_CONTROLLER_ERROR',
+      'Error en el controlador al eliminar una nota de entrega'
+    )
   }
 };

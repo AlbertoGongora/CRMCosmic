@@ -1,6 +1,6 @@
-import { getDBPool } from "../../db/getPool.js";
-import { databaseQueryError } from "../../services/error/errorDataBase.js";
-import { notFoundError } from "../../services/error/errorService.js";
+import { getDBPool } from "../../../db/getPool.js";
+import { databaseQueryError } from "../../../services/error/errorDataBase.js";
+import { notFoundError } from "../../../services/error/errorService.js";
 
 
 // Define la función para seleccionar notas de entrega

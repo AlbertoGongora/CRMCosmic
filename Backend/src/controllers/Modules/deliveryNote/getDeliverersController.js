@@ -1,11 +1,19 @@
-import { getDeliverers } from '../../../utils/getDeliverers.js';
+import { handleErrorController } from '../../../utils/handleError.js';
 import { success } from '../../../utils/success.js';
 
 export const getDeliverersController = async (req, res, next) => {
   try {
-    const deliverers = await getDeliverers();
-    res.json(success({ data: deliverers }));
+    // Llamamos al servicio
+    const response = await getDeliverersService();
+
+    // Devolvemos la respuesta
+    res.json(success({ data: response }));
   } catch (error) {
-    next(error);
+    handleErrorController(
+      error,
+      next,
+      'GET_DELIVERERS_CONTROLLER_ERROR',
+      'Error en el controlador para obtener los repartidores'
+    )
   }
 };

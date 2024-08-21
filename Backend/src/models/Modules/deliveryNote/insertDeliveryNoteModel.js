@@ -1,6 +1,6 @@
-import { getDBPool } from '../../db/getPool.js';
-import { databaseInsertError, databaseQueryError } from '../../services/error/errorDataBase.js';
-import { notFoundError } from '../../services/error/errorService.js';
+import { getDBPool } from '../../../db/getPool.js';
+import { databaseInsertError, databaseQueryError } from '../../../services/error/errorDataBase.js';
+import { notFoundError } from '../../../services/error/errorService.js';
 
 export const insertDeliveryNoteModel = async (
   id_note,
