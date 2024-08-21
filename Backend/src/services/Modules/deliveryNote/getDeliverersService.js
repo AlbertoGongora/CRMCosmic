@@ -1,7 +1,7 @@
 import { getDeliverersModel } from "../../../models/Modules/deliveryNote/getDeliverersModel.js";
 import { handleErrorService } from "../../../utils/handleError.js";
 
-export const getOpenSalesService = async () => {
+export const getDeliverersService = async () => {
     try {
         // Obtenemos la lista de repartidores
         const response = await getDeliverersModel();
