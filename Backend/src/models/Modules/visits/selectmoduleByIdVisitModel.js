@@ -1,12 +1,12 @@
 import { getDBPool } from '../../../db/getPool.js';
 import { databaseQueryError } from '../../../services/error/errorDataBase.js';
 
-export const selectmoduleByIdVisitModel = async (id_visit) => {
+export const selectmoduleByIdVisitModel = async (visitId) => {
   try {
     const pool = await getDBPool();
     const [rows] = await pool.query(
       'SELECT * FROM Modules WHERE visit_id = ?',
-      [id_visit]
+      [visitId]
     );
     console.log(rows);
     return rows[0];

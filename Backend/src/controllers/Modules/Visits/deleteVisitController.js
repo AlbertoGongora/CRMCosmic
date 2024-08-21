@@ -3,9 +3,7 @@ import { selectVisitService } from '../../../services/Modules/visits/selectVisit
 
 export const deleteVisitController = async (req, res, next) => {
   try {
-    const id_visit = req.params.visitId;
-
-    await selectVisitService(id_visit);
+    await selectVisitService(req.params.visitId);
 
     res.status(200).json({
       status: 'ok',
