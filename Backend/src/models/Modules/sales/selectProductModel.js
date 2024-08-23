@@ -2,13 +2,13 @@ import { getDBPool } from '../../../db/getPool.js';
 import { notFoundError } from '../../../services/error/errorService.js';
 import { databaseQueryError } from '../../../services/error/errorDataBase.js';
 
-export const selectProductModel = async (product_id) => {
+export const selectProductModel = async (product) => {
   try {
     const pool = getDBPool();
 
     const [result] = await pool.query(
       `SELECT * FROM Products WHERE id_product = ?`,
-      [product_id]
+      [product]
     );
 
     // Verificar si se encontró el producto
@@ -18,6 +18,8 @@ export const selectProductModel = async (product_id) => {
 
     return result[0];
   } catch (error) {
-    databaseQueryError(error.message || 'Error al consultar el producto en la base de datos');
+    databaseQueryError(
+      error.message || 'Error al consultar el producto en la base de datos'
+    );
   }
 };
