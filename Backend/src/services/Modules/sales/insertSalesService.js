@@ -1,4 +1,3 @@
-import { insertSaleProductModel } from '../../../models/Modules/sales/insertSaleProductModel.js';
 import { selectCustomerByIdModel } from '../../../models/Modules/sales/selectCustomerByIdModel.js';
 import { selectProductByIdModel } from '../../../models/Modules/sales/selectProductByIdModel.js';
 import { insertModuleSalesModel } from '../../../models/Modules/sales/insertModuleSalesModel.js';
@@ -11,25 +10,25 @@ import { selectCustomerModel } from '../../../models/Modules/sales/selectCustome
 import { selectProductModel } from '../../../models/Modules/sales/selectProductModel.js';
 import { selectQuantityModel } from '../../../models/Modules/sales/selectQuantityModel.js';
 import { controlStockProductModel } from '../../../models/products/controlStockProductModel.js';
+import { insertSaleProductModel } from '../../../models/products/insertSaleProductModel.js';
+import { insertSaleModel } from '../../../models/Modules/sales/insertSaleModel.js';
 
-export const insertSalesService = async (
-  body,
-  id_user
-) => {
+export const insertSalesService = async (body, id_user) => {
   try {
     // Desestructuro el body
-    const { product, quantity, customerId } = body;
+    const { product, quantity, customer } = body;
 
     // Busco el producto
-    const seachSaleProduct = await selectProductModel(product);
+    const searchSaleProduct = await selectProductModel(product);
 
     // Busco el cliente
-    const seachCustomer = await selectCustomerModel(customerId);
+    const searchCustomer = await selectCustomerModel(customer);
 
-    const id_customer = seachCustomer.id_customer;
+    const id_customer = searchCustomer.id_customer;
+
     //compruebo la cantidad del producto y si hay stock
     const checkQuantity = await controlStockProductModel(
-      seachSaleProduct.id_product
+      searchSaleProduct.id_product
     );
 
     const stock = JSON.parse(JSON.stringify(checkQuantity));
@@ -44,18 +43,18 @@ export const insertSalesService = async (
     // Insarto el producto en saleProduct
     await insertSaleProductModel(
       saleProduct_id,
-      seachSaleProduct.id_product,
+      searchSaleProduct.id_product,
       quantity,
-      seachSaleProduct.description
+      searchSaleProduct.description
     );
 
-    // Obtengo el producto ha lla venta y la cantidad
+    // Obtengo el producto ha la venta y la cantidad
     const seachQuantity = await selectQuantityModel(
       quantity,
-      seachSaleProduct.id_product
+      searchSaleProduct.id_product
     );
 
-    const id_saleProduct = seachQuantity.saleProduct_id;
+    const id_saleProduct = seachQuantity.id_saleProduct;
 
     // Compluebo si  existen con ese id
     const user = await selectUserByIdModel(id_user);
@@ -70,9 +69,9 @@ export const insertSalesService = async (
       notFoundError('Product');
     }
 
-    const customer = await selectCustomerByIdModel(id_customer);
+    const customerId = await selectCustomerByIdModel(id_customer);
 
-    if (customer.id_customer !== id_customer) {
+    if (customerId.id_customer !== id_customer) {
       notFoundError('customer');
     }
 
@@ -87,7 +86,7 @@ export const insertSalesService = async (
     const ref = generateReference5DigitsFromRef('SL', maxRef);
 
     // Insertamos la venta de producto en la base de datos
-    const response = await insertSaleProductModel(
+    const response = await insertSaleModel(
       id_sale,
       ref,
       id_user,
@@ -98,7 +97,8 @@ export const insertSalesService = async (
     // Creamos un id para el modulo
     const moduleId = crypto.randomUUID();
     // Obtenemos la referencia máxima de la tabla Modules
-    const maxRefModule = await getMaxReference5Digits('Modules', 'ref_MD') || 'MD-AA00000';
+    const maxRefModule =
+      (await getMaxReference5Digits('Modules', 'ref_MD')) || 'MD-AA00000';
 
     // Generamos la nueva referencia de Modules
     const refModule = generateReference5DigitsFromRef('MD', maxRefModule);
@@ -106,7 +106,13 @@ export const insertSalesService = async (
     const service_type = 'sale';
 
     // Insertamos el modulo en la base de datos.
-    await insertModuleSalesModel(moduleId, refModule, id_user, service_type, id_sale)
+    await insertModuleSalesModel(
+      moduleId,
+      refModule,
+      id_user,
+      service_type,
+      id_sale
+    );
 
     return response;
   } catch (error) {
@@ -114,6 +120,6 @@ export const insertSalesService = async (
       error,
       'INSERT_SALES_SERVICE_ERROR',
       'Error al insertar la venta de producto en la base de datos'
-    )
+    );
   }
 };

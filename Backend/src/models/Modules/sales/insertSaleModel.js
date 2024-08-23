@@ -1,7 +1,7 @@
 import { getDBPool } from '../../../db/getPool.js';
 import { databaseInsertError } from '../../../services/error/errorDataBase.js';
 
-export const insertSaleProductModel = async (
+export const insertSaleModel = async (
   id_sale,
   ref,
   id_user,
@@ -29,7 +29,7 @@ export const insertSaleProductModel = async (
 
     if (fieldsToUpdate.length === 0) return {}; // No hay campos para actualizar, salir
 
-    const query = `INSERT INTO Sales (${fieldsToUpdate.join(', ')}) VALUES (?,?,?,?,?)`;
+    const query = `INSERT INTO Sales SET ${fieldsToUpdate.join(', ')} `;
     const [result] = await pool.query(query, values);
 
     if (result.affectedRows === 0) {
@@ -38,6 +38,8 @@ export const insertSaleProductModel = async (
 
     return { message: 'Venta creada correctamente' };
   } catch (error) {
-    databaseInsertError(error.message || 'Error al insertar la venta en la base de datos.');
+    databaseInsertError(
+      error.message || 'Error al insertar la venta en la base de datos.'
+    );
   }
 };
