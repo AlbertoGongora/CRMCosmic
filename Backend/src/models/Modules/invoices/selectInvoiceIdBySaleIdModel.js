@@ -1,22 +1,16 @@
 import { getDBPool } from '../../../db/getPool.js';
-import { notFoundError } from '../../../services/error/errorService.js';
 import { databaseQueryError } from '../../../services/error/errorDataBase.js';
 
-export const selectInvoiceIdBySaleIdModel = async (saleId) => {
+export const selectInvoiceIdBySaleIdModel = async (sale_id) => {
   try {
     const pool = await getDBPool();
-    const query = `SELECT id_invoice FROM Invoices WHERE sale_id = ?`;
-    const [rows] = await pool.query(query, [saleId]);
 
-    // Verificar si se encontró la factura
-    if (!rows || rows.length === 0) {
-      notFoundError('Factura no encontrada');
-    }
+    const query = `SELECT id_invoice FROM Invoices WHERE sale_id = ?`;
+
+    const [rows] = await pool.query(query, [sale_id]);
 
     return rows[0];
   } catch (error) {
-    databaseQueryError(
-      'Error en el modelo al obtener el ID de la factura por ID de la venta'
-    );
+    databaseQueryError('Error en el modelo al obtener el ID de la factura ');
   }
 };

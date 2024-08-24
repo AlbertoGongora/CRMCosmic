@@ -3,7 +3,9 @@ import { selectCustomerByIdModel } from '../../../models/customer/selectCustomer
 import { insertInvoiceModel } from '../../../models/Modules/invoices/insertInvoiceModel.js';
 import { selectProductByIdModel } from '../../../models/products/selectProductByIdModel.js';
 import { selectSaleProductByIdModel } from '../../../models/products/selectSaleProductByIdModel.js';
-import { invalidCredentials } from '../../error/errorService.js';
+import {
+  invalidCredentials /* notFoundError  */,
+} from '../../error/errorService.js';
 import { selectInvoiceIdBySaleIdModel } from '../../../models/Modules/invoices/selectInvoiceIdBySaleIdModel.js';
 import { extractFullAddress } from '../../../utils/extractFullAddress.js';
 import { generateExpiryDate } from '../../../utils/generateExpiryDate.js';
@@ -70,7 +72,7 @@ export const newInvoiceService = async (id_user, body) => {
     const idInvoice = crypto.randomUUID();
 
     // Obtenemos la fecha de expiración
-    const expiry_date = await generateExpiryDate(due_date);
+    const expiry_date = generateExpiryDate(due_date);
 
     // Obtenemos la referencia máxima de la tabla Invoices
     const maxRef =
