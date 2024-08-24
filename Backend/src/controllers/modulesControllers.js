@@ -47,6 +47,7 @@ import { getOpenSalesController } from './Modules/deliveryNote/salesDeliveryCont
 import { getDeliverersController } from './Modules/deliveryNote/getDeliverersController.js';
 
 // Imports envios
+import { getShipmentListController } from './Modules/shipment/getShipmentListController.js';
 import { shipmentCreateController } from './Modules/shipment/shipmentCreateController.js';
 import { shipmentUpdateController } from './Modules/shipment/shipmentUpdateController.js';
 import { deleteShipmentController } from './Modules/shipment/deleteShipmentController.js';
@@ -105,6 +106,7 @@ export {
   getOpenSalesController,
   getDeliverersController,
   
+  getShipmentListController,
   shipmentCreateController,
   shipmentUpdateController,
   shipmentRouteController,

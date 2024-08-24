@@ -8,12 +8,12 @@ import {
   deleteShipmentController,
   shipmentCreateController,
   shipmentUpdateController,
-  shipmentRouteController,
   getShipmentSearchController,
   getPendingDeliveryNotesController,
   shipmentByDelivererController,
   shipmentFeedbackController,
   checkFeedbackController,
+  getShipmentListController,
 } from '../../controllers/modulesControllers.js';
 
 export const shipmentRouter = express.Router();
@@ -33,7 +33,7 @@ shipmentRouter.delete('/shipment/delete/:shipmentId', authenticateUser, adminAut
 shipmentRouter.put('/shipment/closed/:shipmentId', authenticateUser, shipmentExist, closeShipmentStatusController);
 
 // Ruta para obtener la hoja de ruta de los repartidores
-shipmentRouter.get('/shipment/list', authenticateUser, checkRoleDelivery, shipmentRouteController);
+shipmentRouter.get('/shipment/list', authenticateUser, checkRoleDelivery, getShipmentListController);
 
 // Ruta para buscar envíos por término de búsqueda
 shipmentRouter.get('/shipment/search', authenticateUser, adminAuthMiddleware, getShipmentSearchController);

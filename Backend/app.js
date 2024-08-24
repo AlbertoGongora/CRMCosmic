@@ -33,7 +33,6 @@ app.use(cors({
   credentials: true
 }));
 
-
 // Middleware Recursos Estaticos
 app.use('/uploads', express.static('./uploads'));
 

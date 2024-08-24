@@ -14,7 +14,7 @@ export const shipmentCreateController = async (req, res, next) => {
     // Enviar respuesta exitosa
     res.status(200).send({
       status: 'ok',
-      message: result.message,
+      message:'Envío creado correctamente',
       data: result,
     });
   } catch (error) {

@@ -1,9 +1,8 @@
-import { getDBPool } from '../../db/getPool.js';
+import { getDBPool } from '../../../db/getPool.js';
+import { databaseQueryError } from '../../../services/error/errorDataBase.js';
 
-//! Verificar si viene de otra importacion
-
-export const getModuleShipmentModel = async () => {
-  const pool = getDBPool();
+export const getShipmentListModel = async () => {
+  const pool = await getDBPool();
 
   try {
     const result = await pool.query(
@@ -62,6 +61,6 @@ export const getModuleShipmentModel = async () => {
 
     return result[0];
   } catch (error) {
-    throw error;
+    databaseQueryError( error.message || 'Error al obtener la lista de envios');
   }
 };

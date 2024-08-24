@@ -10,7 +10,7 @@ export const insertShipmentModel = async ({
   additional_notes,
 }) => {
   try {
-    const pool = getDBPool();
+    const pool = await getDBPool();
 
     const [result] = await pool.query(
       'INSERT INTO Shipments (id_shipment, ref_SH, customer_id, address_id, deliveryNote_id, additional_notes) VALUES (?, ?, ?, ?, ?, ?)',
