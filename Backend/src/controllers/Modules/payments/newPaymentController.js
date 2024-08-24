@@ -1,24 +1,27 @@
-import { validateSchemaUtil } from "../../../utils/validateSchemaUtil.js";
-import { newPaymentSchema } from "../../../schemas/Modules/payments/newPaymentSchema.js";
-import { newPaymentService } from "../../../services/Modules/payments/insertPaymentService.js";
-
+import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
+import { newPaymentSchema } from '../../../schemas/Modules/payments/newPaymentSchema.js';
+import { newPaymentService } from '../../../services/Modules/payments/insertPaymentService.js';
+import { handleErrorController } from '../../../utils/handleError.js';
 
 export const newPaymentController = async (req, res, next) => {
-    try { 
-        // Validar el body
-        await validateSchemaUtil(newPaymentSchema, req.body)
+  try {
+    // Validar el body
+    await validateSchemaUtil(newPaymentSchema, req.body);
 
-        // Insertar en BBDD
-        const data = await newPaymentService(req.body)
-        console.log(data);
+    // Insertar el pago en la BD
+    await newPaymentService(req.body);
 
-        // Enviar Respuesta
-        res.send({
-            status: 'ok',
-            message: 'Pago creado correctamente',
-            data
-        })
-    } catch (error) {
-        next(error)
-    }
+    // Enviar Respuesta
+    res.status(201).send({
+      status: 'ok',
+      message: 'Pago creado correctamente',
+    });
+  } catch (error) {
+    handleErrorController(
+      error,
+      next,
+      'INSERT_PAYMENT_CONTROLLER_ERROR',
+      'Error en el controlador al insertar el pago'
+    );
+  }
 };

@@ -1,11 +1,13 @@
-import { getDBPool } from "../../../db/getPool.js";
+import { getDBPool } from '../../../db/getPool.js';
+import { databaseQueryError } from '../../../services/error/errorDataBase.js';
 
 export const selectPaymentSearchModel = async (search) => {
+  try {
     const pool = getDBPool();
 
- // Si searchTerm está definido, aplica el filtro de búsqueda
-
- const [rows] = await pool.query(`
+    // Si searchTerm está definido, aplica el filtro de búsqueda
+    const [rows] = await pool.query(
+      `
  SELECT 
  Payments.id_payment,
  Payments.ref_PM,
@@ -25,16 +27,29 @@ FROM Payments
 LEFT JOIN Invoices ON Payments.invoice_id = Invoices.id_invoice
 LEFT JOIN Sales ON Invoices.sale_id = Sales.id_sale
 LEFT JOIN Customers ON Invoices.customer_id = Customers.id_customer
- 
  WHERE Customers.company_name LIKE? 
  OR Customers.email LIKE? 
  OR Invoices.id_invoice LIKE? 
  OR Invoices.total_amount LIKE? 
  OR Payments.ref_PM LIKE?
  OR Invoices.ref_IN LIKE?
- OR Sales.ref_SL LIKE?
-`,[`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`  ] );
+ OR Sales.ref_SL LIKE?`,
+      [
+        `%${search}%`,
+        `%${search}%`,
+        `%${search}%`,
+        `%${search}%`,
+        `%${search}%`,
+        `%${search}%`,
+        `%${search}%`,
+      ]
+    );
 
-  console.log(`Resultados encontrados: ${rows.length}`);
-  return rows;
-}
+    console.log(`Resultados encontrados: ${rows.length}`);
+    return rows;
+  } catch (error) {
+    databaseQueryError(
+      'Error en el modelo en la base de datos al buscar los pagos'
+    );
+  }
+};
