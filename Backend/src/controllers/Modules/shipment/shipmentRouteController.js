@@ -1,6 +1,8 @@
 import { getModuleShipmentService } from '../../../services/Modules/shipment/getModuleShipmentService.js';
 import { handleErrorController } from '../../../utils/handleError.js';
 
+//! Verificar si se usa en otros puntos
+
 export const shipmentRouteController = async (req, res, next) => {
   try {
     const response = await getModuleShipmentService();

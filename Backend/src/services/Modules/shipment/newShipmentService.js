@@ -7,12 +7,12 @@ import { generateReference5DigitsFromRef } from '../../../utils/generateReferenc
 import { updateStatusModel } from '../../../models/updateStatusModel.js';
 import { insertIdShipmentInModulesByIdNoteModel } from '../../../models/Modules/shipment/insertIdNoteInModulesByIdNoteModel.js';
 import { handleErrorService } from '../../../utils/handleError.js';
-import { getShipmentDataModel } from '../../../models/Modules/shipment/getShipmentDataModel.js';
+import { selectShipmentDataModel } from '../../../models/Modules/shipment/selectShipmentDataModel.js';
 
 export const newShipmentService = async (body) => {
   try {
     const { deliveryNote_id, additional_notes } = body;
-
+  
     // Verificar si la nota de entrega existe y obtener los datos necesarios
     const deliveryNote = await selectDeliveryNoteByIdModel(deliveryNote_id);
 
@@ -49,11 +49,11 @@ export const newShipmentService = async (body) => {
       'delivering',
       deliveryNote_id
     );
-
-    const result = await getShipmentDataModel(shipmentId);
-
+    
     // insertar id del envio a la tabla de Modules
     await insertIdShipmentInModulesByIdNoteModel(deliveryNote_id, shipmentId);
+
+    const result = await selectShipmentDataModel(shipmentId);
 
     return result;
   } catch (error) {

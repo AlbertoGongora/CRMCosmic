@@ -4,6 +4,7 @@ import { generateReference5DigitsFromRef } from '../../../utils/generateReferenc
 import { handleErrorService } from '../../../utils/handleError.js';
 import { notFoundError } from '../../error/errorService.js';
 import { selectInvoiceByIdModel } from '../../../models/Modules/invoices/selectInvoiceByIdSModel.js';
+import { selectNewPaymentModelById } from '../../../models/Modules/payments/selectNewPaymentModelById.js';
 
 export const newPaymentService = async (body) => {
   try {
@@ -28,6 +29,10 @@ export const newPaymentService = async (body) => {
 
     // Insertamos la factura en la base de datos
     await insertPaymentModel(payment_id, ref, invoice_id, payment_date);
+
+    const data = await selectNewPaymentModelById(payment_id);
+
+    return data;
   } catch (error) {
     handleErrorService(
       error,
