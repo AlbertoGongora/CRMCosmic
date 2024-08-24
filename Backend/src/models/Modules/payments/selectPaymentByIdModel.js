@@ -1,13 +1,19 @@
 import { getDBPool } from '../../../db/getPool.js';
+import { databaseDeleteError } from '../../../services/error/errorDataBase.js';
 
 export const selectPaymentByIdModel = async (paymentsId) => {
-  const pool = await getDBPool();
+  try {
+    const pool = await getDBPool();
 
-  // Comprobar si existe un cliente con el id proporcionado.
-  const [payment] = await pool.query(
-    `SELECT * FROM Payments WHERE  id_payment = ?`,
-    [paymentsId]
-  );
+    const [payment] = await pool.query(
+      `SELECT * FROM Payments WHERE id_payment = ?`,
+      [paymentsId]
+    );
 
-  return payment[0];
+    return payment[0];
+  } catch (error) {
+    databaseDeleteError(
+      error.message || 'Error en el modelo al obtener el id del pago'
+    );
+  }
 };

@@ -1,18 +1,20 @@
-import { insertPaymentModel } from "../../../models/Modules/payments/insertPaymentModel.js";
-import { getMaxReference5Digits } from "../../../models/getMaxReference.js";
-import { generateReference5DigitsFromRef } from "../../../utils/generateReference5Digits.js";
-import { notFoundError } from "../../error/errorService.js";
-import { selectInvoiceByIdService } from "../../product/selectInvoiceByIdService.js";
+import { insertPaymentModel } from '../../../models/Modules/payments/insertPaymentModel.js';
+import { getMaxReference5Digits } from '../../../models/getMaxReference.js';
+import { generateReference5DigitsFromRef } from '../../../utils/generateReference5Digits.js';
+import { handleErrorService } from '../../../utils/handleError.js';
+import { notFoundError } from '../../error/errorService.js';
+import { selectInvoiceByIdModel } from '../../../models/Modules/invoices/selectInvoiceByIdSModel.js';
 
 export const newPaymentService = async (body) => {
+  try {
     // Obtenemos el cuerpo de la petición
-    const { invoice_id, payment_date } = body
-    
-    // Revisamos que la factura exista
-    const invoice = await selectInvoiceByIdService(invoice_id)
+    const { invoice_id, payment_date } = body;
 
-    if(!invoice){
-        notFoundError('Invoice');
+    // Revisamos que la factura exista
+    const invoice = await selectInvoiceByIdModel(invoice_id);
+
+    if (!invoice) {
+      notFoundError('Invoice');
     }
 
     // ? Creamos una id para el pago
@@ -25,8 +27,12 @@ export const newPaymentService = async (body) => {
     const ref = generateReference5DigitsFromRef('PM', maxRef);
 
     // Insertamos la factura en la base de datos
-    const data = await insertPaymentModel(payment_id, ref, invoice_id, payment_date);
-
-    // Retornamos la respuesta
-    return data;
-}
+    await insertPaymentModel(payment_id, ref, invoice_id, payment_date);
+  } catch (error) {
+    handleErrorService(
+      error,
+      'INSERT_PAYMENT_SERVICE_ERROR',
+      'Error en el servicio al insertar el pago en la base de datos'
+    );
+  }
+};
