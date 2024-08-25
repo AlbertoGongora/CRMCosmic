@@ -1,53 +1,46 @@
 import { fetchShipmentDataModel } from '../../../models/Modules/shipment/fetchShipmentDataModel.js';
-import { invalidCredentials } from '../../error/errorService.js';
+import { invalidCredentials, notFoundError } from '../../error/errorService.js';
 import { selectCustomerByIdModel } from '../../../models/customer/selectCustomerByIdModel.js';
 import { updateShipmentStatusModel } from '../../../models/Modules/shipment/updateShipmentStatusModel.js';
 import { handleErrorService } from '../../../utils/handleError.js';
+import { selectShipmentByIdModel } from '../../../models/Modules/shipment/selectShipmentByIdModel.js';
 
 export const closeShipmentStatusService = async (
   shipmentId,
-  deliveryNote_id,
-  role,
+  user,
   newStatus
 ) => {
   try {
-    console.log(
-      `Closing shipment with ID: ${shipmentId} by delivery note ID: ${deliveryNote_id} with role: ${role}`
-    );
+    // Verificar si el envío existe en la base de datos.
+    const shipmentDB = await selectShipmentByIdModel(shipmentId);
+    if (!shipmentDB) notFoundError('Shipment');
 
+    // Verificar permisos
+    const { deliveryNote_id, role } = user;
     const shipmentData = await fetchShipmentDataModel(shipmentId);
-    if (!shipmentData) {
-      console.log(`Shipment with ID: ${shipmentId} does not exist`);
-      invalidCredentials('El envío no existe');
-    }
 
+    //! Verificar permisos es necesario, teoricamente tambien puede hacerlo un empleado.
+    
     if (shipmentData.deliveryNote_id !== deliveryNote_id && role !== 'admin') {
-      console.log(
-        `Delivery Note ID: ${deliveryNote_id} with role: ${role} does not have permission to modify shipment ID: ${shipmentId}`
-      );
       invalidCredentials('No tienes permiso para modificar este envío');
     }
 
-    console.log(
-      `Updating status of shipment ID: ${shipmentId} to ${newStatus}`
-    );
+    // Actualizar estado del envío
     await updateShipmentStatusModel(shipmentId, newStatus);
 
+    // Retornar email y referencia si el estado es 'delivered'
     if (newStatus === 'delivered') {
       const customer = await selectCustomerByIdModel(shipmentData.customer_id);
-      const email = customer.email;
-      console.log(
-        `Email for delivery: ${email}, ref_SH: ${shipmentData.ref_SH}`
-      );
-      return { email, ref_SH: shipmentData.ref_SH };
+      return { email: customer.email, ref_SH: shipmentData.ref_SH };
     }
 
-    return null;
+    // Enviar null solo si no se cumple la condición
+    return {};
   } catch (error) {
     handleErrorService(
       error,
       'CLOSE_SHIPMENT_SERVICE_ERROR',
-      'Error en el servicio al cerrar el envio'
+      'Error en el servicio al cerrar el envío'
     );
   }
 };

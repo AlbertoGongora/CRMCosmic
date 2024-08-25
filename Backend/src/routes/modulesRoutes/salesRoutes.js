@@ -23,11 +23,11 @@ salesRouter.get('/sales/search', authenticateUser, checkRoleAgent, getSalesSearc
 // Modificar venta
 salesRouter.put('/sales/update/:id_sale', authenticateUser, checkRoleAgent, updateSalesController);
 
-// Cerrar vemta
-salesRouter.put('/sales/updateStatus', authenticateUser, checkRoleAgent, closeSalesController);
-
 // Eliminar venta
 salesRouter.delete('/sales/delete/:id_sale', authenticateUser, checkRoleAgent, deleteSalesController);
+
+// Cerrar venta
+salesRouter.put('/sales/updateStatus', authenticateUser, checkRoleAgent, closeSalesController);
 
 // obtener todas las ventas
 salesRouter.get('/sales/list', authenticateUser, checkRoleAgent, getSalesController);

@@ -3,7 +3,7 @@ import { databaseQueryError } from '../../../services/error/errorDataBase.js';
 
 export const getShipmentsByDelivererModel = async () => {
   try {
-    const pool = getDBPool();
+    const pool = await getDBPool();
     const query = `
       SELECT 
         Shipments.id_shipment,

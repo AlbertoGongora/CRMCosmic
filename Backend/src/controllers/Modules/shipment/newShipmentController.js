@@ -3,7 +3,7 @@ import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 import { newShipmentSchema } from '../../../schemas/Modules/shipment/newShipmentSchema.js';
 import { handleErrorController } from '../../../utils/handleError.js';
 
-export const shipmentCreateController = async (req, res, next) => {
+export const newShipmentController = async (req, res, next) => {
   try {
     // Validar el cuerpo de la solicitud con el esquema
     await validateSchemaUtil(newShipmentSchema, req.body);
@@ -12,7 +12,7 @@ export const shipmentCreateController = async (req, res, next) => {
     const result = await newShipmentService(req.body);
 
     // Enviar respuesta exitosa
-    res.status(200).send({
+    res.status(201).send({
       status: 'ok',
       message:'Envío creado correctamente',
       data: result,

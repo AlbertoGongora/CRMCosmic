@@ -3,11 +3,10 @@ import { selectDeliveryNoteByIdModel } from '../../../models/Modules/shipment/se
 import { notFoundError } from '../../error/errorService.js';
 import { getMaxReference5Digits } from '../../../models/getMaxReference.js';
 import { generateReference5DigitsFromRef } from '../../../utils/generateReference5Digits.js';
-
 import { updateStatusModel } from '../../../models/updateStatusModel.js';
 import { insertIdShipmentInModulesByIdNoteModel } from '../../../models/Modules/shipment/insertIdNoteInModulesByIdNoteModel.js';
 import { handleErrorService } from '../../../utils/handleError.js';
-import { selectShipmentDataModel } from '../../../models/Modules/shipment/selectShipmentDataModel.js';
+import { selectShipmentDataByIdModel } from '../../../models/Modules/shipment/selectShipmentDataByIdModel.js';
 
 export const newShipmentService = async (body) => {
   try {
@@ -53,7 +52,7 @@ export const newShipmentService = async (body) => {
     // insertar id del envio a la tabla de Modules
     await insertIdShipmentInModulesByIdNoteModel(deliveryNote_id, shipmentId);
 
-    const result = await selectShipmentDataModel(shipmentId);
+    const result = await selectShipmentDataByIdModel(shipmentId);
 
     return result;
   } catch (error) {

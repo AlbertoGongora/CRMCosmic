@@ -2,7 +2,7 @@ import { getDBPool } from '../../../db/getPool.js';
 
 // Define la función para seleccionar notas de entrega
 export const selectDeliveryNotesModel = async () => {
-  const pool = getDBPool();
+  const pool = await getDBPool();
 
   try {
     // Realiza la consulta a la base de datos para obtener las notas de entrega

@@ -5,7 +5,11 @@ export const shipmentByDelivererController = async (req, res, next) => {
   try {
     const response = await getShipmentsByDelivererService();
 
-    res.status(200).json({ success: true, data: response });
+    res.status(200).send({
+      status: 'ok',
+      message: 'Lista de envios',
+      data: response,
+    });
   } catch (error) {
     handleErrorController(
       error,

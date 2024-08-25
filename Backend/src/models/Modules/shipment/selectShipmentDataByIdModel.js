@@ -1,7 +1,7 @@
 import { getDBPool } from '../../../db/getPool.js';
 import { databaseInsertError } from '../../../services/error/errorDataBase.js';
 
-export const selectShipmentDataModel = async (shipmentId) => {
+export const selectShipmentDataByIdModel = async (shipmentId) => {
   try {
     const pool = await getDBPool();
 

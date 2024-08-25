@@ -8,13 +8,8 @@ export const shipmentFeedbackController = async (req, res, next) => {
     // Validar los datos del request body
     await validateSchemaUtil(feedbackShipmentSchema, req.body);
 
-    const ref_SH = req.params.ref_SH;
-
-    console.log('ref_SH:', ref_SH); // Log para verificar
-    console.log('Request Body:', req.body); // Log para verificar el cuerpo de la solicitud
-
     // Llamar al servicio de feedback
-    const response = await feedbackShipmentService(req.body, ref_SH);
+    const response = await feedbackShipmentService(req.body, req.params.ref_SH);
 
     res.status(200).json({
       status: 'ok',

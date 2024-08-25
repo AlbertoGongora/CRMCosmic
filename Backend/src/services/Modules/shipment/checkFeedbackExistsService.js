@@ -1,13 +1,13 @@
 import { checkFeedbackExistsModel } from '../../../models/Modules/shipment/checkFeedbackExistsModel.js';
-import { selectShipmentByrefSHModel } from '../../../models/Modules/shipment/selectShipmentByTrackingNumberModel.js';
+import { selectShipmentByrefSHModel } from '../../../models/Modules/shipment/selectShipmentByrefSHModel.js';
 import { handleErrorService } from '../../../utils/handleError.js';
 import { notFoundError } from '../../error/errorService.js';
 
-export const checkFeedbackExistsSrvice = async (ref_SH, id_shipment) => {
+export const checkFeedbackExistsService = async (ref_SH, id_shipment) => {
   try {
     const shipment = await selectShipmentByrefSHModel(ref_SH);
 
-    if (!shipment) {
+    if (shipment === null) {
       notFoundError('Envío no encontrado');
     }
 

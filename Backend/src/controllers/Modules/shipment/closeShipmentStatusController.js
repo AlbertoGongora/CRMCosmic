@@ -4,27 +4,21 @@ import { handleErrorController } from '../../../utils/handleError.js';
 
 export const closeShipmentStatusController = async (req, res, next) => {
   try {
-    const { id_user, role } = req.user;
-    const { shipmentId } = req.params; // Obtener shipmentId de los parámetros de la ruta
-    const { newStatus } = req.body; // Obtener newStatus del cuerpo de la solicitud
-
-    // Cerramos el envío y obtenemos el email del cliente si es necesario
+    const { newStatus } = req.body;
+    
+    // Llamada al servicio
     const { email, ref_SH } = await closeShipmentStatusService(
-      shipmentId,
-      id_user,
-      role,
+      req.params.shipmentId,
+      req.user,
       newStatus
     );
 
-    console.log('Email:', email);
-    console.log('ref_SH:', ref_SH);
-
-    // Enviar email al cliente si el envío se entrega
+    // Enviar email solo si el estado es 'delivered'
     if (newStatus === 'delivered' && email) {
       await sendEmailForShipmentDelivery(ref_SH, email);
     }
 
-    res.send({
+    res.status(200).send({
       status: 'ok',
       message: `Envío ${newStatus === 'delivered' ? 'entregado y email enviado' : 'actualizado'} con éxito`,
     });
@@ -33,7 +27,7 @@ export const closeShipmentStatusController = async (req, res, next) => {
       error,
       next,
       'CLOSE_SHIPMENT_CONTROLLER_ERROR',
-      'Error en el controlador al cerrar el envio'
+      'Error en el controlador al cerrar el envío'
     );
   }
 };

@@ -8,6 +8,11 @@ export const selectShipmentByrefSHModel = async (ref_SH) => {
       'SELECT id_shipment FROM Shipments WHERE ref_SH = ?',
       [ref_SH]
     );
+
+    if (result.length === 0) {
+      return null;
+    }
+
     return result[0];
   } catch (error) {
     databaseQueryError(
