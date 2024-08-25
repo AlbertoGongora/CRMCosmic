@@ -10,19 +10,16 @@ export const updateDeliveryNoteController = async (req, res, next) => {
     await validateSchemaUtil(updateDeliveryNoteSchema, req.body);
 
     // Llamar al servicio para cerrar el albarán
-    await updateDeliveryNoteService(
-      req.params.deliveryNote_id,
-      req.body
-    );
+    await updateDeliveryNoteService(req.params.deliveryNote_id, req.body);
 
     // Enviar respuesta exitosa
-    res.json(success({ message: 'Delivery Note actualizada' }));
+    res.status(200).send(success({ message: 'Delivery Note actualizada' }));
   } catch (error) {
     handleErrorController(
       error,
       next,
       'CLOSE_DELIVERY_NOTE_CONTROLLER_ERROR',
       'Error en el controlador para cerrar una nota de entrega'
-    )
+    );
   }
 };

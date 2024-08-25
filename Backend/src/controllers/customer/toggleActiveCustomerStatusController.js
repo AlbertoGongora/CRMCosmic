@@ -11,7 +11,7 @@ export const toggleActiveCustomerStatusController = async (req, res, next) => {
     // Devolvemos el cliente actualizado.
     const isActive = customer.active === '1' ? true : false;
     const message = `Estado del cliente cambiado a: ${isActive ? 'Activo' : 'Inactivo'}`;
-    res.send({
+    res.status(200).send({
       status: 'ok',
       isActive,
       message,

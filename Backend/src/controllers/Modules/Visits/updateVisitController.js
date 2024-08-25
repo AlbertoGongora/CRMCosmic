@@ -20,7 +20,7 @@ export const updateVisitController = async (req, res, next) => {
     // Llamamos al servicio de actualización de visita
     const response = await updateVisitService(visitId, req.body);
 
-    res.status(200).json({
+    res.status(200).send({
       status: 'ok',
       message: response.message,
     });

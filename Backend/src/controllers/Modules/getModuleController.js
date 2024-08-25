@@ -7,7 +7,7 @@ export const getModuleController = async (req, res, next) => {
     const response = await selectModuleDetailService(req.params.moduleId);
 
     // Devolvemos el servicio
-    res.send({
+    res.status(200).send({
       status: 'ok',
       message: 'Detalle del modulo',
       data: { response },

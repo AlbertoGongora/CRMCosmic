@@ -8,13 +8,13 @@ export const getDeliverersController = async (req, res, next) => {
     const response = await getDeliverersService();
 
     // Devolvemos la respuesta
-    res.json(success({ data: response }));
+    res.status(200).send(success({ data: response }));
   } catch (error) {
     handleErrorController(
       error,
       next,
       'GET_DELIVERERS_CONTROLLER_ERROR',
       'Error en el controlador para obtener los repartidores'
-    )
+    );
   }
 };

@@ -6,13 +6,13 @@ export const getOpenSalesController = async (req, res, next) => {
   try {
     const response = await getOpenSalesService();
 
-    res.json(success({ data: response }));
+    res.status(200).send(success({ data: response }));
   } catch (error) {
     handleErrorController(
       error,
       next,
       'GET_OPEN_SALES_CONTROLLER_ERROR',
       'Error en el controlador para obtener las ventas abiertas'
-    )
+    );
   }
 };

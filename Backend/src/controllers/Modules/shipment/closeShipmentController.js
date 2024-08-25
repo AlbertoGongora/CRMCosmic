@@ -14,7 +14,7 @@ export const closeShipmentController = async (req, res, next) => {
     const shipment = await closedShipmentService(shipmentId, req.body);
 
     // Devolvemos el envio actualizado.
-    res.send({
+    res.status(200).send({
       status: 'ok',
       message: 'Envio Completado',
       data: { shipment },

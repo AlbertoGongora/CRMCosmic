@@ -11,7 +11,7 @@ export const cancelPaymentController = async (req, res, next) => {
     // Actualizar el pago
     await changePaymentStatusService(req.body);
 
-    res.send({
+    res.status(200).send({
       status: 'ok',
       message: 'Estado del pago actualizado',
     });

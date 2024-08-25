@@ -11,7 +11,7 @@ export const updateProductController = async (req, res, next) => {
     // Actualizamos el Producto en la base de datos.
     const product = await updateProductService(req.body, req.params.productId);
 
-    res.send({
+    res.status(200).send({
       status: 'ok',
       message: 'Product update',
       data: { product },

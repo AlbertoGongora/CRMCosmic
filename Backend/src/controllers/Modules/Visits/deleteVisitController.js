@@ -5,7 +5,7 @@ export const deleteVisitController = async (req, res, next) => {
   try {
     await selectVisitService(req.params.visitId);
 
-    res.status(200).json({
+    res.status(200).send({
       status: 'ok',
       message: 'La visita ha sido eliminada',
     });

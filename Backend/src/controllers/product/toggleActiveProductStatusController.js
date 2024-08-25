@@ -13,7 +13,7 @@ export const toggleActiveProductStatusController = async (req, res, next) => {
     const isActive = product.active === '1' ? true : false;
     const message = `Estado del producto cambiado a: ${isActive ? 'Activo' : 'Inactivo'} `;
 
-    res.send({
+    res.status(200).send({
       status: 'ok',
       isActive,
       message,

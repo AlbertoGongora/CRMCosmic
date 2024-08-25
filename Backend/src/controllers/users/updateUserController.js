@@ -19,14 +19,14 @@ export const updateUserController = async (req, res, next) => {
 
     // Actualizamos el usuario en la base de datos.
     if (req.files?.avatar) {
-    // Guardamos el avatar en la carpeta de subida de archivos. Redimensionamos a un ancho de 100 píxeles.
-    const avatarName = await updateAvatarUserService(
-      userId,
-      req.files.avatar,
-      100
-    );
-    message += 'Avatar actualizado ';
-    data.avatarName = avatarName;
+      // Guardamos el avatar en la carpeta de subida de archivos. Redimensionamos a un ancho de 100 píxeles.
+      const avatarName = await updateAvatarUserService(
+        userId,
+        req.files.avatar,
+        100
+      );
+      message += 'Avatar actualizado ';
+      data.avatarName = avatarName;
     }
 
     const user = await updateUserService(userId, req.body);
@@ -34,7 +34,7 @@ export const updateUserController = async (req, res, next) => {
     data.user = user;
 
     // Devolvemos el resultado.
-    res.send({
+    res.status(200).send({
       status: 'ok',
       message: message.trim(),
       data: data,

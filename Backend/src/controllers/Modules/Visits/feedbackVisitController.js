@@ -17,7 +17,7 @@ export const feedbackVisitController = async (req, res, next) => {
     // Obtengo la visita
     const visit = await feedbackVisitCheckService(ref_VT);
 
-    res.status(200).json({
+    res.status(200).send({
       status: 'ok',
       message: response.message,
       data: { visit },

@@ -11,7 +11,7 @@ export const shipmentFeedbackController = async (req, res, next) => {
     // Llamar al servicio de feedback
     const response = await feedbackShipmentService(req.body, req.params.ref_SH);
 
-    res.status(200).json({
+    res.status(200).send({
       status: 'ok',
       message: response.message,
     });

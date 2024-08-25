@@ -15,7 +15,7 @@ export const updateCustomerController = async (req, res, next) => {
     const customer = await updateCustomerService(customerId, req.body);
 
     // Devolvemos el usuario actualizado.
-    res.send({
+    res.status(200).send({
       status: 'ok',
       message: 'Cliente actualizado',
       data: { customer },

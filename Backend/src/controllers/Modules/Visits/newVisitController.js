@@ -21,7 +21,7 @@ export const newVisitController = async (req, res, next) => {
     await sendConfirmationVisitEmail(name, email, visit_date);
 
     // Devolvemos el usuario actualizado.
-    res.send({
+    res.status(200).send({
       status: 'ok',
       message: 'Visita creada exitosamente',
       data: { customer, Address },
