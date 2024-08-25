@@ -9,7 +9,6 @@ export const closeShipmentStatusController = async (req, res, next) => {
     // Llamada al servicio
     const { email, ref_SH } = await closeShipmentStatusService(
       req.params.shipmentId,
-      req.user,
       newStatus
     );
 

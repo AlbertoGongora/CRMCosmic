@@ -7,7 +7,6 @@ import { selectShipmentByIdModel } from '../../../models/Modules/shipment/select
 
 export const closeShipmentStatusService = async (
   shipmentId,
-  user,
   newStatus
 ) => {
   try {
@@ -15,15 +14,7 @@ export const closeShipmentStatusService = async (
     const shipmentDB = await selectShipmentByIdModel(shipmentId);
     if (!shipmentDB) notFoundError('Shipment');
 
-    // Verificar permisos
-    const { deliveryNote_id, role } = user;
     const shipmentData = await fetchShipmentDataModel(shipmentId);
-
-    //! Verificar permisos es necesario, teoricamente tambien puede hacerlo un empleado.
-    
-    if (shipmentData.deliveryNote_id !== deliveryNote_id && role !== 'admin') {
-      invalidCredentials('No tienes permiso para modificar este envío');
-    }
 
     // Actualizar estado del envío
     await updateShipmentStatusModel(shipmentId, newStatus);

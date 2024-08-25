@@ -62,10 +62,6 @@ export const NavBar = () => {
                                 <img className="iconSidebar" src="/shipment.svg" alt="" />
                                 <span className="hidden">Envíos</span>
                             </NavLink>
-                            <NavLink to="/route" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
-                                <img className="iconSidebar" src="/route.svg" alt="" />
-                                <span className="hidden">Rutas</span>
-                            </NavLink>
                             <NavLink to="/invoice" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/delivery.svg" alt="" />
                                 <span className="hidden">Facturas</span>
@@ -113,10 +109,6 @@ export const NavBar = () => {
                             <NavLink to="/shipment" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/shipment.svg" alt="" />
                                 <span className="hidden">Envíos</span>
-                            </NavLink>
-                            <NavLink to="/route" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
-                                <img className="iconSidebar" src="/route.svg" alt="" />
-                                <span className="hidden">Rutas</span>
                             </NavLink>
                         </>
                     )}

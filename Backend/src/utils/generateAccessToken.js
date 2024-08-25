@@ -13,7 +13,7 @@ export function generateAccessToken(user) {
       },
       JWT_SECRET,
       {
-        expiresIn: "2h",
+        expiresIn: "24h",
       }
     );
   }
