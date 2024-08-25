@@ -12,7 +12,7 @@ export const getPaymentsController = async (req, res, next) => {
 
     res.status(200).send({
       status: 'ok',
-      message: 'Payments',
+      message: 'Lista de pagos',
       data: response,
     });
   } catch (error) {

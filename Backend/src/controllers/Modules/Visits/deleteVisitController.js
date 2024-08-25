@@ -7,7 +7,7 @@ export const deleteVisitController = async (req, res, next) => {
 
     res.status(200).send({
       status: 'ok',
-      message: 'La visita ha sido eliminada',
+      message: 'La visita ha sido eliminada con exito',
     });
   } catch (error) {
     handleErrorController(

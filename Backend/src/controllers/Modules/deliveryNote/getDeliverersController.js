@@ -1,6 +1,5 @@
 import { getDeliverersService } from '../../../services/Modules/deliveryNote/getDeliverersService.js';
 import { handleErrorController } from '../../../utils/handleError.js';
-import { success } from '../../../utils/success.js';
 
 export const getDeliverersController = async (req, res, next) => {
   try {
@@ -8,7 +7,7 @@ export const getDeliverersController = async (req, res, next) => {
     const response = await getDeliverersService();
 
     // Devolvemos la respuesta
-    res.status(200).send(success({ data: response }));
+    res.status(200).send({ data: response });
   } catch (error) {
     handleErrorController(
       error,

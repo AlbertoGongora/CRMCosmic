@@ -1,6 +1,5 @@
 import { deleteInvoiceService } from '../../../services/Modules/invoices/deleteInvoiceService.js';
 import { handleErrorController } from '../../../utils/handleError.js';
-import { success } from '../../../utils/success.js';
 
 export const deleteInvoiceController = async (req, res, next) => {
   try {
@@ -8,7 +7,9 @@ export const deleteInvoiceController = async (req, res, next) => {
     const response = await deleteInvoiceService(req.params.invoiceId);
 
     // Respondemos al cliente.
-    res.status(200).send(success(response));
+    res
+      .status(200)
+      .send({ status: 'ok', message: 'Factura eliminada', data: response });
   } catch (error) {
     handleErrorController(
       error,

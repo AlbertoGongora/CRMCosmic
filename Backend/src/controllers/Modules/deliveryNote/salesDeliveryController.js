@@ -1,12 +1,11 @@
 import { getOpenSalesService } from '../../../services/Modules/deliveryNote/getOpenSalesService.js';
 import { handleErrorController } from '../../../utils/handleError.js';
-import { success } from '../../../utils/success.js';
 
 export const getOpenSalesController = async (req, res, next) => {
   try {
     const response = await getOpenSalesService();
 
-    res.status(200).send(success({ data: response }));
+    res.status(200).send({ data: response });
   } catch (error) {
     handleErrorController(
       error,

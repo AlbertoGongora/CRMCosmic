@@ -8,6 +8,7 @@ import { selectShipmentsByUserIdService } from ('../../../services/Modules/shipm
     const shipments = await selectShipmentsByUserIdService(userId);
     res.status(200).send({
       status: 'ok',
+      message:"Lista de envios con exito",
       data: shipments,
     });
   } catch (error) {

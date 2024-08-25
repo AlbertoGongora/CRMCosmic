@@ -8,11 +8,11 @@ export const updateCustomerController = async (req, res, next) => {
     // Validar el body con Joi.
     await validateSchemaUtil(updateCustomerSchema, req.body);
 
-    // Obtenemos el id del usuario.
-    const customerId = req.params.customerId;
-
     // Actualizamos el cliente en la base de datos.
-    const customer = await updateCustomerService(customerId, req.body);
+    const customer = await updateCustomerService(
+      req.params.customerId,
+      req.body
+    );
 
     // Devolvemos el usuario actualizado.
     res.status(200).send({
@@ -23,6 +23,7 @@ export const updateCustomerController = async (req, res, next) => {
   } catch (error) {
     handleErrorService(
       error,
+      next,
       'UPDATE_CUSTOMER_CONTROLLER_ERROR',
       'Error en el controlador al modificar un cliente'
     );

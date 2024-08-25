@@ -1,7 +1,6 @@
 import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 import { updateDeliveryNoteSchema } from '../../../schemas/Modules/deliveryNote/updateDeliveryNoteSchema.js';
 import { updateDeliveryNoteService } from '../../../services/Modules/deliveryNote/updateDeliveryNoteService.js';
-import { success } from '../../../utils/success.js';
 import { handleErrorController } from '../../../utils/handleError.js';
 
 export const updateDeliveryNoteController = async (req, res, next) => {
@@ -13,7 +12,7 @@ export const updateDeliveryNoteController = async (req, res, next) => {
     await updateDeliveryNoteService(req.params.deliveryNote_id, req.body);
 
     // Enviar respuesta exitosa
-    res.status(200).send(success({ message: 'Delivery Note actualizada' }));
+    res.status(200).send({ message: 'Delivery Note actualizada' });
   } catch (error) {
     handleErrorController(
       error,

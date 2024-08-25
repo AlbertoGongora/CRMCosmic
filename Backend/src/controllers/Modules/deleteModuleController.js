@@ -1,5 +1,4 @@
 import { handleErrorController } from '../../utils/handleError.js';
-import { success } from '../../utils/success.js';
 
 export const deleteModuleController = async (req, res, next) => {
   try {
@@ -7,7 +6,11 @@ export const deleteModuleController = async (req, res, next) => {
     const response = await deleteModuleService(req.params.moduleId);
 
     // Respondemos al cliente.
-    res.status(200).send(success(response));
+    res.status(200).send({
+      status: 'ok',
+      message: 'Modulo eliminado con exito',
+      data: response,
+    });
   } catch (error) {
     handleErrorController(
       error,

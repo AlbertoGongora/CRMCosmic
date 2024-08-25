@@ -10,7 +10,7 @@ export const getShipmentSearchController = async (req, res, next) => {
     // Devolvemos la respuesta
     res.status(200).send({
       status: 'ok',
-      message: 'Shipments',
+      message: 'Busqueda de envios con exito',
       data: response,
     });
   } catch (error) {

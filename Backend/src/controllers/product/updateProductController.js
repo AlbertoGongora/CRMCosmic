@@ -13,7 +13,7 @@ export const updateProductController = async (req, res, next) => {
 
     res.status(200).send({
       status: 'ok',
-      message: 'Product update',
+      message: 'Producto actualizado con exito',
       data: { product },
     });
   } catch (error) {

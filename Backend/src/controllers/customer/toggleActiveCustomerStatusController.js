@@ -3,7 +3,6 @@ import { handleErrorController } from '../../utils/handleError.js';
 
 export const toggleActiveCustomerStatusController = async (req, res, next) => {
   try {
-    console.log('llega a toggleActiveCustomerStatusController');
     const id_customer = req.body.id;
 
     const customer = await toggleCustomerActivationService(id_customer);

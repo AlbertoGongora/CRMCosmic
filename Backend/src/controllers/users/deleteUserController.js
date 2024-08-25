@@ -1,6 +1,5 @@
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { deleteUserSchema } from '../../schemas/user/updateUserSchema.js';
-import { success } from '../../utils/success.js';
 import { deleteUserService } from '../../services/user/deleteUserService.js';
 import { handleErrorController } from '../../utils/handleError.js';
 
@@ -15,7 +14,7 @@ export const deleteUserController = async (req, res, next) => {
     // Envía una respuesta de éxito
     res
       .status(200)
-      .send(success({ message: 'Usuario eliminado correctamente' }));
+      .send({ status: 'ok', message: 'Usuario eliminado correctamente' });
   } catch (error) {
     // Usamos la función modularizada para manejar el error
     handleErrorController(
