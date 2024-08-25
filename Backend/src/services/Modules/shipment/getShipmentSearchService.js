@@ -5,9 +5,9 @@ import { handleErrorService } from '../../../utils/handleError.js';
 export const getShipmentSearchService = async (search) => {
   try {
     // Llamamos al modelo para buscar envíos
-    const shipments = await selectShipmentSearchModel(search);
+    const shipmentsData = await selectShipmentSearchModel(search);
 
-    return shipments;
+    return shipmentsData;
   } catch (error) {
     handleErrorService(
       error,

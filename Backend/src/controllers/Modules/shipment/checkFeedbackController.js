@@ -1,9 +1,9 @@
-import { checkFeedbackExistsSrvice } from '../../../services/Modules/shipment/checkFeedbackExistsSrvice.js';
+import { checkFeedbackExistsService } from '../../../services/Modules/shipment/checkFeedbackExistsService.js';
 import { handleErrorController } from '../../../utils/handleError.js';
 
 export const checkFeedbackController = async (req, res, next) => {
   try {
-    const feedbackExists = await checkFeedbackExistsSrvice(
+    const feedbackExists = await checkFeedbackExistsService(
       req.params.ref_SH,
       shipment.id_shipment
     );

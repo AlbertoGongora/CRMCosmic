@@ -47,9 +47,9 @@ import { getOpenSalesController } from './Modules/deliveryNote/salesDeliveryCont
 import { getDeliverersController } from './Modules/deliveryNote/getDeliverersController.js';
 
 // Imports envios
+import { newShipmentController } from './Modules/shipment/newShipmentController.js';
 import { getShipmentListController } from './Modules/shipment/getShipmentListController.js';
-import { shipmentCreateController } from './Modules/shipment/shipmentCreateController.js';
-import { shipmentUpdateController } from './Modules/shipment/shipmentUpdateController.js';
+import { updateShipmentController } from './Modules/shipment/updateShipmentController.js';
 import { deleteShipmentController } from './Modules/shipment/deleteShipmentController.js';
 import { closeShipmentController } from './Modules/shipment/closeShipmentController.js';
 import { shipmentRouteController } from './Modules/shipment/shipmentRouteController.js';
@@ -69,12 +69,12 @@ export {
   deleteModuleController,
   getModuleListController,
 
-  closeVisitController,
-  deleteVisitController,
-  feedbackVisitController,
-  getUserVisitsController,
   newVisitController,
   updateVisitController,
+  deleteVisitController,
+  closeVisitController,
+  feedbackVisitController,
+  getUserVisitsController,
   getVisitSearchController,
   getVisitSaleAgetsController,
 
@@ -106,11 +106,11 @@ export {
   getOpenSalesController,
   getDeliverersController,
   
+  newShipmentController,
+  updateShipmentController,
   getShipmentListController,
-  shipmentCreateController,
-  shipmentUpdateController,
-  shipmentRouteController,
   deleteShipmentController,
+  shipmentRouteController,
   closeShipmentController,
   closeShipmentStatusController,
   getUnasignedInvoicesController,
