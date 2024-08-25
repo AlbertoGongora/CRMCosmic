@@ -20,7 +20,8 @@ export const deleteProductModel = async (id_product) => {
     return { message: 'Producto eliminado correctamente' };
   } catch (error) {
     databaseDeleteError(
-      error.message || 'Error en el modelo al eliminiar un producto'
+      error.message || 'Error en el modelo al eliminiar un producto',
+      'Error en el modelo al eliminiar un producto'
     );
   }
 };

@@ -17,7 +17,8 @@ export const deleteModuleModel = async (moduleId) => {
     return { message: 'Modulo eliminado correctamente' };
   } catch (error) {
     databaseDeleteError(
-      error.message || 'Error en el modelo al eliminiar un modulo'
+      error.message || 'Error en el modelo al eliminiar un modulo',
+      'Error en el modelo al eliminiar un modulo'
     );
   }
 };
