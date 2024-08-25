@@ -1,7 +1,6 @@
 import { closedInvoiceSchema } from '../../../schemas/Modules/invoice/newInvoiceSchema.js';
 import { statusUpdateInvoiceService } from '../../../services/Modules/invoices/statusUpdateInvoiceService.js';
 import { handleErrorController } from '../../../utils/handleError.js';
-import { success } from '../../../utils/success.js';
 import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 
 export const statusUpdateInvoiceController = async (req, res, next) => {
@@ -16,7 +15,11 @@ export const statusUpdateInvoiceController = async (req, res, next) => {
     );
 
     // Respondemos al cliente.
-    res.status(200).send(success(response));
+    res.status(200).send({
+      status: 'ok',
+      message: 'Factura actualizada con exito',
+      data: response,
+    });
   } catch (error) {
     handleErrorController(
       error,

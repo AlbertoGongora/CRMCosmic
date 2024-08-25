@@ -9,10 +9,7 @@ export const insertSalesController = async (req, res, next) => {
     await validateSchemaUtil(newSaleProductSchema, req.body);
 
     // Inserto la venta en la base de datos
-    const sale = await insertSalesService(
-      req.body,
-      req.user.id_user
-    );
+    const sale = await insertSalesService(req.body, req.user.id_user);
 
     res.status(200).send({
       status: 'ok',
@@ -24,6 +21,6 @@ export const insertSalesController = async (req, res, next) => {
       next,
       'INSERT_SALES_CONTROLLER_ERROR',
       'Error en el controlador al insertar una venta'
-    )
+    );
   }
 };

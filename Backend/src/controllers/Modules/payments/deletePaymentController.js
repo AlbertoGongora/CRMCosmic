@@ -1,6 +1,5 @@
 import { selectPaymentService } from '../../../services/Modules/payments/selectPaymentService.js';
 import { handleErrorController } from '../../../utils/handleError.js';
-import { success } from '../../../utils/success.js';
 
 export const deletePaymentController = async (req, res, next) => {
   try {
@@ -8,7 +7,9 @@ export const deletePaymentController = async (req, res, next) => {
     const deletePayment = await selectPaymentService(req.params.paymentsId);
 
     // Respondemos al cliente.
-    res.status(200).send(success(deletePayment));
+    res
+      .status(200)
+      .send({ status: 'ok', message: 'Pago eliminado', data: deletePayment });
   } catch (error) {
     handleErrorController(
       error,

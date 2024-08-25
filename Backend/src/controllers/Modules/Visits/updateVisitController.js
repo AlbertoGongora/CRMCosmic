@@ -14,11 +14,8 @@ export const updateVisitController = async (req, res, next) => {
     // Validamos el id que recibimos por params
     await validateSchemaUtil(updateVisitIDSchema, req.params);
 
-    // Obtenemos el id de la visita
-    const visitId = req.params.visitId;
-
     // Llamamos al servicio de actualización de visita
-    const response = await updateVisitService(visitId, req.body);
+    const response = await updateVisitService(req.params.visitId, req.body);
 
     res.status(200).send({
       status: 'ok',

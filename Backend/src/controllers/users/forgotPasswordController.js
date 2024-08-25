@@ -1,7 +1,6 @@
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
-import { recoveryPasswordSchema } from '../../schemas/user/recoveryPasswordSchema.js'; 
+import { recoveryPasswordSchema } from '../../schemas/user/recoveryPasswordSchema.js';
 import { forgotPasswordService } from '../../services/user/forgotPasswordService.js';
-import { success } from '../../utils/success.js';
 import { sendRecoveryPasswordEmail } from '../../services/email/emailService.js';
 import { handleErrorController } from '../../utils/handleError.js';
 
@@ -18,9 +17,9 @@ export const forgotPasswordController = async (req, res, next) => {
 
     // Enviar correo electrónico de cambio de contraseña
     await sendRecoveryPasswordEmail(email, new_registration_code);
-    
+
     // Devolvemos el usuario actualizado.
-    res.status(200).send(success({message: 'Correo enviado'}));
+    res.status(200).send({ status: 'ok', message: 'Correo enviado' });
   } catch (error) {
     // Usamos la función modularizada para manejar el error
     handleErrorController(

@@ -7,6 +7,7 @@ export const productListController = async (req, res, next) => {
 
     res.status(200).send({
       status: 'ok',
+      message: 'Lista de Productos',
       data: response,
     });
   } catch (error) {

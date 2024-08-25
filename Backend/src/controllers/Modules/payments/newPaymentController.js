@@ -14,7 +14,7 @@ export const newPaymentController = async (req, res, next) => {
     // Enviar Respuesta
     res.status(201).send({
       status: 'ok',
-      message: 'Pago creado correctamente',
+      message: 'Pago creado con exito',
       data: data,
     });
   } catch (error) {

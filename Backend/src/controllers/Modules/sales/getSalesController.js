@@ -8,7 +8,7 @@ export const getSalesController = async (req, res, next) => {
 
     res.status(200).send({
       status: 'ok',
-      message: 'Sales',
+      message: 'Lista de ventas',
       data: listSales,
     });
   } catch (error) {
