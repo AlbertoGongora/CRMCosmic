@@ -8,18 +8,18 @@ export const changePasswordController = async (req, res, next) => {
   try {
     // Validar el esquema del cuerpo de la solicitud
     await validateSchemaUtil(changePasswordSchema, req.body);
-    
+
     // Obtener el id del usuario e insertar el password
     const response = await changePasswordService(req.user.id_user, req.body);
-   
+
     // Responder con éxito
-    res.send(success(response));
+    res.status(200).send(success(response));
   } catch (error) {
     // Usamos la función modularizada para manejar el error
     handleErrorController(
       error,
       next,
-      'PASSWORD_USER_CONTROLLER_ERROR', 
+      'PASSWORD_USER_CONTROLLER_ERROR',
       'Error en el controlador de cambio de contraseña'
     );
   }

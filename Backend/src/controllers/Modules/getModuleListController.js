@@ -7,7 +7,7 @@ export const getModuleListController = async (req, res, next) => {
     const services = await moduleListDetailService();
 
     // Devolvemos los modulos
-    res.send({
+    res.status(200).send({
       status: 'ok',
       message: 'Lista del modulo',
       data: services,

@@ -9,7 +9,7 @@ export const getInvoiceSearchController = async (req, res, next) => {
     // Llamamos al servicio
     const response = await getInvoiceSearchService(searchTerm);
     console.log('response', response);
-    res.status(200).json({
+    res.status(200).send({
       status: 'ok',
       message: 'Invoices',
       data: response,

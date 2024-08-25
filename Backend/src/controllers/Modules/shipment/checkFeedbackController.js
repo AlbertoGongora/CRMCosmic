@@ -8,7 +8,7 @@ export const checkFeedbackController = async (req, res, next) => {
       shipment.id_shipment
     );
 
-    res.status(200).json({ feedbackExists });
+    res.status(200).send({ feedbackExists });
   } catch (error) {
     handleErrorController(
       error,

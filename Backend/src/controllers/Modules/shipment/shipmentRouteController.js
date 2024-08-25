@@ -7,7 +7,7 @@ export const shipmentRouteController = async (req, res, next) => {
   try {
     const response = await getModuleShipmentService();
 
-    res.status(200).json({ success: true, data: response });
+    res.status(200).send({ success: true, data: response });
   } catch (error) {
     handleErrorController(
       error,

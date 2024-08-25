@@ -6,7 +6,7 @@ export const getDeliveryNoteSearchController = async (req, res, next) => {
     // Llamamos al servicio y obtenemos el albaran
     const response = await getDeliveryNoteSearchService(req.query.searchTerm);
 
-    res.status(200).json({
+    res.status(200).send({
       status: 'ok',
       message: 'Delivery Notes',
       data: response,
@@ -17,6 +17,6 @@ export const getDeliveryNoteSearchController = async (req, res, next) => {
       next,
       'GET_DELIVERY_NOTE_SEARCH_CONTROLLER_ERROR',
       'Error en el controlador al obtener la lista de albaranes con la busqueda'
-    )
+    );
   }
 };

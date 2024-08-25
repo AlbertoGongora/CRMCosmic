@@ -6,7 +6,7 @@ export const getVisitSearchController = async (req, res, next) => {
     // Llamamos al servicio
     const response = await getVisitSearchService(req.query.searchTerm);
 
-    res.status(200).json({
+    res.status(200).send({
       status: 'ok',
       message: response.message,
       data: response,

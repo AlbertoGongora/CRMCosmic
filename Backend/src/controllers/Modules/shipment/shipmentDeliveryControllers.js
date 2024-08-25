@@ -6,7 +6,7 @@ import { selectShipmentsByUserIdService } from ('../../../services/Modules/shipm
   try {
     const { userId } = req.params;
     const shipments = await selectShipmentsByUserIdService(userId);
-    res.send({
+    res.status(200).send({
       status: 'ok',
       data: shipments,
     });

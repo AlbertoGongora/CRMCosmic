@@ -11,7 +11,7 @@ export const closeSalesController = async (req, res, next) => {
     // Llamamos al servicio y obtenemos el status
     const statusUpdate = await closeSalesServices(req.body);
 
-    res.send({
+    res.status(200).send({
       status: 'ok',
       message: statusUpdate,
     });
@@ -21,6 +21,6 @@ export const closeSalesController = async (req, res, next) => {
       next,
       'CLOSE_SALES_CONTROLLER_ERROR',
       'Error en el controlador al cerrar una venta'
-    )
+    );
   }
 };

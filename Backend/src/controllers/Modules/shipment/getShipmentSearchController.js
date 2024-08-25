@@ -8,7 +8,7 @@ export const getShipmentSearchController = async (req, res, next) => {
     const response = await getShipmentSearchService(req.query.searchTerm);
 
     // Devolvemos la respuesta
-    res.status(200).json({
+    res.status(200).send({
       status: 'ok',
       message: 'Shipments',
       data: response,

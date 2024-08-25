@@ -20,7 +20,7 @@ export const closeVisitController = async (req, res, next) => {
       await sendEmailForVisitFeedback(referecia.ref_VT, email);
     }
 
-    res.send({
+    res.status(200).send({
       status: 'ok',
       message: `Visita ${newStatus === 'completed' ? 'completada y email enviado' : 'cancelada'} con éxito`,
     });
