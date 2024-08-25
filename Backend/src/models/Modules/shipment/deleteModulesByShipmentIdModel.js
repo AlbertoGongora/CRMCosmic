@@ -11,7 +11,9 @@ export const updateModulesByShipmentIdModel = async (shipmentId) => {
     return result;
   } catch (error) {
     databaseDeleteError(
-      error.message || 'Error en el modelo al actualizar el envio en el modulo '
+      error.message ||
+        'Error en el modelo al actualizar el envio en el modulo ',
+      'Error en el modelo al actualizar el envio en el modulo '
     );
   }
 };

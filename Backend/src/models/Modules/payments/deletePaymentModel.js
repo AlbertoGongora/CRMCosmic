@@ -20,7 +20,8 @@ export const deletePaymentModel = async (paymentsId) => {
     return { message: 'Pago eliminado correctamente' };
   } catch (error) {
     databaseDeleteError(
-      error.message || 'Error en el modelo al eliminar el pago'
+      error.message || 'Error en el modelo al eliminar el pago',
+      'Error en el modelo al eliminar el pago'
     );
   }
 };

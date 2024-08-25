@@ -1,6 +1,8 @@
-import { getDBPool } from "../../../db/getPool.js";
-import { databaseDeleteError, databaseUpdateError } from "../../../services/error/errorDataBase.js";
-
+import { getDBPool } from '../../../db/getPool.js';
+import {
+  databaseDeleteError,
+  databaseUpdateError,
+} from '../../../services/error/errorDataBase.js';
 
 export const deleteDeliveryNoteModel = async (deliveryNote_id) => {
   try {
@@ -14,7 +16,9 @@ export const deleteDeliveryNoteModel = async (deliveryNote_id) => {
 
     // Verificar si la actualización afectó alguna fila
     if (updateResult.affectedRows === 0) {
-      databaseUpdateError('No se pudo actualizar el módulo al eliminar el delivery note');
+      databaseUpdateError(
+        'No se pudo actualizar el módulo al eliminar el delivery note'
+      );
     }
 
     // Eliminar el registro de la tabla DeliveryNotes
@@ -30,6 +34,9 @@ export const deleteDeliveryNoteModel = async (deliveryNote_id) => {
 
     return { message: 'Albarán eliminado correctamente' };
   } catch (error) {
-    databaseDeleteError(error.message || 'Error al eliminar el albarán');
+    databaseDeleteError(
+      error.message || 'Error al eliminar el albarán',
+      'Error al eliminar el albarán'
+    );
   }
 };

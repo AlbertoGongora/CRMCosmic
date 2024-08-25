@@ -40,7 +40,8 @@ export const deleteInvoiceModel = async (
     return { message: 'Factura eliminada correctamente' };
   } catch (error) {
     databaseDeleteError(
-      error.message || 'Error en el modelo al eliminar la venta'
+      error.message || 'Error en el modelo al eliminar la venta',
+      'Error en el modelo al eliminar la venta'
     );
   }
 };
