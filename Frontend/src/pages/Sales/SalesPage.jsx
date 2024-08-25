@@ -1,4 +1,3 @@
-// src/pages/Sales/SalesPage.jsx
 import { MainLayout } from '../../layout/MainLayout.jsx';
 import { useUser } from '../../context/authContext.jsx';
 import { useEffect, useState } from 'react';
