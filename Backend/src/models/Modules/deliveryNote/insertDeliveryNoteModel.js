@@ -35,19 +35,6 @@ export const insertDeliveryNoteModel = async (
       databaseInsertError('No se pudo insertar la nota de entrega');
     }
 
-    // Consultar la nota de entrega insertada
-    const selectQuery = `
-      SELECT * FROM DeliveryNotes WHERE id_note = ?
-    `;
-
-    const [rows] = await pool.query(selectQuery, [id_note]);
-
-    // Verificar si se encontró la nota de entrega
-    if (!rows || rows.length === 0) {
-      notFoundError('Nota de entrega');
-    }
-
-    return rows[0]; // Devolver el primer (y único) registro del resultado de la consulta
   } catch (error) {
     // Manejar errores en la consulta
     databaseQueryError(error.message || 'Error al insertar la nota de entrega en el modelo');

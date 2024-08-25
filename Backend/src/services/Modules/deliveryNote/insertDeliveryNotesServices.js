@@ -7,6 +7,7 @@ import { selectCustomerByIdModel } from '../../../models/customer/selectCustomer
 import { selectDeliveryNotesByIdModel } from '../../../models/Modules/deliveryNote/selectNotesByIdModel.js';
 import { handleErrorService } from '../../../utils/handleError.js';
 import { notFoundError } from '../../error/errorService.js';
+import { insertIdNoteInModulesByIdSaleModel } from '../../../models/Modules/deliveryNote/insertIdNoteInModulesByIdSale.js';
 
 export const createDeliveryNoteService = async (body) => {
   try {
@@ -44,12 +45,11 @@ export const createDeliveryNoteService = async (body) => {
     // Actualizar el estado de la venta a "processing"
     await updateSalesStatusOfNoteModel(id_sale, 'processing');
 
-    // Obtener la nota de entrega recién creada
-    const data = await selectDeliveryNotesByIdModel(id_note);
-
     // Insertar el id de la nota de entrega en modulo asociado a la venta
     await insertIdNoteInModulesByIdSaleModel(id_sale, id_note);
 
+    // Obtener la nota de entrega recién creada
+    const data = await selectDeliveryNotesByIdModel(id_note);
 
     return data;
   } catch (error) {

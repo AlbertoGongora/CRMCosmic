@@ -3,13 +3,16 @@ import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 import { createDeliveryNoteSchema } from '../../../schemas/Modules/deliveryNote/createDeliveryNoteSchema.js';
 import { handleErrorController } from '../../../utils/handleError.js';
 
-export const createDeliveryNoteController = (emitDeliveryAssigned) => async (req, res, next) => {
+export const createDeliveryNoteController = async (req, res, next) => {
   try {
     // Validar el cuerpo de la solicitud
     await validateSchemaUtil(createDeliveryNoteSchema, req.body);
 
     // Llamar al servicio para crear la nota de entrega
     const result = await createDeliveryNoteService(req.body);
+
+    console.log('createDeliveryNoteController', result);
+    
 
     res.status(201).send({
       status: 'ok',

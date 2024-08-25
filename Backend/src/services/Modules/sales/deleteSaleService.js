@@ -6,60 +6,38 @@ import { selectShipmentByIdNoteModel } from "../../../models/Modules/shipment/se
 import { handleErrorService } from "../../../utils/handleError.js";
 import { errorDeleteSalesHasInvoice, errorDeleteSalesHasNote, errorDeleteSalesHasNoteAndShipment, errorDeleteSalesHasShipments, notFoundError } from "../../error/errorService.js";
 
-
 export const deleteSaleService = async (id_sale) => {
   try {
-    // Obtengo la venta
+    // Obtener la venta
     const sale = await selectSaleByIdModel(id_sale);
+    if (!sale) notFoundError('Sale');
 
-    if (!sale || sale.id_sale !== id_sale) {
-      notFoundError('Sale');
-    }
-
-    // Verifico si la venta tiene una factura asociada
+    // Verificar si la venta tiene una factura asociada
     const invoiceId = await selectInvoiceIdBySaleIdModel(id_sale);
+    if (invoiceId) errorDeleteSalesHasInvoice();
 
-    // Si hay una factura asociada, no se puede borrar la venta
-    if (invoiceId) {
-      errorDeleteSalesHasInvoice();
-    }
-    console.log('paso por sales service', invoiceId);
-
-    // Obtener el estado del albarán
+    // Obtener el estado del albarán y del envío
     const deliveryNote = await selectDeliveryNoteByIdSalesModel(id_sale);
+    const shipment = deliveryNote ? await selectShipmentByIdNoteModel(deliveryNote.id_note) : null;
 
-    // Obtener el estado del envío
-    const shipment = await selectShipmentByIdNoteModel(deliveryNote.id_note);
-
-    // Si hay tanto un delivery note como un shipment, no se puede borrar la venta
+    // Validar las condiciones según la existencia de deliveryNote y shipment
     if (deliveryNote && shipment) {
       errorDeleteSalesHasNoteAndShipment();
-    }
-
-    // Si hay solo un shipment, no se puede borrar la venta
-    if (shipment && !deliveryNote) {
+    } else if (shipment) {
       errorDeleteSalesHasShipments();
-    }
-
-    // Si hay solo un delivery note
-    if (deliveryNote && !shipment) {
+    } else if (deliveryNote) {
       errorDeleteSalesHasNote();
     }
 
-    // // Verificar si la operación está cancelada o pendiente
-    // if (sale.operation_status !== 'pending' || sale.operation_status !== 'cancelled') {
-    //   errorNotCancelSale();
-    // }
-
-    // Eliminamos la venta de producto de la base de datos
+    // Eliminar la venta de la base de datos
     const response = await deleteSaleModel(id_sale);
-
     return response;
+
   } catch (error) {
     handleErrorService(
       error,
       'DELETE_SALES_SERVICE_ERROR',
       'Error en el servicio al borrar una venta'
-    )
+    );
   }
 };
