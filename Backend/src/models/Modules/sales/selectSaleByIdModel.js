@@ -18,6 +18,6 @@ export const selectSaleByIdModel = async (id_sale) => {
 
     return result[0];
   } catch (error) {
-    databaseQueryError('Error al seleccionar la venta por ID');
+    databaseQueryError(error.message || 'Error al seleccionar la venta por ID');
   }
 };

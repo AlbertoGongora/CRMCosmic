@@ -1,5 +1,6 @@
 import { getDBPool } from "../../../db/getPool.js";
 import { databaseQueryError } from "../../../services/error/errorDataBase.js";
+import { notFoundError } from "../../../services/error/errorService.js";
 
 // Define la función para seleccionar notas de entrega
 export const getDeliveryNotesModel = async () => {
@@ -49,13 +50,6 @@ export const getDeliveryNotesModel = async () => {
       LEFT JOIN
         Sales ON DeliveryNotes.sale_id = Sales.id_sale;
     `);
-      
-    if (!result || result.length === 0) {
-      // Si no se encuentran resultados, lanzar un error
-      console.log('not found');
-      
-      notFoundError('Notas de entrega no encontradas');
-    };
 
     // Devuelve el resultado de la consulta
     return result;

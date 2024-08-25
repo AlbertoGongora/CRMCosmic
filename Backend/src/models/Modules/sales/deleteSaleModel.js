@@ -6,25 +6,21 @@ export const deleteSaleModel = async (id_sale) => {
     const pool = await getDBPool();
 
     // Eliminar las entradas en Modules asociadas con sale_id
-    const [modulesResult] = await pool.query('DELETE FROM Modules WHERE sale_id = ?', [id_sale]);
-    if (modulesResult.affectedRows === 0) {
-      databaseDeleteError('No se ha podido eliminar los módulos asociados con la venta.');
-    }
+    await pool.query('DELETE FROM Modules WHERE sale_id = ?', [id_sale]);
 
     // Eliminar la entrada en Sales
-    const [salesResult] = await pool.query('DELETE FROM Sales WHERE id_sale = ?', [id_sale]);
-    if (salesResult.affectedRows === 0) {
-      databaseDeleteError('No se ha podido eliminar la venta.');
-    }
-
+    const [result] = await pool.query('DELETE FROM Sales WHERE id_sale = ?', [id_sale]);
+    
     // Eliminar las entradas en SalesProducts asociadas con sale_id
-    const [salesProductsResult] = await pool.query('DELETE FROM SalesProducts WHERE id_saleProduct = (SELECT saleProduct_id FROM Sales WHERE id_sale = ?)', [id_sale]);
-    if (salesProductsResult.affectedRows === 0) {
-      databaseDeleteError('No se han podido eliminar los productos asociados con la venta.');
-    }
+    await pool.query('DELETE FROM SalesProducts WHERE id_saleProduct = (SELECT saleProduct_id FROM Sales WHERE id_sale = ?)', [id_sale]);
 
-    return { message: 'Venta eliminada correctamente' };
+    if (result.affectedRows === 0) {
+      databaseDeleteError('No se ha podido eliminar la venta');
+    }
   } catch (error) {
-    databaseDeleteError(error.message || 'Error al eliminar la venta');
+    databaseDeleteError(
+      error.message || 'Error al eliminar la venta',
+      'Error al eliminar la venta'
+    );
   }
 };
