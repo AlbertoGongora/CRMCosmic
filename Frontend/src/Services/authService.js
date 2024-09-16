@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 
 export async function renewTokenIfExpired(token, setUser) {
     if (!token) {
@@ -31,13 +31,13 @@ export async function renewTokenIfExpired(token, setUser) {
                 // Guardar el nuevo token en el contexto de autenticación
                 setUser(newToken);
                 // También puedes guardar el nuevo token en el localStorage si es necesario
-                localStorage.setItem('session', newToken);
+                // localStorage.setItem('session', newToken);
                 console.log('Token renovado');
             } else {
                 // Hacer logout y borrar el localStorage si el token a expirado
-                localStorage.removeItem('session');
-                setUser(null);
-                Navigate('/login');
+                // localStorage.removeItem('session');
+                // setUser(null);
+                // Navigate('/login');
 
                 console.error('Error al renovar el token:', response.statusText);
             }
