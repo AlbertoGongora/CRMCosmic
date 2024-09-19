@@ -1,6 +1,5 @@
 import { getDBPool } from '../../../db/getPool.js';
-import { databaseInsertError, databaseQueryError } from '../../../services/error/errorDataBase.js';
-import { notFoundError } from '../../../services/error/errorService.js';
+import { databaseInsertError } from '../../../services/error/errorDataBase.js';
 
 export const insertDeliveryNoteModel = async (
   id_note,
@@ -37,6 +36,6 @@ export const insertDeliveryNoteModel = async (
 
   } catch (error) {
     // Manejar errores en la consulta
-    databaseQueryError(error.message || 'Error al insertar la nota de entrega en el modelo');
+    databaseInsertError(error.message || 'Error al insertar la nota de entrega en el modelo');
   }
 };

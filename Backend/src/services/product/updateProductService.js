@@ -11,7 +11,7 @@ export const updateProductService = async (body, productId) => {
 
     // si existe, comprobar si es el mismo producto.
     if (existProduct && existProduct.id_product !== productId) {
-      productAlreadyRegisteredError();
+      productAlreadyRegisteredError(); //! Esta funcion no existe
     }
 
     // Actualizar el producto en la base de datos.

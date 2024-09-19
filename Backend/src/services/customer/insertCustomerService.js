@@ -1,10 +1,10 @@
+import crypto from 'crypto';
 import { insertCustomerModel } from '../../models/customer/insertCustomerModel.js';
 import { insertAddressCustomerModel } from '../../models/customer/insertAddressCustomerModel.js';
 import { selectCustomerByEmailModel } from '../../models/customer/selectCustomerByEmailModel.js';
 import { emailAlreadyRegisteredError } from '../error/errorService.js';
 import { getMaxReference3Digits } from '../../models/getMaxReference.js';
 import { generateReference3DigitsFromRef } from '../../utils/generateReference3Digits.js';
-import crypto from 'crypto';
 import { handleErrorService } from '../../utils/handleError.js';
 
 export const insertCustomerService = async (body) => {

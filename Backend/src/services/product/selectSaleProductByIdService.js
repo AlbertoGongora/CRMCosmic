@@ -13,10 +13,10 @@ export const selectSaleProductByIdService = async (productId) => {
     );
 
     if (result.affectedRows === 0) {
-      const error = new Error('No se ha podido encontrar el producto.');
-      error.code = 'SELECT_PRODUCTS_ERROR';
-      throw error;
+      return null;
     }
+
+    return result;
   } catch (error) {
     databaseQueryError(
       error.message || 'Error en el modelo al obtener el producto por id'

@@ -8,7 +8,7 @@ export const toggleProductActivationService = async (productId) => {
     // Comprobamos que exista el producto
     const product = await selectProductByIdModel(productId);
 
-    if (!product) {
+    if (product === null) {
       notFoundError('Product');
     }
 
