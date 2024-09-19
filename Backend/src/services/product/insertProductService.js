@@ -1,6 +1,6 @@
 import { getMaxReference5Digits } from '../../models/getMaxReference.js';
-import { insertProductModel } from '../../models/products/insertProductModel.js';
 import { generateReference5DigitsFromRef } from '../../utils/generateReference5Digits.js';
+import { insertProductModel } from '../../models/products/insertProductModel.js';
 import { handleErrorService } from '../../utils/handleError.js';
 
 export const insertProductService = async (body) => {

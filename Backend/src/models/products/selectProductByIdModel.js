@@ -11,6 +11,11 @@ export const selectProductByIdModel = async (productId) => {
       [productId]
     );
 
+    // Verificar si se encontraron resultados
+    if (!product || product.length === 0) {
+      return null;
+    }
+
     return product[0];
   } catch (error) {
     databaseQueryError(

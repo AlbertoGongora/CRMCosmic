@@ -1,6 +1,6 @@
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { UpdateProductSchema } from '../../schemas/product/newProductSchema.js';
-import { updateProductService } from '../../services/product/selectProductByIdModel.js';
+import { updateProductService } from '../../services/product/updateProductService.js';
 import { handleErrorService } from '../../utils/handleError.js';
 
 export const updateProductController = async (req, res, next) => {

@@ -2,13 +2,22 @@ import { controlStockProductModel } from '../../models/products/controlStockProd
 import { insertSaleProductModel } from '../../models/products/insertSaleProductModel.js';
 import { handleErrorService } from '../../utils/handleError.js';
 import { limitedStock } from '../error/errorService.js';
+import { selectSaleProductByIdService } from './selectSaleProductByIdService.js';
 
 export const insertSaleProductService = async (body, productId) => {
   try {
     const { quantity, description } = body;
 
+    // Comprobar si existe un producto con el id proporcionado.
+    const hasProduct = await selectSaleProductByIdService(productId);
+
+    // Si no se encuentra el producto, lanzar un error.
+    if (hasProduct === null) {
+      notFoundError('Producto');
+    }
+
     //compruebo la cantidad del producto y si hay stock
-    const checkQuantity = await controlStockProductModel(productId); // Aqui paso algo raro
+    const checkQuantity = await controlStockProductModel(productId);
     const stock = JSON.parse(JSON.stringify(checkQuantity));
 
     if (stock < quantity) {

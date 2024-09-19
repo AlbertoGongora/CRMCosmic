@@ -1,7 +1,6 @@
 import { getDBPool } from "../../../db/getPool.js";
 import { databaseQueryError } from "../../../services/error/errorDataBase.js";
 
-
 export const selectSalesSearchModel = async (search) => {
   try {
     const pool = await getDBPool();

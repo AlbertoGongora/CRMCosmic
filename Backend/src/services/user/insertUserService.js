@@ -17,7 +17,7 @@ export const insertUserService = async (body) => {
     const existUser = await selectUserByEmailModel(email);
 
     // Si existe un usuario con ese email, lanzamos un error.
-    if (existUser !== null) {
+    if (existUser === null) {
       emailAlreadyRegisteredError();
     }
 
